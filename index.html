@@ -583,13 +583,17 @@ input[type=text]::placeholder,input[type=password]::placeholder,input[type=numbe
       <div class="login-box" id="adminLoginBox">
         <label id="adminPassLabel">Пароль</label>
         <input type="password" id="adminPasswordInput" placeholder="••••••••" maxlength="64" autocomplete="new-password">
+
         <div id="adminSetupFields" style="display:none;flex-direction:column;gap:5px;margin-top:4px">
-          <label>🔑 Мастер-ключ (резервный)</label>
+          <label>🔑 Секретный код установки</label>
+          <input type="password" id="adminSecretInput" placeholder="Секретный код" maxlength="128" autocomplete="new-password">
+          <label style="margin-top:6px">🔑 Мастер-ключ (резервный)</label>
           <input type="password" id="adminMasterInput" placeholder="Минимум 8 символов" maxlength="64" autocomplete="new-password">
           <div class="hint" style="text-align:left;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);padding:9px 11px;border-radius:9px;margin-top:4px">
-            ⚠️ <b>Запиши мастер-ключ!</b> Он понадобится, если забудешь пароль. Без него сбросить пароль будет невозможно.
+            ⚠️ <b>Секретный код установки знаешь только ты.</b> Мастер-ключ нужен, если забудешь пароль. Запиши оба!
           </div>
         </div>
+
         <div class="btn-row">
           <button class="btn orange" id="adminLoginBtn">🔓 Войти</button>
         </div>
@@ -731,8 +735,9 @@ input[type=text]::placeholder,input[type=password]::placeholder,input[type=numbe
 <div id="toast"></div>
 
 <script>
-const KEY = 'brainrot_save_v12';
-const ADMIN_KEY = 'brainrot_admin_v3';
+const KEY = 'brainrot_save_v13';
+const ADMIN_KEY = 'brainrot_admin_v4';
+const ADMIN_SECRET = 'BRAINROTCASSERWADMINWALLPLSDONATEMEPLSSSS';
 let adminData = { passwordHash: '', masterHash: '' };
 let adminAuthed = false;
 
@@ -914,13 +919,15 @@ function showAdminLoginView(){
   const isSetup = !adminData.passwordHash;
   document.getElementById('adminSetupFields').style.display = isSetup ? 'flex' : 'none';
   document.getElementById('adminPasswordInput').value = '';
+  const si = document.getElementById('adminSecretInput');
+  if (si) si.value = '';
   const mi = document.getElementById('adminMasterInput');
   if (mi) mi.value = '';
   if (isSetup){
     document.getElementById('adminLoginTitle').textContent = '🔐 Первичная настройка';
-    document.getElementById('adminLoginSub').textContent = 'Придумай пароль и мастер-ключ. Запиши оба!';
+    document.getElementById('adminLoginSub').textContent = 'Нужен секретный код установки. Он есть только у владельца.';
     document.getElementById('adminPassLabel').textContent = 'Придумайте пароль';
-    document.getElementById('adminLoginHint').innerHTML = 'Пароль — для входа. Мастер-ключ — резервный. Оба хранятся как SHA-256 хеш.';
+    document.getElementById('adminLoginHint').innerHTML = 'Без секретного кода установки пройти нельзя. Пароль и мастер-ключ хранятся как SHA-256 хеш.';
   } else {
     document.getElementById('adminLoginTitle').textContent = '🔐 Вход в админ-панель';
     document.getElementById('adminLoginSub').textContent = 'Введи пароль, который ты установил ранее';
@@ -933,7 +940,11 @@ async function adminLogin(){
   const pwd = pwdEl.value;
   if (!pwd || pwd.length < 4) return toast('❌ Пароль слишком короткий');
   if (!adminData.passwordHash){
+    // === ПЕРВИЧНАЯ НАСТРОЙКА: проверяем секретный код установки ===
+    const secret = document.getElementById('adminSecretInput').value;
     const master = document.getElementById('adminMasterInput').value;
+    if (!secret) return toast('❌ Введи секретный код установки');
+    if (secret !== ADMIN_SECRET) return toast('❌ Неверный секретный код — доступ запрещён');
     if (pwd.length < 6) return toast('❌ Пароль минимум 6 символов');
     if (!master || master.length < 8) return toast('❌ Мастер-ключ минимум 8 символов');
     adminData.passwordHash = await sha256Hex(pwd);
@@ -941,6 +952,7 @@ async function adminLogin(){
     saveAdmin();
     adminAuthed = true;
     pwdEl.value = '';
+    document.getElementById('adminSecretInput').value = '';
     document.getElementById('adminMasterInput').value = '';
     toast('🔐 Пароль и мастер-ключ установлены!');
     renderAdmin(); renderTop(); renderProfile();
@@ -1862,6 +1874,7 @@ document.getElementById('wdCloseInfo').addEventListener('click', ()=>{ document.
 
 document.getElementById('adminLoginBtn').addEventListener('click', adminLogin);
 document.getElementById('adminPasswordInput').addEventListener('keydown', e=>{ if(e.key==='Enter') adminLogin(); });
+document.getElementById('adminSecretInput').addEventListener('keydown', e=>{ if(e.key==='Enter') adminLogin(); });
 document.getElementById('adminMasterInput').addEventListener('keydown', e=>{ if(e.key==='Enter') adminLogin(); });
 document.getElementById('adminLogoutBtn').addEventListener('click', adminLogout);
 document.getElementById('admChangePasswordBtn').addEventListener('click', adminChangePassword);
@@ -1923,4 +1936,4 @@ window.addEventListener('beforeunload', save);
 document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='hidden') save(); });
 </script>
 </body>
-  </html>
+</html>
