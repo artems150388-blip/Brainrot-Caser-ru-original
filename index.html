@@ -1569,4 +1569,458 @@ function adminSkipTimer(){ if(!adminAuthed) return; state.lastFree = 0; save(); 
 function adminSkipTimer10(){ if(!adminAuthed) return; state.lastFree = 0; save(); tickFree(); toast('⏩ Кулдаун сброшен'); }
 function adminGiveCoins(){
   if(!adminAuthed) return;
-  const i = document.getElementById('adm
+  const i = document.getElementById('admCoins');
+  const n = parseInt(i.value);
+  if(!n || n<=0) return toast('Введи положительное число');
+  state.coins += n; i.value=''; save(); renderAll();
+  toast(`💰 Выдано ${fmt(n)} ₡`);
+}
+function adminGiveItem(){
+  if(!adminAuthed) return;
+  const id = document.getElementById('admItemSelect').value;
+  if(!ITEM_MAP[id]) return;
+  state.inv.push({ uid:uid(), itemId:id });
+  const it = ITEM_MAP[id];
+  if(it.value > state.stats.bestDrop){ state.stats.bestDrop = it.value; state.stats.bestDropName = it.name; }
+  save(); renderAll(); checkAchievements();
+  toast(`🎁 Выдан: ${it.emoji} ${it.name}`);
+}
+function adminResetInv(){
+  if(!adminAuthed) return;
+  if(!confirm('Точно очистить инвентарь?')) return;
+  state.inv = []; upgSlots = [null,null,null,null,null,null]; wdSel.clear();
+  save(); renderAll(); toast('🗑️ Инвентарь очищен');
+}
+function adminSaveNow(){
+  save();
+  const t = SafeStorage.get(KEY);
+  if (t) toast('💾 Сохранено! Размер: ' + Math.round(t.length/1024*10)/10 + ' КБ');
+  else toast('❌ Не удалось сохранить');
+}
+function adminExport(){
+  const data = JSON.stringify(state);
+  const blob = new Blob([data], { type:'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'brainrot-' + state.profile.id + '.json'; a.click();
+  URL.revokeObjectURL(url); toast('📤 Файл сохранён');
+}
+function adminImport(){
+  const inp = document.createElement('input');
+  inp.type='file'; inp.accept='.json,application/json';
+  inp.onchange = e=>{
+    const f = e.target.files[0]; if(!f) return;
+    const r = new FileReader();
+    r.onload = ev=>{
+      try{
+        const d = JSON.parse(ev.target.result);
+        if(!d.profile) throw new Error('no profile');
+        state = Object.assign(state, d);
+        ensureProfile(); save(); renderAll();
+        toast('📥 Данные загружены!');
+      }catch(err){ toast('❌ Ошибка чтения файла'); }
+    };
+    r.readAsText(f);
+  };
+  inp.click();
+}
+async function adminTestWebhook(){
+  if(!state.webhook) return toast('Сначала сохрани URL вебхука');
+  toast('🧪 Отправляем...');
+  const r = await sendToDiscord({ username:'brainrot_casser.ru', content:'🧪 **Тест вебхука!** Всё работает.' });
+  if (r.ok) toast('✅ Тест отправлен!');
+  else toast('❌ Ошибка: ' + r.reason);
+}
+
+/* ==================== СДЕЛКИ ==================== */
+function b64enc(s){ return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,''); }
+function b64dec(s){ try{ let b = s.replace(/-/g,'+').replace(/_/g,'/'); while(b.length % 4) b += '='; return decodeURIComponent(escape(atob(b))); }catch(e){ return null; } }
+function encodeDeal(d){ return 'DEAL-' + b64enc(JSON.stringify(d)); }
+function decodeDeal(code){ if(!code.startsWith('DEAL-')) return null; const j = b64dec(code.slice(5)); if(!j) return null; try{ return JSON.parse(j); }catch(e){ return null; } }
+function encodeConfirm(d){ return 'CONFIRM-' + b64enc(JSON.stringify(d)); }
+function decodeConfirm(code){ if(!code.startsWith('CONFIRM-')) return null; const j = b64dec(code.slice(8)); if(!j) return null; try{ return JSON.parse(j); }catch(e){ return null; } }
+function createDeal(){
+  if(!adminAuthed) return toast('Сначала войдите в админку');
+  const toId = (document.getElementById('dealToId').value||'').trim().toUpperCase();
+  const amount = parseInt(document.getElementById('dealAmount').value);
+  const want = (document.getElementById('dealWant').value||'').trim();
+  if(!/^BR-[A-Z0-9]{4,12}$/.test(toId)) return toast('Введи корректный ID');
+  if(!amount || amount <= 0) return toast('Введи сумму больше 0');
+  if(want.length < 2) return toast('Опиши, что хочешь взамен');
+  const deal = { toId, amount, want, fromId: state.profile.id, ts: Date.now() };
+  const code = encodeDeal(deal);
+  state.sentDeals.unshift({ code, toId, amount, want, createdAt: Date.now(), status: 'Ожидает активации' });
+  save(); renderAdminDeals(); renderExchange();
+  document.getElementById('dealCreatedCode').textContent = code;
+  document.getElementById('dealCreatedBox').classList.add('show');
+  document.getElementById('dealCopyCode').onclick = ()=>{ fallbackCopy(code); toast('📋 Код скопирован!'); };
+  document.getElementById('dealToId').value = '';
+  document.getElementById('dealAmount').value = '';
+  document.getElementById('dealWant').value = '';
+  toast('✅ Сделка создана!');
+}
+function previewDeal(){
+  const code = (document.getElementById('dealCodeInput').value||'').trim();
+  if(!code.startsWith('DEAL-')) return toast('Неверный формат кода');
+  const deal = decodeDeal(code);
+  if(!deal) return toast('❌ Не удалось расшифровать');
+  if(deal.toId !== state.profile.id) return toast('❌ Эта сделка не для тебя (для ' + deal.toId + ')');
+  if(state.receivedDeals.some(d => d.code === code)) return toast('⚠️ Уже активирована');
+  pendingDeal = { code, ...deal };
+  const body = document.getElementById('dealPreviewBody');
+  body.innerHTML = `
+    <div class="deal-preview-row"><span>💰 Монет:</span><b>${fmt(deal.amount)} ₡</b></div>
+    <div class="deal-preview-row"><span>🎁 Отдать в игре:</span><b style="color:#f0abfc">${deal.want}</b></div>
+    <div class="deal-preview-row"><span>👤 От:</span><b style="color:#22d3ee">${deal.fromId}</b></div>
+    <div class="deal-preview-row"><span>⏰ Создана:</span><b>${new Date(deal.ts).toLocaleString('ru-RU')}</b></div>
+  `;
+  document.getElementById('dealPreview').classList.add('show');
+  document.getElementById('dealSuccess').classList.remove('show');
+}
+async function acceptDeal(){
+  if(!pendingDeal) return toast('Сначала проверь код');
+  const d = pendingDeal;
+  pendingDeal = null;
+  state.coins += d.amount;
+  const confirmCode = encodeConfirm({ dealCode: d.code, playerId: state.profile.id, amount: d.amount, ts: Date.now() });
+  state.receivedDeals.unshift({ code: d.code, amount: d.amount, want: d.want, fromId: d.fromId, acceptedAt: Date.now(), confirmCode, status: 'Ожидает выдачи' });
+  save(); renderAll(); checkAchievements();
+  document.getElementById('dealPreview').classList.remove('show');
+  document.getElementById('dealConfirmCode').textContent = confirmCode;
+  document.getElementById('dealSuccess').classList.add('show');
+  document.getElementById('dealCopyConfirm').onclick = ()=>{ fallbackCopy(confirmCode); toast('📋 Код скопирован!'); };
+  document.getElementById('dealCodeInput').value = '';
+  toast(`💰 +${fmt(d.amount)} ₡ зачислено!`);
+  await notifyDealAccepted({ playerId: state.profile.id, amount: d.amount, want: d.want, code: d.code });
+}
+function confirmDealAdmin(){
+  if(!adminAuthed) return toast('Сначала войдите');
+  const code = (document.getElementById('dealConfirmInput').value||'').trim();
+  if(!code.startsWith('CONFIRM-')) return toast('Неверный формат');
+  const conf = decodeConfirm(code);
+  if(!conf) return toast('❌ Не удалось расшифровать');
+  const idx = state.sentDeals.findIndex(d => d.code === conf.dealCode);
+  if(idx < 0) return toast('❌ Сделка не найдена');
+  const d = state.sentDeals[idx];
+  if(d.status === 'Выполнено') return toast('⚠️ Уже выполнена');
+  if(d.toId !== conf.playerId) return toast('❌ ID не совпадает');
+  d.status = 'Выполнено';
+  d.completedAt = Date.now();
+  d.confirmedBy = conf.playerId;
+  save(); renderAdminDeals(); renderExchange();
+  document.getElementById('dealConfirmInput').value = '';
+  toast('✅ Сделка подтверждена!');
+}
+function renderExchange(){
+  const adm = document.getElementById('exchangeAdminBlock');
+  if(adm) adm.style.display = adminAuthed ? 'block' : 'none';
+  const list = document.getElementById('myDealsList');
+  if(list){
+    if(!state.receivedDeals.length){
+      list.innerHTML = '<div style="color:#5b5478;font-size:12.5px;text-align:center;padding:12px">Пока нет сделок</div>';
+    } else {
+      list.innerHTML = state.receivedDeals.slice(0, 15).map(d => {
+        const cls = d.status === 'Выполнено' ? 'done' : 'accepted';
+        return `<div class="deal-card ${cls}">
+          <div class="dc-head"><span class="dc-amt">+${fmt(d.amount)} ₡</span><span class="dc-status">${d.status}</span></div>
+          <div class="dc-want">Отдать: <b>${d.want}</b></div>
+          <div class="dc-want" style="font-size:10.5px">от ${d.fromId} · ${new Date(d.acceptedAt).toLocaleDateString('ru-RU')}</div>
+        </div>`;
+      }).join('');
+    }
+  }
+  renderAdminDeals();
+}
+function renderAdminDeals(){
+  const list = document.getElementById('adminDealsList');
+  if(!list) return;
+  if(!state.sentDeals.length){ list.innerHTML = '<div class="no-promos">Сделок пока нет</div>'; return; }
+  list.innerHTML = state.sentDeals.slice(0, 30).map(d => {
+    const cls = d.status === 'Выполнено' ? 'done' : 'pending';
+    return `<div class="deal-card ${cls}">
+      <div class="dc-head"><span class="dc-amt">${fmt(d.amount)} ₡</span><span class="dc-status">${d.status}</span></div>
+      <div class="dc-want">→ <b>${d.toId}</b> · хочешь: <b>${d.want}</b></div>
+      <div class="dc-want" style="font-size:10.5px">${new Date(d.createdAt).toLocaleString('ru-RU')}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ==================== ДЕЙСТВИЯ ==================== */
+function renderAll(){
+  renderTop(); renderCases(); renderInventory(); renderUpgrader();
+  renderWithdraw(); renderProfile(); renderAdmin(); renderExchange();
+}
+function sellItem(u){
+  const i = state.inv.findIndex(o=>o.uid===u); if(i<0) return;
+  const it = ITEM_MAP[state.inv[i].itemId];
+  const price = Math.floor(it.value*0.85);
+  state.coins += price; state.inv.splice(i,1);
+  upgSlots = upgSlots.map(x => x === u ? null : x);
+  wdSel.delete(u);
+  save(); renderAll(); checkAchievements();
+  toast(`Продано: ${it.emoji} ${it.name} → +${fmt(price)} ₡`);
+}
+async function doWithdraw(){
+  const nick = document.getElementById('wdNick').value.trim() || state.profile.nick;
+  if(nick.length<3) return toast('Введи ник в игре (мин. 3 символа)');
+  const m = new Map(state.inv.map(o=>[o.uid,o]));
+  let total = 0;
+  const itemsForReq = [];
+  wdSel.forEach(u=>{
+    const o=m.get(u);
+    if(o){ const it = ITEM_MAP[o.itemId]; total += it.value; itemsForReq.push({ itemId:o.itemId, name:it.name, emoji:it.emoji, value:it.value }); }
+  });
+  if(total<5000) return toast('Минимальная сумма вывода — 5 000 ₡');
+  if(wdSel.size===0) return toast('Выбери хотя бы один предмет');
+  const count = wdSel.size;
+  const code = 'BR-' + Math.random().toString(36).slice(2,8).toUpperCase();
+  const req = { code, nick, value: total, count, playerId: state.profile.id, items: itemsForReq, date: Date.now(), status: 'В обработке' };
+  state.inv = state.inv.filter(o=>!wdSel.has(o.uid));
+  state.requests.unshift(req);
+  wdSel.clear();
+  lastReqCode = code;
+  save(); renderAll(); checkAchievements();
+  document.getElementById('wdInfoCode').textContent = code;
+  document.getElementById('wdInfo').classList.add('show');
+  toast('✅ Заявка создана!');
+  await notifyWithdrawal(req, itemsForReq);
+}
+function changeNick(){
+  const n = prompt('Введите новый ник (3–24 символа):', state.profile.nick);
+  if(n===null) return;
+  const t = n.trim();
+  if(t.length<3 || t.length>24) return toast('Ник должен быть от 3 до 24 символов');
+  state.profile.nick = t; save(); renderAll();
+  toast('Ник изменён на «'+t+'»');
+}
+function copyId(){
+  const id = state.profile.id;
+  const done = ()=>toast('📋 ID скопирован: '+id);
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(id).then(done).catch(()=>{ fallbackCopy(id); done(); });
+  } else { fallbackCopy(id); done(); }
+}
+function fallbackCopy(txt){
+  const ta = document.createElement('textarea');
+  ta.value = txt; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+}
+function copyRequestText(code){
+  const r = state.requests.find(x=>x.code===code);
+  if(!r) return toast('Заявка не найдена');
+  const text =
+`🎁 Заявка на вывод brainrot_casser.ru
+🎫 Код: ${r.code}
+👤 Ник в игре: ${r.nick}
+🆔 ID: ${r.playerId || '—'}
+💰 Сумма: ${fmt(r.value)} ₡
+📦 Предметов: ${r.count}
+📋 Состав:
+${r.items ? r.items.map(i=>'  • ' + i.emoji + ' ' + i.name + ' — ' + fmt(i.value) + ' ₡').join('\n') : '—'}
+━━━━━━━━━━━━━━━
+Отправь код админу, чтобы получить предметы через Trade Machine.`;
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>toast('📋 Скопировано!')).catch(()=>{ fallbackCopy(text); toast('📋 Скопировано!'); });
+  } else { fallbackCopy(text); toast('📋 Скопировано!'); }
+}
+function cancelRequest(code){
+  const r = state.requests.find(x=>x.code===code);
+  if(!r) return;
+  if(r.status !== 'В обработке') return toast('Уже нельзя отменить');
+  if(!confirm('Отменить заявку? Предметы вернутся.')) return;
+  if(r.items && r.items.length){ r.items.forEach(it=>{ state.inv.push({ uid: uid(), itemId: it.itemId }); }); }
+  r.status = 'Отклонено';
+  save(); renderAll();
+  toast('↩️ Заявка отменена');
+}
+function adminMarkDone(code){
+  if(!adminAuthed) return;
+  const r = state.requests.find(x=>x.code===code);
+  if(!r) return;
+  r.status = 'Выдано';
+  save(); renderAll();
+  toast('✅ Помечено как выдано');
+}
+function adminReject(code){
+  if(!adminAuthed) return;
+  const r = state.requests.find(x=>x.code===code);
+  if(!r) return;
+  if(!confirm('Отклонить? Предметы вернутся игроку.')) return;
+  if(r.items && r.items.length){ r.items.forEach(it=>{ state.inv.push({ uid: uid(), itemId: it.itemId }); }); }
+  r.status = 'Отклонено';
+  save(); renderAll();
+  toast('❌ Отклонено');
+}
+
+/* ==================== СОБЫТИЯ ==================== */
+document.addEventListener('click', e => {
+  if (e.target.closest('#pickerClose')){ closePicker(); return; }
+  if (e.target.id === 'pickerModal'){ closePicker(); return; }
+
+  const pick = e.target.closest('[data-picker-item]');
+  if (pick && pickerMode){
+    pickItem(pick.dataset.pickerItem, pick.dataset.pickerUid || null);
+    return;
+  }
+
+  const sell = e.target.closest('[data-sell]');
+  if(sell){ e.stopPropagation(); sellItem(sell.dataset.sell); return; }
+
+  const dp = e.target.closest('[data-del-promo]');
+  if(dp){ adminDeletePromo(dp.dataset.delPromo); return; }
+
+  const cb = e.target.closest('[data-case]');
+  if(cb && !cb.disabled){ openCase(cb.dataset.case); return; }
+
+  const betSlot = e.target.closest('[data-bet-slot]');
+  if (betSlot && !upgBusy){
+    const idx = parseInt(betSlot.dataset.betSlot);
+    if (upgSlots[idx]){
+      upgSlots[idx] = null;
+      save(); renderUpgrader();
+    } else {
+      openPicker('bet', idx);
+    }
+    return;
+  }
+
+  const tgtSlot = e.target.closest('[data-target-slot]');
+  if (tgtSlot && !upgBusy){
+    if (upgTargetItem){
+      upgTargetItem = null;
+      save(); renderUpgrader();
+    } else {
+      openPicker('target');
+    }
+    return;
+  }
+
+  const wc = e.target.closest('#wdGrid .item-card');
+  if(wc){
+    const u = wc.dataset.uid;
+    wdSel.has(u) ? wdSel.delete(u) : wdSel.add(u);
+    renderWithdraw(); return;
+  }
+
+  const rcopy = e.target.closest('[data-req-copy]');
+  if(rcopy){ copyRequestText(rcopy.dataset.reqCopy); return; }
+  const rcancel = e.target.closest('[data-req-cancel]');
+  if(rcancel){ cancelRequest(rcancel.dataset.reqCancel); return; }
+  const acopy = e.target.closest('[data-adm-copy]');
+  if(acopy){ copyRequestText(acopy.dataset.admCopy); return; }
+  const amark = e.target.closest('[data-adm-mark]');
+  if(amark){ adminMarkDone(amark.dataset.admMark); return; }
+  const areject = e.target.closest('[data-adm-reject]');
+  if(areject){ adminReject(areject.dataset.admReject); return; }
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('pickerModal').classList.contains('show')) closePicker();
+});
+
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('panel-'+t.dataset.tab).classList.add('active');
+    if(t.dataset.tab==='upgrader') renderUpgrader();
+    if(t.dataset.tab==='withdraw') renderWithdraw();
+    if(t.dataset.tab==='inventory') renderInventory();
+    if(t.dataset.tab==='profile') renderProfile();
+    if(t.dataset.tab==='admin') renderAdmin();
+    if(t.dataset.tab==='exchange') renderExchange();
+  });
+});
+document.getElementById('miniAva').addEventListener('click', ()=>{
+  document.querySelector('.tab[data-tab="profile"]').click();
+  window.scrollTo({ top:0, behavior:'smooth' });
+});
+document.getElementById('modalBtn').addEventListener('click', ()=>{
+  document.getElementById('modal').classList.remove('show');
+});
+document.getElementById('upgBtn').addEventListener('click', doUpgrade);
+document.getElementById('wdBtn').addEventListener('click', doWithdraw);
+document.getElementById('editNickBtn').addEventListener('click', changeNick);
+document.getElementById('copyIdBtn').addEventListener('click', copyId);
+document.getElementById('profId').addEventListener('click', copyId);
+document.getElementById('promoBtn').addEventListener('click', activatePromo);
+document.getElementById('promoInput').addEventListener('keydown', e=>{ if(e.key==='Enter') activatePromo(); });
+
+document.getElementById('wdCopyBtn').addEventListener('click', ()=>{ if(lastReqCode) copyRequestText(lastReqCode); });
+document.getElementById('wdCloseInfo').addEventListener('click', ()=>{ document.getElementById('wdInfo').classList.remove('show'); });
+
+// Admin
+document.getElementById('adminLoginBtn').addEventListener('click', adminLogin);
+document.getElementById('adminPasswordInput').addEventListener('keydown', e=>{ if(e.key==='Enter') adminLogin(); });
+document.getElementById('adminMasterInput').addEventListener('keydown', e=>{ if(e.key==='Enter') adminLogin(); });
+document.getElementById('adminForgotBtn').addEventListener('click', showAdminResetView);
+document.getElementById('adminResetConfirm').addEventListener('click', adminResetPassword);
+document.getElementById('adminResetCancel').addEventListener('click', hideAdminResetView);
+document.getElementById('adminResetNew').addEventListener('keydown', e=>{ if(e.key==='Enter') adminResetPassword(); });
+document.getElementById('adminLogoutBtn').addEventListener('click', adminLogout);
+document.getElementById('admChangePasswordBtn').addEventListener('click', adminChangePassword);
+document.getElementById('admCreatePromo').addEventListener('click', adminCreatePromo);
+document.getElementById('admGenCode').addEventListener('click', ()=>{ document.getElementById('admPromoCode').value = genPromoCode(); });
+document.getElementById('admSkipTimer').addEventListener('click', adminSkipTimer);
+document.getElementById('admSkipTimer10').addEventListener('click', adminSkipTimer10);
+document.getElementById('admGiveCoins').addEventListener('click', adminGiveCoins);
+document.getElementById('admGiveItem').addEventListener('click', adminGiveItem);
+document.getElementById('admResetInv').addEventListener('click', adminResetInv);
+document.getElementById('admSaveNow').addEventListener('click', adminSaveNow);
+document.getElementById('admExport').addEventListener('click', adminExport);
+document.getElementById('admImport').addEventListener('click', adminImport);
+document.getElementById('admSaveWebhook').addEventListener('click', ()=>{
+  const url = document.getElementById('admWebhook').value.trim();
+  if (!url) return toast('Введи URL вебхука');
+  if (!/^https:\/\/discord\.com\/api\/webhooks\//.test(url)) return toast('Это не похоже на Discord webhook URL');
+  state.webhook = url; save(); updateWebhookStatus();
+  toast('💾 Webhook сохранён');
+});
+document.getElementById('admTestWebhook').addEventListener('click', adminTestWebhook);
+document.getElementById('admClearWebhook').addEventListener('click', ()=>{
+  if(!confirm('Очистить URL вебхука?')) return;
+  state.webhook = ''; save();
+  document.getElementById('admWebhook').value = '';
+  updateWebhookStatus();
+  toast('🗑️ Webhook очищен');
+});
+
+// Deals
+document.getElementById('dealAcceptBtn').addEventListener('click', previewDeal);
+document.getElementById('dealConfirmBtn').addEventListener('click', acceptDeal);
+document.getElementById('dealCancelBtn').addEventListener('click', ()=>{
+  document.getElementById('dealPreview').classList.remove('show');
+  pendingDeal = null;
+});
+document.getElementById('dealCreateBtn').addEventListener('click', createDeal);
+document.getElementById('dealConfirmAdminBtn').addEventListener('click', confirmDealAdmin);
+
+// Gauge marks
+(function initGaugeMarks(){
+  const marksContainer = document.getElementById('gaugeMarks');
+  if (!marksContainer) return;
+  for (let i = 0; i < 24; i++){
+    const angle = (i / 24) * 360;
+    const mark = document.createElement('div');
+    mark.className = 'gauge-mark';
+    mark.style.transform = `rotate(${angle}deg)`;
+    marksContainer.appendChild(mark);
+  }
+})();
+
+/* ==================== СТАРТ ==================== */
+load();
+loadAdmin();
+ensureProfile();
+save();
+renderAll();
+checkAchievements();
+setInterval(tickFree, 1000);
+window.addEventListener('beforeunload', save);
+document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='hidden') save(); });
+</script>
+</body>
+</html>
