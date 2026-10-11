@@ -204,7 +204,6 @@ header{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);background:rg
 .sell-btn:hover{background:#22c55e;color:#04240f;transform:scale(1.12)}
 .empty{grid-column:1/-1;text-align:center;padding:44px 16px;color:var(--muted);font-size:14px;border:1px dashed var(--border);border-radius:16px;}
 
-/* ============ UPGRADER (CS:GO style) ============ */
 .upg-csgo{display:grid;grid-template-columns:1fr 340px 1fr;gap:16px;align-items:start;background:linear-gradient(135deg,rgba(15,11,28,.9),rgba(10,7,20,.85));border:1px solid rgba(245,158,11,.25);border-radius:22px;padding:22px;box-shadow:0 0 60px rgba(245,158,11,.06),inset 0 0 60px rgba(0,0,0,.4);}
 @media(max-width:980px){.upg-csgo{grid-template-columns:1fr}}
 .upg-col{display:flex;flex-direction:column;gap:14px;align-items:center;}
@@ -245,14 +244,13 @@ header{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);background:rg
 .upg-summary{display:flex;gap:16px;font-size:12px;color:var(--muted);background:rgba(0,0,0,.3);padding:10px 18px;border-radius:12px;border:1px solid var(--border);}
 .upg-summary span b{color:#4ade80;font-weight:800;}
 .upg-summary span:last-child b{color:#f0abfc;}
-.upg-action-btn{width:100%;max-width:320px;padding:15px 24px;font-size:15px;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(135deg,#f59e0b,#dc2626);box-shadow:0 8px 26px rgba(239,68,68,.35);border-radius:14px;}
-.upg-action-btn:hover:not(:disabled){box-shadow:0 12px 34px rgba(239,68,68,.55);}
-.upg-action-btn:disabled,.upg-action-btn.disabled{background:linear-gradient(135deg,#3a2a12,#2a1810);color:#6b5a3d;box-shadow:none;}
+.upg-action-btn{width:100%;max-width:320px;padding:15px 24px;font-size:15px;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(135deg,#f59e0b,#dc2626);box-shadow:0 8px 26px rgba(239,68,68,.35);border-radius:14px;cursor:pointer;border:none;color:#fff;font-weight:800;font-family:inherit;transition:.2s;}
+.upg-action-btn:hover:not(.disabled){box-shadow:0 12px 34px rgba(239,68,68,.55);transform:translateY(-2px);}
+.upg-action-btn.disabled{background:linear-gradient(135deg,#3a2a12,#2a1810);color:#6b5a3d;box-shadow:none;cursor:not-allowed;opacity:.6;}
 .upg-res-csgo{text-align:center;font-weight:900;font-size:15px;letter-spacing:2px;min-height:20px;text-transform:uppercase;}
 .upg-res-csgo.win{color:#4ade80;text-shadow:0 0 18px rgba(74,222,128,.8)}
 .upg-res-csgo.lose{color:#ef4444;text-shadow:0 0 18px rgba(239,68,68,.8)}
 
-/* PICKER MODAL */
 .picker-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(4,2,10,.88);backdrop-filter:blur(12px);padding:16px;}
 .picker-modal.show{display:flex;animation:fade .25s;}
 .picker-box{width:100%;max-width:780px;max-height:85vh;background:linear-gradient(165deg,#181130,#0c0819);border:1px solid rgba(245,158,11,.4);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:0 0 70px rgba(245,158,11,.25);overflow:hidden;}
@@ -267,7 +265,6 @@ header{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);background:rg
 .picker-grid::-webkit-scrollbar-thumb{background:rgba(245,158,11,.4);border-radius:6px}
 .picker-empty{grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;border:1px dashed var(--border);border-radius:14px;}
 
-/* WITHDRAW / EXCHANGE */
 .wd-grid{display:grid;grid-template-columns:1fr 340px;gap:16px;align-items:start}
 @media(max-width:900px){.wd-grid{grid-template-columns:1fr}}
 .wd-box{background:linear-gradient(165deg,var(--panel2),#0d0919);border:1px solid var(--border);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px;}
@@ -369,7 +366,6 @@ input[type=text]::placeholder,input[type=password]::placeholder,input[type=numbe
       <h2>Апгрейдер</h2>
       <p>Выбери до 6 скинов слева и цель справа. Шанс = стоимость ставки ÷ стоимость цели (макс. 90%)</p>
     </div>
-
     <div class="upg-csgo">
       <div class="upg-col">
         <div class="upg-col-head">
@@ -379,7 +375,6 @@ input[type=text]::placeholder,input[type=password]::placeholder,input[type=numbe
         <div class="upg-slots" id="upgSlots"></div>
         <div class="slot-empty-hint">Нажми на слот, чтобы добавить скин</div>
       </div>
-
       <div class="upg-center">
         <div class="gauge-wrap">
           <svg class="gauge-svg" viewBox="0 0 280 280">
@@ -395,16 +390,13 @@ input[type=text]::placeholder,input[type=password]::placeholder,input[type=numbe
             </div>
           </div>
         </div>
-
         <div class="upg-summary">
           <span>Ставка: <b id="upgBetVal">0 ₡</b></span>
           <span>Цель: <b id="upgTarVal">—</b></span>
         </div>
-
-        <button class="btn upg-action-btn" id="upgBtn" disabled>АПГРЕЙД</button>
+        <button class="upg-action-btn disabled" id="upgBtn" disabled>АПГРЕЙД</button>
         <div class="upg-res-csgo" id="upgRes"></div>
       </div>
-
       <div class="upg-col">
         <div class="upg-col-head">
           <div class="upg-col-title">🎯 ВЫБЕРИТЕ ЦЕЛЬ</div>
@@ -588,43 +580,20 @@ input[type=text]::placeholder,input[type=password]::placeholder,input[type=numbe
         <h3 id="adminLoginTitle">Вход в админ-панель</h3>
         <p id="adminLoginSub">Введи пароль для доступа</p>
       </div>
-
       <div class="login-box" id="adminLoginBox">
         <label id="adminPassLabel">Пароль</label>
         <input type="password" id="adminPasswordInput" placeholder="••••••••" maxlength="64" autocomplete="new-password">
-
         <div id="adminSetupFields" style="display:none;flex-direction:column;gap:5px;margin-top:4px">
-          <label>🔑 Мастер-ключ для восстановления</label>
+          <label>🔑 Мастер-ключ (резервный)</label>
           <input type="password" id="adminMasterInput" placeholder="Минимум 8 символов" maxlength="64" autocomplete="new-password">
           <div class="hint" style="text-align:left;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);padding:9px 11px;border-radius:9px;margin-top:4px">
-            ⚠️ <b>Запиши мастер-ключ!</b> Он нужен для сброса пароля, если забудешь. Без него сбросить пароль невозможно.
+            ⚠️ <b>Запиши мастер-ключ!</b> Он понадобится, если забудешь пароль. Без него сбросить пароль будет невозможно.
           </div>
         </div>
-
         <div class="btn-row">
           <button class="btn orange" id="adminLoginBtn">🔓 Войти</button>
         </div>
         <div class="hint" id="adminLoginHint">Пароль хранится как SHA-256 хеш — его нельзя прочитать в коде.</div>
-
-        <div id="adminForgotBlock" style="display:none;margin-top:6px">
-          <button class="btn ghost small" id="adminForgotBtn" style="color:#8b83a8;width:100%">🔑 Забыли пароль?</button>
-        </div>
-      </div>
-
-      <div class="login-box" id="adminResetBox" style="display:none">
-        <h4 style="color:#fbbf24;text-align:center;font-size:15px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px">🔑 Сброс пароля</h4>
-        <div class="hint" style="text-align:center">Введи мастер-ключ, который ты задал при первой настройке</div>
-        <label>Мастер-ключ</label>
-        <input type="password" id="adminResetMaster" placeholder="Мастер-ключ" maxlength="64">
-        <label>Новый пароль</label>
-        <input type="password" id="adminResetNew" placeholder="Минимум 6 символов" maxlength="64">
-        <div class="btn-row">
-          <button class="btn orange" id="adminResetConfirm">🔓 Сбросить пароль</button>
-          <button class="btn ghost" id="adminResetCancel">← Назад</button>
-        </div>
-        <div class="hint" style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.25);padding:9px 11px;border-radius:9px;text-align:left">
-          <b>Забыл мастер-ключ?</b> Открой DevTools (F12) → Application → Local Storage → удали ключ <b>brainrot_admin_v1</b>. После этого сможешь задать новый пароль.
-        </div>
       </div>
     </div>
 
@@ -655,7 +624,6 @@ input[type=text]::placeholder,input[type=password]::placeholder,input[type=numbe
             <button class="btn orange small" id="admChangePasswordBtn">💾 Сменить пароль</button>
           </div>
         </div>
-
         <div class="adm-box">
           <h4>🔗 Discord Webhook</h4>
           <div class="hint">Вставь URL вебхука — каждая заявка на вывод будет автоматически приходить в твой Discord-канал.</div>
@@ -670,7 +638,6 @@ input[type=text]::placeholder,input[type=password]::placeholder,input[type=numbe
           </div>
           <div class="hint" id="webhookStatus">Статус: не настроен</div>
         </div>
-
         <div class="adm-box">
           <h4>🎟️ Создать промокод</h4>
           <div class="adm-field">
@@ -695,7 +662,6 @@ input[type=text]::placeholder,input[type=password]::placeholder,input[type=numbe
           </div>
           <button class="btn orange" id="admCreatePromo">Создать промокод</button>
         </div>
-
         <div class="adm-box">
           <h4>⚙️ Быстрые действия</h4>
           <button class="btn green" id="admSkipTimer">⏩ Скипнуть таймер бесплатного кейса</button>
@@ -716,7 +682,6 @@ input[type=text]::placeholder,input[type=password]::placeholder,input[type=numbe
           </div>
           <button class="btn ghost" id="admResetInv" style="margin-top:6px">🗑️ Очистить инвентарь</button>
         </div>
-
         <div class="adm-box">
           <h4>💾 Хранилище</h4>
           <div class="hint">Если сохранение не работает — браузер блокирует localStorage.</div>
@@ -728,12 +693,10 @@ input[type=text]::placeholder,input[type=password]::placeholder,input[type=numbe
           <div class="hint" id="storageStatus">Статус: проверка...</div>
         </div>
       </div>
-
       <div class="adm-box" style="margin-top:16px">
         <h4>📤 Заявки на вывод</h4>
         <div class="req-adm-list" id="adminReqList"></div>
       </div>
-
       <div class="adm-box" style="margin-top:16px">
         <h4>📋 Активные промокоды</h4>
         <div class="promo-code-list" id="adminPromoList"></div>
@@ -768,9 +731,8 @@ input[type=text]::placeholder,input[type=password]::placeholder,input[type=numbe
 <div id="toast"></div>
 
 <script>
-/* ==================== КОНСТАНТЫ ==================== */
-const KEY = 'brainrot_save_v10';
-const ADMIN_KEY = 'brainrot_admin_v1';
+const KEY = 'brainrot_save_v12';
+const ADMIN_KEY = 'brainrot_admin_v3';
 let adminData = { passwordHash: '', masterHash: '' };
 let adminAuthed = false;
 
@@ -842,7 +804,6 @@ const ACHIEVEMENTS = [
   { id:'deal',    ico:'💱', name:'Деловой',         desc:'Активируй сделку в обменнике', check:s => (s.receivedDeals||[]).length >= 1 }
 ];
 
-/* ==================== ХРАНИЛИЩЕ ==================== */
 const SafeStorage = (() => {
   let mode = 'memory', memData = null;
   function tLS(){ try{ const k='__tls__'; localStorage.setItem(k,'1'); localStorage.removeItem(k); return true; }catch(e){ return false; } }
@@ -870,7 +831,6 @@ const SafeStorage = (() => {
   };
 })();
 
-/* ==================== СОСТОЯНИЕ ==================== */
 let state = {
   coins: 1500, inv: [], lastFree: 0, requests: [], promos: {},
   webhook: '', sentDeals: [], receivedDeals: [],
@@ -886,14 +846,12 @@ let pendingDeal = null;
 let pickerMode = null;
 let pickerSlotIndex = -1;
 
-/* ==================== SHA-256 ==================== */
 async function sha256Hex(str){
   const buf = new TextEncoder().encode(str);
   const hashBuf = await crypto.subtle.digest('SHA-256', buf);
   return Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2,'0')).join('');
 }
 
-/* ==================== УТИЛИТЫ ==================== */
 const fmt = n => Math.round(n).toLocaleString('ru-RU');
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
 function genId(){ const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let s=''; for(let i=0;i<8;i++) s+=c[Math.floor(Math.random()*c.length)]; return 'BR-'+s; }
@@ -934,12 +892,10 @@ function ensureProfile(){
 function isAdmin(){ return adminAuthed === true; }
 function genPromoCode(){ const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let s=''; for(let i=0;i<10;i++) s+=c[Math.floor(Math.random()*c.length)]; return s; }
 
-/* ==================== XP ==================== */
 function xpTotal(){ return state.stats.opened*15 + state.stats.upgrades*40 + state.requests.length*25 + (state.stats.promosUsed||0)*20 + (state.receivedDeals||[]).length*50; }
 function xpNeeded(l){ return 100 + (l-1)*75; }
 function levelInfo(){ let xp=xpTotal(), lvl=1, need=xpNeeded(1); while(xp>=need){ xp-=need; lvl++; need=xpNeeded(lvl); } return { level:lvl, xp, need }; }
 
-/* ==================== АДМИН-АВТОРИЗАЦИЯ ==================== */
 function loadAdmin(){
   try {
     const raw = SafeStorage.get(ADMIN_KEY);
@@ -953,13 +909,10 @@ function loadAdmin(){
 function saveAdmin(){
   try { SafeStorage.set(ADMIN_KEY, JSON.stringify(adminData)); } catch(e){}
 }
-
 function showAdminLoginView(){
   document.getElementById('adminLoginBox').style.display = 'flex';
-  document.getElementById('adminResetBox').style.display = 'none';
   const isSetup = !adminData.passwordHash;
   document.getElementById('adminSetupFields').style.display = isSetup ? 'flex' : 'none';
-  document.getElementById('adminForgotBlock').style.display = isSetup ? 'none' : 'block';
   document.getElementById('adminPasswordInput').value = '';
   const mi = document.getElementById('adminMasterInput');
   if (mi) mi.value = '';
@@ -967,7 +920,7 @@ function showAdminLoginView(){
     document.getElementById('adminLoginTitle').textContent = '🔐 Первичная настройка';
     document.getElementById('adminLoginSub').textContent = 'Придумай пароль и мастер-ключ. Запиши оба!';
     document.getElementById('adminPassLabel').textContent = 'Придумайте пароль';
-    document.getElementById('adminLoginHint').innerHTML = 'Пароль — для входа. Мастер-ключ — для восстановления. Оба хранятся как SHA-256 хеш.';
+    document.getElementById('adminLoginHint').innerHTML = 'Пароль — для входа. Мастер-ключ — резервный. Оба хранятся как SHA-256 хеш.';
   } else {
     document.getElementById('adminLoginTitle').textContent = '🔐 Вход в админ-панель';
     document.getElementById('adminLoginSub').textContent = 'Введи пароль, который ты установил ранее';
@@ -975,17 +928,6 @@ function showAdminLoginView(){
     document.getElementById('adminLoginHint').innerHTML = 'Пароль знаешь только ты.';
   }
 }
-function showAdminResetView(){
-  document.getElementById('adminLoginBox').style.display = 'none';
-  document.getElementById('adminResetBox').style.display = 'flex';
-  document.getElementById('adminResetMaster').value = '';
-  document.getElementById('adminResetNew').value = '';
-}
-function hideAdminResetView(){
-  document.getElementById('adminResetBox').style.display = 'none';
-  document.getElementById('adminLoginBox').style.display = 'flex';
-}
-
 async function adminLogin(){
   const pwdEl = document.getElementById('adminPasswordInput');
   const pwd = pwdEl.value;
@@ -1016,32 +958,11 @@ async function adminLogin(){
     pwdEl.focus();
   }
 }
-
-async function adminResetPassword(){
-  const master = document.getElementById('adminResetMaster').value;
-  const newPwd = document.getElementById('adminResetNew').value;
-  if (!master) return toast('❌ Введи мастер-ключ');
-  if (!newPwd || newPwd.length < 6) return toast('❌ Новый пароль минимум 6 символов');
-  const mHash = await sha256Hex(master);
-  if (mHash !== adminData.masterHash){
-    toast('❌ Неверный мастер-ключ');
-    document.getElementById('adminResetMaster').value = '';
-    return;
-  }
-  adminData.passwordHash = await sha256Hex(newPwd);
-  saveAdmin();
-  document.getElementById('adminResetMaster').value = '';
-  document.getElementById('adminResetNew').value = '';
-  toast('✅ Пароль сброшен! Войди с новым паролем.');
-  hideAdminResetView();
-}
-
 function adminLogout(){
   adminAuthed = false;
   renderAdmin(); renderTop(); renderProfile();
   toast('👋 Вы вышли из админки');
 }
-
 async function adminChangePassword(){
   if (!adminAuthed) return toast('Сначала войдите');
   const cur = document.getElementById('admCurrentPassword').value;
@@ -1057,7 +978,6 @@ async function adminChangePassword(){
   toast('✅ Пароль изменён!');
 }
 
-/* ==================== DISCORD ==================== */
 async function sendToDiscord(payload){
   if (!state.webhook) return { ok:false, reason:'no-webhook' };
   try {
@@ -1097,7 +1017,6 @@ async function notifyDealAccepted(deal){
   await sendToDiscord(embed);
 }
 
-/* ==================== КЕЙСЫ ==================== */
 function pickWeighted(w){
   const e = Object.entries(w).filter(([,v])=>v>0);
   const t = e.reduce((s,[,v])=>s+v,0);
@@ -1174,7 +1093,6 @@ function openCase(key, free=false, sourceLabel=null){
   }, 6250);
 }
 
-/* ==================== ПРОМО ==================== */
 function activatePromo(){
   const input = document.getElementById('promoInput');
   const code = (input.value||'').trim().toUpperCase();
@@ -1191,7 +1109,6 @@ function activatePromo(){
   renderAdminPromos(); renderAll();
 }
 
-/* ==================== КАРТОЧКА ==================== */
 function cardHTML(item, o={}){
   const r = RARITY[item.rarity];
   return `<div class="item-card${o.selected?' selected':''}${item.rarity==='secret'||item.rarity==='og'?' secret':''}"
@@ -1205,7 +1122,6 @@ function cardHTML(item, o={}){
   </div>`;
 }
 
-/* ==================== РЕНДЕР ==================== */
 function renderTop(){
   document.getElementById('coins').textContent = fmt(state.coins);
   document.getElementById('miniNick').textContent = state.profile.nick;
@@ -1230,7 +1146,6 @@ function renderInventory(){
   document.getElementById('invValue').textContent = fmt(state.inv.reduce((s,o)=>s+ITEM_MAP[o.itemId].value, 0));
 }
 
-/* ============ UPGRADER ============ */
 function renderUpgrader(){
   upgSlots = upgSlots.map(u => u && state.inv.some(o => o.uid === u) ? u : null);
   const slotsEl = document.getElementById('upgSlots');
@@ -1304,12 +1219,12 @@ function updateUpgGauge(){
   document.getElementById('upgBetVal').textContent = fmt(bv) + ' ₡';
   document.getElementById('upgTarVal').textContent = tv ? fmt(tv) + ' ₡' : '—';
   const btn = document.getElementById('upgBtn');
-  btn.disabled = !(chance > 0) || upgBusy;
-  btn.classList.toggle('disabled', btn.disabled);
+  const canUpgrade = chance > 0 && !upgBusy;
+  btn.disabled = !canUpgrade;
+  btn.classList.toggle('disabled', !canUpgrade);
   btn.textContent = upgBusy ? 'КРУТИМ...' : 'АПГРЕЙД';
 }
 
-/* ============ PICKER ============ */
 function openPicker(mode, slotIndex){
   pickerMode = mode;
   pickerSlotIndex = slotIndex || -1;
@@ -1370,7 +1285,6 @@ function pickItem(itemId, uid){
   closePicker();
 }
 
-/* ============ UPGRADE LOGIC ============ */
 function doUpgrade(){
   if (upgBusy) return;
   const bv = betValue();
@@ -1470,7 +1384,6 @@ function checkAchievements(){
   if(ch) save();
 }
 
-/* ==================== АДМИН ==================== */
 function renderAdmin(){
   const loginEl = document.getElementById('adminLogin');
   const contentEl = document.getElementById('adminContent');
@@ -1478,9 +1391,7 @@ function renderAdmin(){
   if (!adminAuthed){
     loginEl.style.display = 'block';
     contentEl.style.display = 'none';
-    if (document.getElementById('adminResetBox').style.display !== 'flex'){
-      showAdminLoginView();
-    }
+    showAdminLoginView();
     return;
   }
   loginEl.style.display = 'none';
@@ -1632,7 +1543,6 @@ async function adminTestWebhook(){
   else toast('❌ Ошибка: ' + r.reason);
 }
 
-/* ==================== СДЕЛКИ ==================== */
 function b64enc(s){ return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,''); }
 function b64dec(s){ try{ let b = s.replace(/-/g,'+').replace(/_/g,'/'); while(b.length % 4) b += '='; return decodeURIComponent(escape(atob(b))); }catch(e){ return null; } }
 function encodeDeal(d){ return 'DEAL-' + b64enc(JSON.stringify(d)); }
@@ -1745,7 +1655,6 @@ function renderAdminDeals(){
   }).join('');
 }
 
-/* ==================== ДЕЙСТВИЯ ==================== */
 function renderAll(){
   renderTop(); renderCases(); renderInventory(); renderUpgrader();
   renderWithdraw(); renderProfile(); renderAdmin(); renderExchange();
@@ -1854,7 +1763,6 @@ function adminReject(code){
   toast('❌ Отклонено');
 }
 
-/* ==================== СОБЫТИЯ ==================== */
 document.addEventListener('click', e => {
   if (e.target.closest('#pickerClose')){ closePicker(); return; }
   if (e.target.id === 'pickerModal'){ closePicker(); return; }
@@ -1952,14 +1860,9 @@ document.getElementById('promoInput').addEventListener('keydown', e=>{ if(e.key=
 document.getElementById('wdCopyBtn').addEventListener('click', ()=>{ if(lastReqCode) copyRequestText(lastReqCode); });
 document.getElementById('wdCloseInfo').addEventListener('click', ()=>{ document.getElementById('wdInfo').classList.remove('show'); });
 
-// Admin
 document.getElementById('adminLoginBtn').addEventListener('click', adminLogin);
 document.getElementById('adminPasswordInput').addEventListener('keydown', e=>{ if(e.key==='Enter') adminLogin(); });
 document.getElementById('adminMasterInput').addEventListener('keydown', e=>{ if(e.key==='Enter') adminLogin(); });
-document.getElementById('adminForgotBtn').addEventListener('click', showAdminResetView);
-document.getElementById('adminResetConfirm').addEventListener('click', adminResetPassword);
-document.getElementById('adminResetCancel').addEventListener('click', hideAdminResetView);
-document.getElementById('adminResetNew').addEventListener('keydown', e=>{ if(e.key==='Enter') adminResetPassword(); });
 document.getElementById('adminLogoutBtn').addEventListener('click', adminLogout);
 document.getElementById('admChangePasswordBtn').addEventListener('click', adminChangePassword);
 document.getElementById('admCreatePromo').addEventListener('click', adminCreatePromo);
@@ -1988,7 +1891,6 @@ document.getElementById('admClearWebhook').addEventListener('click', ()=>{
   toast('🗑️ Webhook очищен');
 });
 
-// Deals
 document.getElementById('dealAcceptBtn').addEventListener('click', previewDeal);
 document.getElementById('dealConfirmBtn').addEventListener('click', acceptDeal);
 document.getElementById('dealCancelBtn').addEventListener('click', ()=>{
@@ -1998,7 +1900,6 @@ document.getElementById('dealCancelBtn').addEventListener('click', ()=>{
 document.getElementById('dealCreateBtn').addEventListener('click', createDeal);
 document.getElementById('dealConfirmAdminBtn').addEventListener('click', confirmDealAdmin);
 
-// Gauge marks
 (function initGaugeMarks(){
   const marksContainer = document.getElementById('gaugeMarks');
   if (!marksContainer) return;
@@ -2011,7 +1912,6 @@ document.getElementById('dealConfirmAdminBtn').addEventListener('click', confirm
   }
 })();
 
-/* ==================== СТАРТ ==================== */
 load();
 loadAdmin();
 ensureProfile();
@@ -2023,4 +1923,4 @@ window.addEventListener('beforeunload', save);
 document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='hidden') save(); });
 </script>
 </body>
-</html>
+  </html>
