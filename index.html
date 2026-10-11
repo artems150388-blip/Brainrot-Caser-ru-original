@@ -5,113 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>brainrot_casser.ru — Кейсы · Апгрейдер · Обменник</title>
 <meta name="description" content="brainrot_casser.ru — открывай кейсы, апгрейди брейнротов, обменивай на реальные предметы в Steal a Brainrot!">
-<meta name="keywords" content="brainrot, кейсы, steal a brainrot, апгрейдер, брейнроты">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#08060f;--panel:#130f22;--panel2:#1a1430;
-  --border:rgba(255,255,255,.08);--text:#eae7f7;--muted:#8b83a8;
-  --accent:#a855f7;--accent2:#22d3ee;
-}
+:root{--bg:#08060f;--panel:#130f22;--panel2:#1a1430;--border:rgba(255,255,255,.08);--text:#eae7f7;--muted:#8b83a8;--accent:#a855f7;--accent2:#22d3ee;}
 html,body{height:100%}
-body{
-  font-family:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',sans-serif;
-  background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-}
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:
-    radial-gradient(600px 400px at 12% -5%, rgba(168,85,247,.22), transparent 70%),
-    radial-gradient(500px 400px at 88% 8%, rgba(34,211,238,.16), transparent 70%),
-    radial-gradient(700px 500px at 50% 110%, rgba(236,72,153,.12), transparent 70%);
-}
+body{font-family:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(600px 400px at 12% -5%,rgba(168,85,247,.22),transparent 70%),radial-gradient(500px 400px at 88% 8%,rgba(34,211,238,.16),transparent 70%),radial-gradient(700px 500px at 50% 110%,rgba(236,72,153,.12),transparent 70%);}
 .wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:0 16px 60px}
-header{
-  position:sticky;top:0;z-index:50;
-  backdrop-filter:blur(18px);background:rgba(10,7,20,.72);
-  border-bottom:1px solid var(--border);margin-bottom:24px;
-}
-.head-in{
-  max-width:1240px;margin:0 auto;padding:12px 16px;
-  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
-}
-.logo{
-  font-weight:900;font-size:20px;letter-spacing:.5px;
-  display:flex;align-items:center;gap:9px;white-space:nowrap;
-}
-.logo span{
-  background:linear-gradient(90deg,#a855f7,#22d3ee,#f0abfc);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.logo .brain{
-  filter:drop-shadow(0 0 10px rgba(168,85,247,.8));
-  animation:bob 3s ease-in-out infinite;
-}
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);background:rgba(10,7,20,.72);border-bottom:1px solid var(--border);margin-bottom:24px;}
+.head-in{max-width:1240px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.logo{font-weight:900;font-size:20px;letter-spacing:.5px;display:flex;align-items:center;gap:9px;white-space:nowrap;}
+.logo span{background:linear-gradient(90deg,#a855f7,#22d3ee,#f0abfc);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.logo .brain{filter:drop-shadow(0 0 10px rgba(168,85,247,.8));animation:bob 3s ease-in-out infinite;}
 @keyframes bob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-4px) rotate(4deg)}}
 .spacer{flex:1}
 .head-user{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.mini-ava{
-  width:38px;height:38px;border-radius:12px;
-  background:linear-gradient(135deg,#a855f7,#22d3ee);
-  display:grid;place-items:center;font-weight:900;font-size:15px;color:#0b0616;
-  box-shadow:0 0 20px rgba(168,85,247,.4);
-  cursor:pointer;transition:.2s;flex-shrink:0;
-}
+.mini-ava{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#a855f7,#22d3ee);display:grid;place-items:center;font-weight:900;font-size:15px;color:#0b0616;box-shadow:0 0 20px rgba(168,85,247,.4);cursor:pointer;transition:.2s;flex-shrink:0;}
 .mini-ava:hover{transform:scale(1.07)}
-.mini-ava.admin{
-  background:linear-gradient(135deg,#f59e0b,#ef4444);
-  box-shadow:0 0 22px rgba(239,68,68,.55);
-}
+.mini-ava.admin{background:linear-gradient(135deg,#f59e0b,#ef4444);box-shadow:0 0 22px rgba(239,68,68,.55);}
 .mini-info{display:flex;flex-direction:column;line-height:1.15;min-width:0}
-.mini-nick{
-  font-weight:800;font-size:14px;max-width:150px;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-}
+.mini-nick{font-weight:800;font-size:14px;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .mini-id{font-family:monospace;font-size:10.5px;color:var(--muted);letter-spacing:.5px}
-.balance{
-  display:flex;align-items:center;gap:8px;
-  background:linear-gradient(135deg,rgba(34,211,238,.14),rgba(168,85,247,.14));
-  border:1px solid rgba(34,211,238,.3);
-  padding:8px 16px;border-radius:12px;font-weight:800;font-size:14px;
-  box-shadow:0 0 22px rgba(34,211,238,.14);white-space:nowrap;
-  max-width:280px;overflow:hidden;text-overflow:ellipsis;
-}
-.balance .coin{
-  width:20px;height:20px;border-radius:50%;flex-shrink:0;
-  background:linear-gradient(135deg,#fde047,#f59e0b);
-  display:grid;place-items:center;font-size:12px;color:#78350f;font-weight:900;
-  box-shadow:0 0 10px rgba(245,158,11,.6);
-}
+.balance{display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(34,211,238,.14),rgba(168,85,247,.14));border:1px solid rgba(34,211,238,.3);padding:8px 16px;border-radius:12px;font-weight:800;font-size:14px;box-shadow:0 0 22px rgba(34,211,238,.14);white-space:nowrap;max-width:280px;overflow:hidden;text-overflow:ellipsis;}
+.balance .coin{width:20px;height:20px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#fde047,#f59e0b);display:grid;place-items:center;font-size:12px;color:#78350f;font-weight:900;box-shadow:0 0 10px rgba(245,158,11,.6);}
 .tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
-.tab{
-  background:var(--panel);border:1px solid var(--border);color:var(--muted);
-  padding:11px 20px;border-radius:12px;cursor:pointer;font-size:14px;font-weight:700;
-  transition:.2s;font-family:inherit;display:flex;align-items:center;gap:8px;
-}
+.tab{background:var(--panel);border:1px solid var(--border);color:var(--muted);padding:11px 20px;border-radius:12px;cursor:pointer;font-size:14px;font-weight:700;transition:.2s;font-family:inherit;display:flex;align-items:center;gap:8px;}
 .tab:hover{color:#fff;border-color:rgba(168,85,247,.5);transform:translateY(-2px)}
-.tab.active{
-  background:linear-gradient(135deg,rgba(168,85,247,.3),rgba(34,211,238,.16));
-  color:#fff;border-color:rgba(168,85,247,.75);
-  box-shadow:0 0 26px rgba(168,85,247,.3);
-}
-.tab.admin-tab{
-  background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(239,68,68,.14));
-  border-color:rgba(245,158,11,.5);color:#fbbf24;
-}
-.tab.admin-tab.active{
-  background:linear-gradient(135deg,rgba(245,158,11,.4),rgba(239,68,68,.25));
-  color:#fff;box-shadow:0 0 26px rgba(239,68,68,.4);border-color:rgba(245,158,11,.8);
-}
-.tab.exchange-tab{
-  background:linear-gradient(135deg,rgba(34,211,238,.2),rgba(74,222,128,.14));
-  border-color:rgba(34,211,238,.5);color:#22d3ee;
-}
-.tab.exchange-tab.active{
-  background:linear-gradient(135deg,rgba(34,211,238,.35),rgba(74,222,128,.2));
-  color:#fff;box-shadow:0 0 26px rgba(34,211,238,.4);border-color:rgba(34,211,238,.8);
-}
+.tab.active{background:linear-gradient(135deg,rgba(168,85,247,.3),rgba(34,211,238,.16));color:#fff;border-color:rgba(168,85,247,.75);box-shadow:0 0 26px rgba(168,85,247,.3);}
+.tab.admin-tab{background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(239,68,68,.14));border-color:rgba(245,158,11,.5);color:#fbbf24;}
+.tab.admin-tab.active{background:linear-gradient(135deg,rgba(245,158,11,.4),rgba(239,68,68,.25));color:#fff;box-shadow:0 0 26px rgba(239,68,68,.4);border-color:rgba(245,158,11,.8);}
+.tab.admin-tab.unlocked{background:linear-gradient(135deg,rgba(34,197,94,.3),rgba(74,222,128,.14));border-color:rgba(34,197,94,.6);color:#4ade80;}
+.tab.exchange-tab{background:linear-gradient(135deg,rgba(34,211,238,.2),rgba(74,222,128,.14));border-color:rgba(34,211,238,.5);color:#22d3ee;}
+.tab.exchange-tab.active{background:linear-gradient(135deg,rgba(34,211,238,.35),rgba(74,222,128,.2));color:#fff;box-shadow:0 0 26px rgba(34,211,238,.4);border-color:rgba(34,211,238,.8);}
 .panel{display:none;animation:fade .35s ease}
 .panel.active{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -120,58 +46,25 @@ header{
 .panel-head p{color:var(--muted);font-size:14px}
 .panel-head b{color:var(--accent2)}
 .case-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
-.case-card{
-  position:relative;background:linear-gradient(165deg,var(--panel2),#0e0a1c);
-  border:1px solid var(--border);border-radius:20px;padding:24px 18px;
-  display:flex;flex-direction:column;align-items:center;gap:8px;overflow:hidden;
-  transition:.25s;
-}
+.case-card{position:relative;background:linear-gradient(165deg,var(--panel2),#0e0a1c);border:1px solid var(--border);border-radius:20px;padding:24px 18px;display:flex;flex-direction:column;align-items:center;gap:8px;overflow:hidden;transition:.25s;}
 .case-card:hover{transform:translateY(-5px);border-color:rgba(168,85,247,.55);box-shadow:0 14px 40px rgba(168,85,247,.22)}
-.case-card.free{
-  border-color:rgba(74,222,128,.45);
-  background:linear-gradient(165deg,rgba(74,222,128,.12),#0e0a1c);
-  box-shadow:0 0 40px rgba(74,222,128,.14);
-}
-.case-card.free::after{
-  content:'';position:absolute;inset:-2px;border-radius:20px;
-  background:conic-gradient(from 0deg,transparent,rgba(74,222,128,.5),transparent 30%);
-  animation:spinGlow 4s linear infinite;z-index:-1;
-}
+.case-card.free{border-color:rgba(74,222,128,.45);background:linear-gradient(165deg,rgba(74,222,128,.12),#0e0a1c);box-shadow:0 0 40px rgba(74,222,128,.14);}
+.case-card.free::after{content:'';position:absolute;inset:-2px;border-radius:20px;background:conic-gradient(from 0deg,transparent,rgba(74,222,128,.5),transparent 30%);animation:spinGlow 4s linear infinite;z-index:-1;}
 @keyframes spinGlow{to{transform:rotate(360deg)}}
 .case-emoji{font-size:52px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.6));animation:float 3.4s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .case-name{font-weight:800;font-size:17px;text-align:center}
 .case-price{color:var(--muted);font-size:13px;margin-bottom:6px;text-align:center}
 .case-timer{font-size:12px;color:#4ade80;font-weight:700;letter-spacing:.5px;min-height:16px}
-.promo-block{
-  margin-top:22px;padding:22px;
-  background:linear-gradient(165deg,rgba(240,171,252,.08),#0e0a1c);
-  border:1px solid rgba(240,171,252,.3);border-radius:20px;
-  display:flex;flex-direction:column;gap:14px;
-  box-shadow:0 0 40px rgba(240,171,252,.1);
-}
-.promo-block h3{
-  font-size:16px;display:flex;align-items:center;gap:10px;
-  background:linear-gradient(90deg,#f0abfc,#22d3ee);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
+.promo-block{margin-top:22px;padding:22px;background:linear-gradient(165deg,rgba(240,171,252,.08),#0e0a1c);border:1px solid rgba(240,171,252,.3);border-radius:20px;display:flex;flex-direction:column;gap:14px;box-shadow:0 0 40px rgba(240,171,252,.1);}
+.promo-block h3{font-size:16px;display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,#f0abfc,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .promo-block .sub{font-size:12.5px;color:var(--muted);margin-top:-6px}
 .promo-row{display:flex;gap:10px;flex-wrap:wrap}
-.promo-row input{
-  flex:1;min-width:200px;font-family:inherit;font-size:15px;font-weight:800;
-  letter-spacing:2px;text-transform:uppercase;color:var(--text);
-  background:#0b0816;border:1px solid rgba(240,171,252,.35);border-radius:12px;
-  padding:13px 16px;outline:none;transition:.2s;
-}
+.promo-row input{flex:1;min-width:200px;font-family:inherit;font-size:15px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--text);background:#0b0816;border:1px solid rgba(240,171,252,.35);border-radius:12px;padding:13px 16px;outline:none;transition:.2s;}
 .promo-row input:focus{border-color:rgba(240,171,252,.8);box-shadow:0 0 0 3px rgba(240,171,252,.18)}
 .promo-row input::placeholder{color:#5b5478;letter-spacing:1px;font-weight:600}
 .promo-row .btn{width:auto;padding:13px 26px;flex-shrink:0}
-.btn{
-  font-family:inherit;font-weight:800;font-size:14px;cursor:pointer;
-  border:none;border-radius:12px;padding:11px 22px;transition:.2s;color:#fff;
-  background:linear-gradient(135deg,#a855f7,#7c3aed);
-  box-shadow:0 6px 20px rgba(168,85,247,.35);width:100%;
-}
+.btn{font-family:inherit;font-weight:800;font-size:14px;cursor:pointer;border:none;border-radius:12px;padding:11px 22px;transition:.2s;color:#fff;background:linear-gradient(135deg,#a855f7,#7c3aed);box-shadow:0 6px 20px rgba(168,85,247,.35);width:100%;}
 .btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 28px rgba(168,85,247,.5)}
 .btn:active:not(:disabled){transform:translateY(0)}
 .btn:disabled,.btn.disabled{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none;filter:grayscale(.5)}
@@ -184,106 +77,58 @@ header{
 .btn.ghost{background:transparent;border:1px solid var(--border);box-shadow:none}
 .btn.ghost:hover:not(:disabled){border-color:rgba(168,85,247,.6);background:rgba(168,85,247,.08)}
 .btn.small{padding:8px 14px;font-size:12.5px;width:auto}
-.info-box{
-  margin-top:14px;padding:16px;border-radius:14px;
-  background:linear-gradient(135deg,rgba(34,197,94,.14),rgba(34,211,238,.08));
-  border:1px solid rgba(34,197,94,.45);
-  display:none;flex-direction:column;gap:10px;
-  animation:fade .3s;
-}
+.info-box{margin-top:14px;padding:16px;border-radius:14px;background:linear-gradient(135deg,rgba(34,197,94,.14),rgba(34,211,238,.08));border:1px solid rgba(34,197,94,.45);display:none;flex-direction:column;gap:10px;animation:fade .3s;}
 .info-box.show{display:flex}
-.info-box h5{
-  font-size:14px;color:#4ade80;font-weight:800;
-  display:flex;align-items:center;gap:8px;
-}
+.info-box h5{font-size:14px;color:#4ade80;font-weight:800;display:flex;align-items:center;gap:8px;}
 .info-box p{font-size:12.5px;color:var(--muted);line-height:1.5}
-.info-box code{
-  font-family:monospace;font-size:12px;font-weight:900;color:#22d3ee;
-  background:#0b0816;border:1px solid rgba(34,211,238,.35);
-  border-radius:8px;padding:10px 12px;display:block;
-  letter-spacing:1px;word-break:break-all;line-height:1.5;max-height:120px;overflow-y:auto;
-}
+.info-box code{font-family:monospace;font-size:12px;font-weight:900;color:#22d3ee;background:#0b0816;border:1px solid rgba(34,211,238,.35);border-radius:8px;padding:10px 12px;display:block;letter-spacing:1px;word-break:break-all;line-height:1.5;max-height:120px;overflow-y:auto;}
 .info-box .row{display:flex;gap:8px;flex-wrap:wrap}
 .info-box .row .btn{width:auto;flex:1;font-size:12px;padding:9px 12px}
-.admin-hero{
-  background:linear-gradient(135deg,rgba(245,158,11,.14),rgba(239,68,68,.1));
-  border:1px solid rgba(245,158,11,.4);border-radius:20px;padding:20px 24px;
-  display:flex;align-items:center;gap:16px;margin-bottom:20px;
-  box-shadow:0 0 40px rgba(239,68,68,.14);
-}
+.admin-hero{background:linear-gradient(135deg,rgba(245,158,11,.14),rgba(239,68,68,.1));border:1px solid rgba(245,158,11,.4);border-radius:20px;padding:20px 24px;display:flex;align-items:center;gap:16px;margin-bottom:20px;box-shadow:0 0 40px rgba(239,68,68,.14);}
 .admin-hero .ico{font-size:38px;filter:drop-shadow(0 0 12px rgba(245,158,11,.7))}
 .admin-hero .txt h3{font-size:18px;margin-bottom:3px;color:#fbbf24}
 .admin-hero .txt p{font-size:12.5px;color:#d4a86a}
 .admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:900px){.admin-grid{grid-template-columns:1fr}}
-.adm-box{
-  background:linear-gradient(165deg,var(--panel2),#0d0919);
-  border:1px solid rgba(245,158,11,.25);border-radius:18px;padding:18px;
-  display:flex;flex-direction:column;gap:12px;
-}
-.adm-box h4{
-  font-size:12.5px;text-transform:uppercase;letter-spacing:1.4px;color:#fbbf24;
-  display:flex;align-items:center;gap:8px;margin-bottom:2px;
-}
+.adm-box{background:linear-gradient(165deg,var(--panel2),#0d0919);border:1px solid rgba(245,158,11,.25);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px;}
+.adm-box h4{font-size:12.5px;text-transform:uppercase;letter-spacing:1.4px;color:#fbbf24;display:flex;align-items:center;gap:8px;margin-bottom:2px;}
 .adm-box .hint{font-size:11.5px;color:var(--muted);line-height:1.4}
-.adm-box input[type=text],.adm-box input[type=number],.adm-box input[type=url],.adm-box select,.adm-box textarea{
-  font-family:inherit;font-size:13.5px;font-weight:600;color:var(--text);
-  background:#0b0816;border:1px solid var(--border);border-radius:10px;
-  padding:11px 13px;outline:none;transition:.2s;width:100%;
-}
+.adm-box input[type=text],.adm-box input[type=number],.adm-box input[type=url],.adm-box input[type=password],.adm-box select,.adm-box textarea{font-family:inherit;font-size:13.5px;font-weight:600;color:var(--text);background:#0b0816;border:1px solid var(--border);border-radius:10px;padding:11px 13px;outline:none;transition:.2s;width:100%;}
 .adm-box textarea{resize:vertical;min-height:60px;font-family:monospace;font-size:12px}
-.adm-box input:focus,.adm-box select:focus,.adm-box textarea:focus{
-  border-color:rgba(245,158,11,.6);box-shadow:0 0 0 3px rgba(245,158,11,.14);
-}
+.adm-box input:focus,.adm-box select:focus,.adm-box textarea:focus{border-color:rgba(245,158,11,.6);box-shadow:0 0 0 3px rgba(245,158,11,.14);}
 .adm-box input::placeholder,.adm-box textarea::placeholder{color:#5b5478}
 .adm-box label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700}
 .adm-field{display:flex;flex-direction:column;gap:5px}
 .adm-row{display:flex;gap:8px;flex-wrap:wrap}
 .adm-row .btn{width:auto;flex:1}
-.adm-id-display{
-  font-family:monospace;font-size:16px;font-weight:900;letter-spacing:2px;
-  color:#22d3ee;background:#0b0816;border:1px dashed rgba(34,211,238,.4);
-  border-radius:10px;padding:12px 14px;text-align:center;
-  overflow:hidden;text-overflow:ellipsis;
-}
-.promo-code-list,.req-adm-list{
-  display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;
-  padding-right:4px;
-}
+.login-hero{background:linear-gradient(135deg,rgba(239,68,68,.18),rgba(245,158,11,.1));border:1px solid rgba(239,68,68,.5);border-radius:20px;padding:26px 24px;text-align:center;margin-bottom:20px;box-shadow:0 0 40px rgba(239,68,68,.2);}
+.login-hero .ico{font-size:52px;margin-bottom:8px;filter:drop-shadow(0 0 14px rgba(239,68,68,.7))}
+.login-hero h3{font-size:20px;margin-bottom:5px;color:#fbbf24}
+.login-hero p{font-size:13px;color:#d4a86a;max-width:420px;margin:0 auto}
+.login-box{max-width:440px;margin:0 auto;background:linear-gradient(165deg,var(--panel2),#0d0919);border:1px solid rgba(245,158,11,.35);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:12px;}
+.login-box label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.login-box input{font-family:inherit;font-size:15px;font-weight:700;color:var(--text);background:#0b0816;border:1px solid var(--border);border-radius:12px;padding:13px 15px;outline:none;transition:.2s;width:100%;letter-spacing:2px;}
+.login-box input:focus{border-color:rgba(245,158,11,.7);box-shadow:0 0 0 3px rgba(245,158,11,.16);}
+.login-box .hint{font-size:11.5px;color:var(--muted);line-height:1.5;text-align:center}
+.login-box .btn-row{display:flex;gap:8px}
+.login-box .btn-row .btn{flex:1}
+.promo-code-list,.req-adm-list{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;padding-right:4px;}
 .promo-code-list::-webkit-scrollbar,.req-adm-list::-webkit-scrollbar{width:6px}
 .promo-code-list::-webkit-scrollbar-thumb,.req-adm-list::-webkit-scrollbar-thumb{background:rgba(245,158,11,.4);border-radius:6px}
-.pc-item{
-  background:#0b0816;border:1px solid var(--border);border-radius:11px;
-  padding:10px 12px;display:flex;justify-content:space-between;align-items:center;
-  gap:10px;flex-wrap:wrap;
-}
-.pc-item .pc-code{
-  font-family:monospace;font-weight:900;font-size:13px;color:#f0abfc;letter-spacing:1px;
-}
+.pc-item{background:#0b0816;border:1px solid var(--border);border-radius:11px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+.pc-item .pc-code{font-family:monospace;font-weight:900;font-size:13px;color:#f0abfc;letter-spacing:1px;}
 .pc-item .pc-info{font-size:11px;color:var(--muted);margin-top:2px}
-.pc-item .pc-uses{
-  background:rgba(34,211,238,.14);color:#22d3ee;
-  padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:800;
-}
-.pc-item .pc-del{
-  width:26px;height:26px;border-radius:8px;border:none;cursor:pointer;
-  background:rgba(239,68,68,.16);color:#ef4444;font-weight:900;font-size:13px;
-  display:grid;place-items:center;transition:.15s;font-family:inherit;
-}
+.pc-item .pc-uses{background:rgba(34,211,238,.14);color:#22d3ee;padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:800;}
+.pc-item .pc-del{width:26px;height:26px;border-radius:8px;border:none;cursor:pointer;background:rgba(239,68,68,.16);color:#ef4444;font-weight:900;font-size:13px;display:grid;place-items:center;transition:.15s;font-family:inherit;}
 .pc-item .pc-del:hover{background:#ef4444;color:#fff}
 .no-promos{color:#5b5478;font-size:12px;text-align:center;padding:12px}
-.req-adm{
-  background:#0b0816;border:1px solid var(--border);border-radius:12px;
-  padding:12px 14px;display:flex;flex-direction:column;gap:8px;
-}
+.req-adm{background:#0b0816;border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;}
 .req-adm.pending{border-color:rgba(245,158,11,.45)}
 .req-adm.done{border-color:rgba(34,197,94,.45);opacity:.75}
 .req-adm.cancelled{border-color:rgba(239,68,68,.45);opacity:.6}
 .req-adm .ra-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
 .req-adm .ra-code{font-family:monospace;font-weight:900;color:#22d3ee;font-size:13px}
-.req-adm .ra-status{
-  padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:800;letter-spacing:.5px;
-}
+.req-adm .ra-status{padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:800;letter-spacing:.5px;}
 .req-adm.pending .ra-status{background:rgba(245,158,11,.16);color:#f59e0b;border:1px solid rgba(245,158,11,.4)}
 .req-adm.done .ra-status{background:rgba(34,197,94,.16);color:#4ade80;border:1px solid rgba(34,197,94,.4)}
 .req-adm.cancelled .ra-status{background:rgba(239,68,68,.16);color:#ef4444;border:1px solid rgba(239,68,68,.4)}
@@ -293,141 +138,52 @@ header{
 .req-adm .ra-actions .btn{width:auto;font-size:11.5px;padding:7px 12px}
 .profile-grid{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
 @media(max-width:900px){.profile-grid{grid-template-columns:1fr}}
-.profile-card{
-  background:linear-gradient(165deg,var(--panel2),#0d0919);
-  border:1px solid var(--border);border-radius:22px;padding:26px 22px;
-  display:flex;flex-direction:column;align-items:center;gap:14px;
-  position:relative;overflow:hidden;
-}
-.profile-card::before{
-  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
-  width:220px;height:220px;border-radius:50%;
-  background:radial-gradient(circle,rgba(168,85,247,.35),transparent 70%);
-  pointer-events:none;
-}
-.big-ava{
-  position:relative;width:104px;height:104px;border-radius:26px;
-  background:linear-gradient(135deg,#a855f7,#22d3ee,#f0abfc);
-  display:grid;place-items:center;font-size:44px;font-weight:900;color:#0b0616;
-  box-shadow:0 0 40px rgba(168,85,247,.5),0 12px 30px rgba(0,0,0,.5);z-index:1;
-}
-.big-ava.admin{
-  background:linear-gradient(135deg,#f59e0b,#ef4444,#f0abfc);
-  box-shadow:0 0 44px rgba(239,68,68,.6),0 12px 30px rgba(0,0,0,.5);
-}
-.big-ava::after{
-  content:'';position:absolute;inset:-4px;border-radius:30px;
-  background:conic-gradient(from 0deg,#a855f7,#22d3ee,#f0abfc,#a855f7);
-  z-index:-1;animation:spinGlow 6s linear infinite;opacity:.8;filter:blur(8px);
-}
-.profile-nick{
-  font-size:22px;font-weight:900;text-align:center;z-index:1;
-  max-width:100%;word-break:break-word;
-}
-.admin-crown{
-  display:none;font-size:11px;font-weight:900;letter-spacing:1.5px;
-  background:linear-gradient(135deg,#f59e0b,#ef4444);color:#1a0d00;
-  padding:4px 12px;border-radius:20px;z-index:1;text-transform:uppercase;
-}
+.profile-card{background:linear-gradient(165deg,var(--panel2),#0d0919);border:1px solid var(--border);border-radius:22px;padding:26px 22px;display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;overflow:hidden;}
+.profile-card::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,.35),transparent 70%);pointer-events:none;}
+.big-ava{position:relative;width:104px;height:104px;border-radius:26px;background:linear-gradient(135deg,#a855f7,#22d3ee,#f0abfc);display:grid;place-items:center;font-size:44px;font-weight:900;color:#0b0616;box-shadow:0 0 40px rgba(168,85,247,.5),0 12px 30px rgba(0,0,0,.5);z-index:1;}
+.big-ava.admin{background:linear-gradient(135deg,#f59e0b,#ef4444,#f0abfc);box-shadow:0 0 44px rgba(239,68,68,.6),0 12px 30px rgba(0,0,0,.5);}
+.big-ava::after{content:'';position:absolute;inset:-4px;border-radius:30px;background:conic-gradient(from 0deg,#a855f7,#22d3ee,#f0abfc,#a855f7);z-index:-1;animation:spinGlow 6s linear infinite;opacity:.8;filter:blur(8px);}
+.profile-nick{font-size:22px;font-weight:900;text-align:center;z-index:1;max-width:100%;word-break:break-word;}
+.admin-crown{display:none;font-size:11px;font-weight:900;letter-spacing:1.5px;background:linear-gradient(135deg,#f59e0b,#ef4444);color:#1a0d00;padding:4px 12px;border-radius:20px;z-index:1;text-transform:uppercase;}
 .admin-crown.show{display:inline-block}
-.profile-id{
-  font-family:monospace;font-size:13px;color:var(--accent2);letter-spacing:1px;
-  background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.3);
-  padding:6px 14px;border-radius:10px;z-index:1;
-  display:flex;align-items:center;gap:8px;cursor:pointer;transition:.2s;
-}
+.profile-id{font-family:monospace;font-size:13px;color:var(--accent2);letter-spacing:1px;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.3);padding:6px 14px;border-radius:10px;z-index:1;display:flex;align-items:center;gap:8px;cursor:pointer;transition:.2s;}
 .profile-id:hover{background:rgba(34,211,238,.2);transform:scale(1.03)}
 .profile-id svg{width:13px;height:13px;opacity:.8}
-.level-badge{
-  display:flex;align-items:center;gap:6px;
-  background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(239,68,68,.14));
-  border:1px solid rgba(245,158,11,.5);
-  padding:6px 16px;border-radius:20px;font-weight:900;font-size:13px;
-  color:#fbbf24;letter-spacing:1px;z-index:1;
-  box-shadow:0 0 20px rgba(245,158,11,.25);
-}
+.level-badge{display:flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(239,68,68,.14));border:1px solid rgba(245,158,11,.5);padding:6px 16px;border-radius:20px;font-weight:900;font-size:13px;color:#fbbf24;letter-spacing:1px;z-index:1;box-shadow:0 0 20px rgba(245,158,11,.25);}
 .xp-wrap{width:100%;z-index:1;margin-top:4px}
 .xp-labels{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-bottom:6px;font-weight:700}
 .xp-bar{height:10px;border-radius:8px;background:#0b0816;border:1px solid var(--border);overflow:hidden}
-.xp-fill{
-  height:100%;border-radius:8px;width:0;
-  background:linear-gradient(90deg,#22d3ee,#a855f7,#f0abfc);
-  box-shadow:0 0 14px rgba(168,85,247,.7);
-  transition:width .6s cubic-bezier(.2,.9,.3,1.1);
-}
+.xp-fill{height:100%;border-radius:8px;width:0;background:linear-gradient(90deg,#22d3ee,#a855f7,#f0abfc);box-shadow:0 0 14px rgba(168,85,247,.7);transition:width .6s cubic-bezier(.2,.9,.3,1.1);}
 .profile-actions{display:flex;gap:8px;width:100%;z-index:1}
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
-.stat-box{
-  background:linear-gradient(165deg,var(--panel2),#0d0919);
-  border:1px solid var(--border);border-radius:16px;padding:18px;
-  display:flex;flex-direction:column;gap:4px;transition:.2s;
-}
+.stat-box{background:linear-gradient(165deg,var(--panel2),#0d0919);border:1px solid var(--border);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:4px;transition:.2s;}
 .stat-box:hover{border-color:rgba(168,85,247,.45);transform:translateY(-3px)}
 .stat-ico{font-size:22px;margin-bottom:4px}
-.stat-val{
-  font-size:26px;font-weight:900;line-height:1;
-  background:linear-gradient(90deg,#22d3ee,#a855f7);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
+.stat-val{font-size:26px;font-weight:900;line-height:1;background:linear-gradient(90deg,#22d3ee,#a855f7);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .stat-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
-.section-title{
-  font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);
-  font-weight:800;margin:24px 0 12px;
-}
+.section-title{font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:800;margin:24px 0 12px;}
 .ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.ach{
-  background:linear-gradient(165deg,var(--panel2),#0d0919);
-  border:1px solid var(--border);border-radius:14px;padding:14px;
-  display:flex;gap:12px;align-items:center;transition:.2s;
-}
+.ach{background:linear-gradient(165deg,var(--panel2),#0d0919);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:center;transition:.2s;}
 .ach.locked{opacity:.4;filter:grayscale(.85)}
 .ach.unlocked{border-color:rgba(74,222,128,.5);box-shadow:0 0 22px rgba(74,222,128,.12)}
-.ach-ico{
-  width:40px;height:40px;border-radius:12px;flex-shrink:0;
-  display:grid;place-items:center;font-size:20px;
-  background:linear-gradient(135deg,rgba(168,85,247,.25),rgba(34,211,238,.15));
-}
+.ach-ico{width:40px;height:40px;border-radius:12px;flex-shrink:0;display:grid;place-items:center;font-size:20px;background:linear-gradient(135deg,rgba(168,85,247,.25),rgba(34,211,238,.15));}
 .ach-info{display:flex;flex-direction:column;gap:2px;min-width:0}
 .ach-name{font-size:13px;font-weight:800}
 .ach-desc{font-size:11px;color:var(--muted);line-height:1.3}
-.modal{
-  position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;
-  background:rgba(4,2,10,.86);backdrop-filter:blur(10px);padding:16px;
-}
+.modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(4,2,10,.86);backdrop-filter:blur(10px);padding:16px;}
 .modal.show{display:flex;animation:fade .25s}
-.modal-box{
-  width:100%;max-width:760px;background:linear-gradient(165deg,#181130,#0c0819);
-  border:1px solid rgba(168,85,247,.35);border-radius:24px;padding:24px;
-  box-shadow:0 0 70px rgba(168,85,247,.3);
-}
+.modal-box{width:100%;max-width:760px;background:linear-gradient(165deg,#181130,#0c0819);border:1px solid rgba(168,85,247,.35);border-radius:24px;padding:24px;box-shadow:0 0 70px rgba(168,85,247,.3);}
 .modal-title{font-size:19px;font-weight:800;text-align:center;margin-bottom:18px}
-.reel-wrap{
-  position:relative;overflow:hidden;border-radius:16px;height:152px;
-  background:#08050f;border:1px solid var(--border);
-  box-shadow:inset 0 0 50px rgba(0,0,0,.9);
-}
-.reel-wrap::before,.reel-wrap::after{
-  content:'';position:absolute;top:0;bottom:0;width:90px;z-index:6;pointer-events:none;
-}
+.reel-wrap{position:relative;overflow:hidden;border-radius:16px;height:152px;background:#08050f;border:1px solid var(--border);box-shadow:inset 0 0 50px rgba(0,0,0,.9);}
+.reel-wrap::before,.reel-wrap::after{content:'';position:absolute;top:0;bottom:0;width:90px;z-index:6;pointer-events:none;}
 .reel-wrap::before{left:0;background:linear-gradient(90deg,#08050f,transparent)}
 .reel-wrap::after{right:0;background:linear-gradient(270deg,#08050f,transparent)}
 .reel{display:flex;flex-wrap:nowrap;gap:10px;padding:16px 0;will-change:transform}
-.reel-item{
-  flex:0 0 120px;width:120px;height:120px;border-radius:14px;border:2px solid;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:4px;padding:6px;text-align:center;
-}
+.reel-item{flex:0 0 120px;width:120px;height:120px;border-radius:14px;border:2px solid;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;text-align:center;}
 .reel-item .item-emoji{font-size:34px}
 .reel-item .item-name{font-size:9.5px;font-weight:700;line-height:1.15;opacity:.9}
-.reel-marker{
-  position:absolute;left:50%;top:0;bottom:0;width:3px;transform:translateX(-50%);
-  background:linear-gradient(180deg,#22d3ee,#a855f7);
-  box-shadow:0 0 22px rgba(168,85,247,.9);z-index:7;border-radius:2px;
-}
-.reel-marker::before,.reel-marker::after{
-  content:'';position:absolute;left:50%;transform:translateX(-50%);
-  border-left:7px solid transparent;border-right:7px solid transparent;
-}
+.reel-marker{position:absolute;left:50%;top:0;bottom:0;width:3px;transform:translateX(-50%);background:linear-gradient(180deg,#22d3ee,#a855f7);box-shadow:0 0 22px rgba(168,85,247,.9);z-index:7;border-radius:2px;}
+.reel-marker::before,.reel-marker::after{content:'';position:absolute;left:50%;transform:translateX(-50%);border-left:7px solid transparent;border-right:7px solid transparent;}
 .reel-marker::before{top:-1px;border-top:9px solid #22d3ee}
 .reel-marker::after{bottom:-1px;border-bottom:9px solid #a855f7}
 .modal-result{text-align:center;margin:18px 0 4px;min-height:64px}
@@ -438,118 +194,56 @@ header{
 .inv-grid.scroll{max-height:400px;overflow-y:auto;padding-right:6px}
 .inv-grid.scroll::-webkit-scrollbar{width:6px}
 .inv-grid.scroll::-webkit-scrollbar-thumb{background:rgba(168,85,247,.45);border-radius:6px}
-.item-card{
-  position:relative;border-radius:14px;border:2px solid var(--c55);
-  background:linear-gradient(160deg,var(--c20),#0f0b1d);
-  padding:12px 7px 10px;display:flex;flex-direction:column;align-items:center;gap:3px;
-  cursor:pointer;transition:.18s;text-align:center;user-select:none;
-}
+.item-card{position:relative;border-radius:14px;border:2px solid var(--c55);background:linear-gradient(160deg,var(--c20),#0f0b1d);padding:12px 7px 10px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;transition:.18s;text-align:center;user-select:none;}
 .item-card:hover{transform:translateY(-4px);box-shadow:0 10px 26px var(--c35);border-color:var(--c)}
-.item-card.selected{
-  border-color:var(--c);
-  box-shadow:0 0 0 2px var(--c),0 0 26px var(--c35);
-  background:linear-gradient(160deg,var(--c20),#161029);
-}
+.item-card.selected{border-color:var(--c);box-shadow:0 0 0 2px var(--c),0 0 26px var(--c35);background:linear-gradient(160deg,var(--c20),#161029);}
 .item-card.secret{animation:secretPulse 2.2s ease-in-out infinite}
-@keyframes secretPulse{
-  0%,100%{box-shadow:0 0 12px rgba(240,171,252,.5)}
-  50%{box-shadow:0 0 30px rgba(34,211,238,.85)}
-}
+@keyframes secretPulse{0%,100%{box-shadow:0 0 12px rgba(240,171,252,.5)}50%{box-shadow:0 0 30px rgba(34,211,238,.85)}}
 .item-emoji{font-size:30px;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,.55))}
 .item-name{font-size:10.5px;font-weight:700;line-height:1.2;min-height:26px;display:flex;align-items:center}
 .item-rarity{font-size:8.5px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--c);opacity:.95}
 .item-value{font-size:11.5px;font-weight:800;color:#4ade80}
-.sell-btn{
-  position:absolute;top:5px;right:5px;width:23px;height:23px;border-radius:8px;border:none;
-  background:rgba(0,0,0,.55);color:#4ade80;font-size:12px;font-weight:900;cursor:pointer;
-  display:grid;place-items:center;transition:.15s;font-family:inherit;
-}
+.sell-btn{position:absolute;top:5px;right:5px;width:23px;height:23px;border-radius:8px;border:none;background:rgba(0,0,0,.55);color:#4ade80;font-size:12px;font-weight:900;cursor:pointer;display:grid;place-items:center;transition:.15s;font-family:inherit;}
 .sell-btn:hover{background:#22c55e;color:#04240f;transform:scale(1.12)}
-.empty{
-  grid-column:1/-1;text-align:center;padding:44px 16px;color:var(--muted);
-  font-size:14px;border:1px dashed var(--border);border-radius:16px;
-}
+.empty{grid-column:1/-1;text-align:center;padding:44px 16px;color:var(--muted);font-size:14px;border:1px dashed var(--border);border-radius:16px;}
 .upg{display:grid;grid-template-columns:1fr 290px 1fr;gap:16px;align-items:start}
 @media(max-width:980px){.upg{grid-template-columns:1fr}}
-.upg-side{
-  background:linear-gradient(165deg,var(--panel2),#0d0919);
-  border:1px solid var(--border);border-radius:18px;padding:16px;
-}
+.upg-side{background:linear-gradient(165deg,var(--panel2),#0d0919);border:1px solid var(--border);border-radius:18px;padding:16px;}
 .upg-side h4{font-size:13px;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);margin-bottom:12px}
-.upg-mid{
-  background:linear-gradient(165deg,var(--panel2),#0d0919);
-  border:1px solid rgba(168,85,247,.35);border-radius:18px;padding:18px;
-  display:flex;flex-direction:column;gap:14px;box-shadow:0 0 36px rgba(168,85,247,.14);
-}
+.upg-mid{background:linear-gradient(165deg,var(--panel2),#0d0919);border:1px solid rgba(168,85,247,.35);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px;box-shadow:0 0 36px rgba(168,85,247,.14);}
 @media(max-width:980px){.upg-mid{order:-1}}
 .chance-big{text-align:center}
-.chance-big .val{
-  font-size:42px;font-weight:900;line-height:1;
-  background:linear-gradient(90deg,#4ade80,#22d3ee,#a855f7);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
+.chance-big .val{font-size:42px;font-weight:900;line-height:1;background:linear-gradient(90deg,#4ade80,#22d3ee,#a855f7);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .chance-big .lbl{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
-.upg-bar{
-  position:relative;height:42px;border-radius:12px;overflow:hidden;
-  background:linear-gradient(90deg,rgba(239,68,68,.4),rgba(239,68,68,.14));
-  border:1px solid var(--border);
-}
-.upg-zone-win{
-  position:absolute;left:0;top:0;bottom:0;width:0;
-  background:linear-gradient(90deg,rgba(74,222,128,.62),rgba(74,222,128,.24));
-  transition:width .3s ease;border-right:1px solid rgba(74,222,128,.8);
-}
-.upg-needle{
-  position:absolute;top:-5px;bottom:-5px;width:4px;left:0;border-radius:3px;
-  background:#fff;box-shadow:0 0 18px #fff,0 0 40px rgba(34,211,238,.8);
-  transform:translateX(-50%);z-index:3;
-}
+.upg-bar{position:relative;height:42px;border-radius:12px;overflow:hidden;background:linear-gradient(90deg,rgba(239,68,68,.4),rgba(239,68,68,.14));border:1px solid var(--border);}
+.upg-zone-win{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,rgba(74,222,128,.62),rgba(74,222,128,.24));transition:width .3s ease;border-right:1px solid rgba(74,222,128,.8);}
+.upg-needle{position:absolute;top:-5px;bottom:-5px;width:4px;left:0;border-radius:3px;background:#fff;box-shadow:0 0 18px #fff,0 0 40px rgba(34,211,238,.8);transform:translateX(-50%);z-index:3;}
 .upg-bar-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:-6px}
 .upg-stats{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);gap:8px}
 .upg-stats b{color:var(--text);font-size:14px;display:block;text-align:center}
 .upg-stats>div{flex:1;text-align:center}
-.upg-res{
-  text-align:center;font-weight:900;font-size:15px;letter-spacing:1.5px;
-  min-height:20px;text-transform:uppercase;
-}
+.upg-res{text-align:center;font-weight:900;font-size:15px;letter-spacing:1.5px;min-height:20px;text-transform:uppercase;}
 .upg-res.win{color:#4ade80;text-shadow:0 0 18px rgba(74,222,128,.8)}
 .upg-res.lose{color:#ef4444;text-shadow:0 0 18px rgba(239,68,68,.8)}
 .wd-grid{display:grid;grid-template-columns:1fr 340px;gap:16px;align-items:start}
 @media(max-width:900px){.wd-grid{grid-template-columns:1fr}}
-.wd-box{
-  background:linear-gradient(165deg,var(--panel2),#0d0919);
-  border:1px solid var(--border);border-radius:18px;padding:18px;
-  display:flex;flex-direction:column;gap:12px;
-}
+.wd-box{background:linear-gradient(165deg,var(--panel2),#0d0919);border:1px solid var(--border);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px;}
 .wd-box h4{font-size:13px;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted)}
-input[type=text]{
-  font-family:inherit;font-size:14px;font-weight:600;color:var(--text);
-  background:#0b0816;border:1px solid var(--border);border-radius:12px;
-  padding:12px 14px;outline:none;transition:.2s;width:100%;
-}
-input[type=text]:focus{border-color:rgba(168,85,247,.7);box-shadow:0 0 0 3px rgba(168,85,247,.16)}
-input[type=text]::placeholder{color:#5b5478}
-.wd-total{
-  display:flex;justify-content:space-between;align-items:center;
-  background:#0b0816;border:1px solid var(--border);border-radius:12px;padding:12px 14px;
-  font-size:13px;color:var(--muted);
-}
+input[type=text],input[type=password]{font-family:inherit;font-size:14px;font-weight:600;color:var(--text);background:#0b0816;border:1px solid var(--border);border-radius:12px;padding:12px 14px;outline:none;transition:.2s;width:100%;}
+input[type=text]:focus,input[type=password]:focus{border-color:rgba(168,85,247,.7);box-shadow:0 0 0 3px rgba(168,85,247,.16)}
+input[type=text]::placeholder,input[type=password]::placeholder{color:#5b5478}
+.wd-total{display:flex;justify-content:space-between;align-items:center;background:#0b0816;border:1px solid var(--border);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--muted);}
 .wd-total b{color:#4ade80;font-size:17px}
 .req-list{display:flex;flex-direction:column;gap:9px;margin-top:6px;max-height:340px;overflow-y:auto}
 .req-list::-webkit-scrollbar{width:6px}
 .req-list::-webkit-scrollbar-thumb{background:rgba(168,85,247,.4);border-radius:6px}
-.req{
-  background:#0b0816;border:1px solid var(--border);border-radius:12px;padding:11px 14px;
-  font-size:12.5px;display:flex;flex-direction:column;gap:7px;
-}
+.req{background:#0b0816;border:1px solid var(--border);border-radius:12px;padding:11px 14px;font-size:12.5px;display:flex;flex-direction:column;gap:7px;}
 .req.pending{border-color:rgba(245,158,11,.45)}
 .req.done{border-color:rgba(34,197,94,.45);opacity:.8}
 .req.cancelled{border-color:rgba(239,68,68,.45);opacity:.65}
 .req .req-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
 .req .code{font-family:monospace;color:var(--accent2);font-weight:800;letter-spacing:.5px}
-.req .status{
-  padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:800;letter-spacing:.5px;
-}
+.req .status{padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:800;letter-spacing:.5px;}
 .req.pending .status{background:rgba(245,158,11,.16);color:#f59e0b;border:1px solid rgba(245,158,11,.4)}
 .req.done .status{background:rgba(34,197,94,.16);color:#4ade80;border:1px solid rgba(34,197,94,.4)}
 .req.cancelled .status{background:rgba(239,68,68,.16);color:#ef4444;border:1px solid rgba(239,68,68,.4)}
@@ -557,15 +251,9 @@ input[type=text]::placeholder{color:#5b5478}
 .req .req-body b{color:var(--text)}
 .req .req-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
 .req .req-actions .btn{width:auto;font-size:11px;padding:6px 10px}
-.note{
-  margin-top:16px;padding:13px 16px;border-radius:14px;font-size:12.5px;color:var(--muted);
-  background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.2);line-height:1.6;
-}
+.note{margin-top:16px;padding:13px 16px;border-radius:14px;font-size:12.5px;color:var(--muted);background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.2);line-height:1.6;}
 .note b{color:var(--accent2)}
-.deal-card{
-  background:#0b0816;border:1px solid var(--border);border-radius:12px;
-  padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:12.5px;
-}
+.deal-card{background:#0b0816;border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:12.5px;}
 .deal-card.pending{border-color:rgba(245,158,11,.5)}
 .deal-card.accepted{border-color:rgba(34,197,94,.5)}
 .deal-card.done{border-color:rgba(34,211,238,.5);opacity:.75}
@@ -581,14 +269,7 @@ input[type=text]::placeholder{color:#5b5478}
 .deal-preview-row:last-child{border-bottom:none}
 .deal-preview-row span{color:var(--muted)}
 .deal-preview-row b{color:#4ade80;font-weight:800;text-align:right}
-#toast{
-  position:fixed;left:50%;bottom:34px;transform:translate(-50%,26px);
-  background:linear-gradient(135deg,#1e1636,#140f27);
-  border:1px solid rgba(168,85,247,.55);color:#fff;font-weight:700;font-size:14px;
-  padding:14px 26px;border-radius:14px;z-index:400;opacity:0;pointer-events:none;
-  transition:.3s cubic-bezier(.2,.9,.3,1.3);box-shadow:0 14px 40px rgba(0,0,0,.7);
-  max-width:90vw;text-align:center;
-}
+#toast{position:fixed;left:50%;bottom:34px;transform:translate(-50%,26px);background:linear-gradient(135deg,#1e1636,#140f27);border:1px solid rgba(168,85,247,.55);color:#fff;font-weight:700;font-size:14px;padding:14px 26px;border-radius:14px;z-index:400;opacity:0;pointer-events:none;transition:.3s cubic-bezier(.2,.9,.3,1.3);box-shadow:0 14px 40px rgba(0,0,0,.7);max-width:90vw;text-align:center;}
 #toast.show{opacity:1;transform:translate(-50%,0)}
 </style>
 </head>
@@ -617,7 +298,7 @@ input[type=text]::placeholder{color:#5b5478}
     <button class="tab" data-tab="withdraw">📤 Вывод в игру</button>
     <button class="tab exchange-tab" data-tab="exchange">💱 Обменник</button>
     <button class="tab" data-tab="profile">👤 Профиль</button>
-    <button class="tab admin-tab" data-tab="admin" id="adminTab" style="display:none">🛡️ Админ-панель</button>
+    <button class="tab admin-tab" data-tab="admin" id="adminTab">🛡️ Админ-панель</button>
   </div>
 
   <section class="panel active" id="panel-cases">
@@ -695,7 +376,6 @@ input[type=text]::placeholder{color:#5b5478}
         <div class="wd-total"><span>Сумма вывода</span><b id="wdTotal">0 ₡</b></div>
         <div class="wd-total"><span>Предметов</span><b id="wdCount" style="color:#22d3ee">0</b></div>
         <button class="btn cyan" id="wdBtn">Создать заявку</button>
-
         <div class="info-box" id="wdInfo">
           <h5>✅ Заявка создана!</h5>
           <p>Скопируй код и отправь его администратору в Discord. После выдачи предметов в игре (через Trade Machine) заявка будет закрыта.</p>
@@ -705,7 +385,6 @@ input[type=text]::placeholder{color:#5b5478}
             <button class="btn ghost" id="wdCloseInfo" style="color:#8b83a8">Закрыть</button>
           </div>
         </div>
-
         <h4 style="margin-top:8px">Мои заявки</h4>
         <div class="req-list" id="reqList"></div>
       </div>
@@ -717,7 +396,6 @@ input[type=text]::placeholder{color:#5b5478}
       <h2>💱 Обменник</h2>
       <p>Обмен сайтовых монет на брейнротов в игре <b>Steal a Brainrot</b> через Trade Machine</p>
     </div>
-
     <div class="note" style="margin-bottom:16px">
       <b>Как это работает:</b><br>
       1. Админ создаёт сделку: «дам X монет, хочу Y брейнротов в игре»<br>
@@ -725,7 +403,6 @@ input[type=text]::placeholder{color:#5b5478}
       3. Игрок вводит код → получает монеты на сайте<br>
       4. Игрок отдаёт брейнротов в игре через Trade Machine → отправляет админу код подтверждения
     </div>
-
     <div class="wd-grid">
       <div class="wd-box" style="min-height:340px">
         <h4>🎫 Активировать код сделки</h4>
@@ -735,7 +412,6 @@ input[type=text]::placeholder{color:#5b5478}
         </p>
         <input type="text" id="dealCodeInput" placeholder="DEAL-XXXXXX..." maxlength="2000" autocomplete="off">
         <button class="btn cyan" id="dealAcceptBtn">Проверить и активировать</button>
-
         <div class="info-box" id="dealPreview">
           <h5>🎁 Детали сделки</h5>
           <div id="dealPreviewBody"></div>
@@ -744,7 +420,6 @@ input[type=text]::placeholder{color:#5b5478}
             <button class="btn ghost" id="dealCancelBtn" style="color:#8b83a8">Отмена</button>
           </div>
         </div>
-
         <div class="info-box" id="dealSuccess">
           <h5>🎉 Сделка активирована!</h5>
           <p>Монеты зачислены. Теперь отдай брейнротов админу в игре через Trade Machine и отправь ему код подтверждения:</p>
@@ -754,13 +429,11 @@ input[type=text]::placeholder{color:#5b5478}
           </div>
         </div>
       </div>
-
       <div class="wd-box">
         <h4>📜 Мои сделки</h4>
         <div class="req-list" id="myDealsList" style="margin-top:0"></div>
       </div>
     </div>
-
     <div id="exchangeAdminBlock" style="display:none;margin-top:20px">
       <div class="section-title" style="margin-top:0">🛡️ Панель админа · Создание сделки</div>
       <div class="admin-grid">
@@ -788,7 +461,6 @@ input[type=text]::placeholder{color:#5b5478}
             </div>
           </div>
         </div>
-
         <div class="adm-box">
           <h4>🔎 Подтвердить выдачу в игре</h4>
           <div class="hint">Когда игрок отдал брейнротов в игре — он пришлёт тебе код подтверждения. Вставь его сюда.</div>
@@ -799,7 +471,6 @@ input[type=text]::placeholder{color:#5b5478}
           <button class="btn green" id="dealConfirmAdminBtn">✅ Подтвердить выдачу</button>
         </div>
       </div>
-
       <div class="adm-box" style="margin-top:16px">
         <h4>📋 Мои созданные сделки</h4>
         <div class="req-adm-list" id="adminDealsList"></div>
@@ -851,115 +522,137 @@ input[type=text]::placeholder{color:#5b5478}
   </section>
 
   <section class="panel" id="panel-admin">
-    <div class="admin-hero">
-      <div class="ico">🛡️</div>
-      <div class="txt">
-        <h3>Админ-панель</h3>
-        <p>Промокоды, выдача ресурсов, скип таймеров, обработка выводов и Discord-уведомления</p>
+    <!-- ФОРМА ВХОДА -->
+    <div id="adminLogin">
+      <div class="login-hero">
+        <div class="ico">🔐</div>
+        <h3 id="adminLoginTitle">Вход в админ-панель</h3>
+        <p id="adminLoginSub">Введи пароль для доступа</p>
+      </div>
+      <div class="login-box">
+        <label id="adminPassLabel">Пароль</label>
+        <input type="password" id="adminPasswordInput" placeholder="••••••••" maxlength="64" autocomplete="new-password">
+        <div class="btn-row">
+          <button class="btn orange" id="adminLoginBtn">🔓 Войти</button>
+        </div>
+        <div class="hint" id="adminLoginHint">
+          При первом входе <b>придумай пароль</b> — он сохранится в этом браузере.<br>
+          Пароль хранится как SHA-256 хеш и не читается через Ctrl+U.
+        </div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="btn ghost small" id="adminResetPasswordBtn" style="color:#ef4444;flex:1">🗑️ Забыли пароль?</button>
+        </div>
       </div>
     </div>
 
-    <div class="admin-grid">
-      <div class="adm-box">
-        <h4>🆔 Мой ID игрока</h4>
-        <div class="hint">ID сохраняется в браузере. Если теряется — введи один из админских ID и нажми «Закрепить ID».</div>
-        <div class="adm-id-display" id="admCurrentId">BR-000000</div>
-        <div class="adm-field">
-          <label>Установить новый ID</label>
-          <input type="text" id="admNewId" placeholder="BR-GL43DYPP" maxlength="16" style="text-transform:uppercase">
+    <!-- АДМИНКА (после входа) -->
+    <div id="adminContent" style="display:none">
+      <div class="admin-hero">
+        <div class="ico">🛡️</div>
+        <div class="txt">
+          <h3>Админ-панель</h3>
+          <p>Промокоды, выдача ресурсов, скип таймеров, обработка выводов и Discord-уведомления</p>
         </div>
-        <div class="adm-row">
-          <button class="btn orange small" id="admSetId">🔒 Закрепить ID</button>
-          <button class="btn ghost small" id="admResetId" style="color:#ef4444">🗑️ Сбросить ID</button>
+        <div style="margin-left:auto">
+          <button class="btn ghost small" id="adminLogoutBtn" style="color:#ef4444">🚪 Выйти</button>
         </div>
-        <div class="hint" style="margin-top:4px">Админские ID: <b style="color:#f0abfc">BR-GL43DYPP</b> · <b style="color:#f0abfc">BR-H2WN9GYM</b></div>
       </div>
-
-      <div class="adm-box">
-        <h4>🔗 Discord Webhook</h4>
-        <div class="hint">Вставь URL вебхука — каждая заявка на вывод будет автоматически приходить в твой Discord-канал. Создать: <b style="color:#fbbf24">Настройки канала → Интеграции → Вебхуки → Новый вебхук → Копировать URL</b>.</div>
-        <div class="adm-field">
-          <label>Webhook URL</label>
-          <input type="url" id="admWebhook" placeholder="https://discord.com/api/webhooks/...">
-        </div>
-        <div class="adm-row">
-          <button class="btn orange small" id="admSaveWebhook">💾 Сохранить</button>
-          <button class="btn cyan small" id="admTestWebhook">🧪 Тест</button>
-          <button class="btn ghost small" id="admClearWebhook" style="color:#ef4444">🗑️ Очистить</button>
-        </div>
-        <div class="hint" id="webhookStatus">Статус: не настроен</div>
-      </div>
-
-      <div class="adm-box">
-        <h4>🎟️ Создать промокод</h4>
-        <div class="adm-field">
-          <label>Код промокода</label>
-          <div class="adm-row">
-            <input type="text" id="admPromoCode" placeholder="BRAINROT2024" maxlength="24" style="text-transform:uppercase">
-            <button class="btn orange small" id="admGenCode" style="width:auto;flex:0 0 auto" title="Случайный код">🎲</button>
+      <div class="admin-grid">
+        <div class="adm-box">
+          <h4>🔒 Пароль админки</h4>
+          <div class="hint">Сменить пароль. После смены старый перестанет работать.</div>
+          <div class="adm-field">
+            <label>Новый пароль</label>
+            <input type="password" id="admNewPassword" placeholder="Минимум 6 символов" maxlength="64">
           </div>
-        </div>
-        <div class="adm-field">
-          <label>Какой кейс открывает промокод</label>
-          <select id="admPromoCase">
-            <option value="free">🎁 Бесплатный кейс</option>
-            <option value="basic">📦 Стандарт</option>
-            <option value="rare" selected>💎 Премиум</option>
-            <option value="myth">👑 Мифический</option>
-          </select>
-        </div>
-        <div class="adm-field">
-          <label>Максимум активаций</label>
-          <input type="number" id="admPromoUses" value="1" min="1" max="9999">
-        </div>
-        <button class="btn orange" id="admCreatePromo">Создать промокод</button>
-      </div>
-
-      <div class="adm-box">
-        <h4>⚙️ Быстрые действия</h4>
-        <button class="btn green" id="admSkipTimer">⏩ Скипнуть таймер бесплатного кейса</button>
-        <button class="btn cyan" id="admSkipTimer10">⏩ Скипнуть сразу 10 кейсов</button>
-
-        <div class="adm-field" style="margin-top:8px">
-          <label>Выдать монеты</label>
           <div class="adm-row">
-            <input type="number" id="admCoins" placeholder="100000" min="1">
-            <button class="btn small" id="admGiveCoins" style="width:auto;flex:0 0 auto">Выдать</button>
+            <button class="btn orange small" id="admChangePasswordBtn">💾 Сменить пароль</button>
           </div>
         </div>
 
-        <div class="adm-field">
-          <label>Выдать предмет</label>
-          <div class="adm-row">
-            <select id="admItemSelect" style="flex:1;min-width:0"></select>
-            <button class="btn small" id="admGiveItem" style="width:auto;flex:0 0 auto">Выдать</button>
+        <div class="adm-box">
+          <h4>🔗 Discord Webhook</h4>
+          <div class="hint">Вставь URL вебхука — каждая заявка на вывод будет автоматически приходить в твой Discord-канал. Создать: <b style="color:#fbbf24">Настройки канала → Интеграции → Вебхуки → Новый вебхук → Копировать URL</b>.</div>
+          <div class="adm-field">
+            <label>Webhook URL</label>
+            <input type="url" id="admWebhook" placeholder="https://discord.com/api/webhooks/...">
           </div>
+          <div class="adm-row">
+            <button class="btn orange small" id="admSaveWebhook">💾 Сохранить</button>
+            <button class="btn cyan small" id="admTestWebhook">🧪 Тест</button>
+            <button class="btn ghost small" id="admClearWebhook" style="color:#ef4444">🗑️ Очистить</button>
+          </div>
+          <div class="hint" id="webhookStatus">Статус: не настроен</div>
         </div>
 
-        <button class="btn ghost" id="admResetInv" style="margin-top:6px">🗑️ Очистить инвентарь</button>
-      </div>
-
-      <div class="adm-box">
-        <h4>💾 Хранилище</h4>
-        <div class="hint">Если сохранение не работает — браузер блокирует localStorage. Проверь статус и сохрани данные вручную.</div>
-        <div class="adm-row">
-          <button class="btn cyan small" id="admSaveNow">💾 Сохранить сейчас</button>
-          <button class="btn ghost small" id="admExport">📤 Экспорт JSON</button>
-          <button class="btn ghost small" id="admImport">📥 Импорт JSON</button>
+        <div class="adm-box">
+          <h4>🎟️ Создать промокод</h4>
+          <div class="adm-field">
+            <label>Код промокода</label>
+            <div class="adm-row">
+              <input type="text" id="admPromoCode" placeholder="BRAINROT2024" maxlength="24" style="text-transform:uppercase">
+              <button class="btn orange small" id="admGenCode" style="width:auto;flex:0 0 auto" title="Случайный код">🎲</button>
+            </div>
+          </div>
+          <div class="adm-field">
+            <label>Какой кейс открывает промокод</label>
+            <select id="admPromoCase">
+              <option value="free">🎁 Бесплатный кейс</option>
+              <option value="basic">📦 Стандарт</option>
+              <option value="rare" selected>💎 Премиум</option>
+              <option value="myth">👑 Мифический</option>
+            </select>
+          </div>
+          <div class="adm-field">
+            <label>Максимум активаций</label>
+            <input type="number" id="admPromoUses" value="1" min="1" max="9999">
+          </div>
+          <button class="btn orange" id="admCreatePromo">Создать промокод</button>
         </div>
-        <div class="hint" id="storageStatus">Статус: проверка...</div>
+
+        <div class="adm-box">
+          <h4>⚙️ Быстрые действия</h4>
+          <button class="btn green" id="admSkipTimer">⏩ Скипнуть таймер бесплатного кейса</button>
+          <button class="btn cyan" id="admSkipTimer10">⏩ Скипнуть сразу 10 кейсов</button>
+          <div class="adm-field" style="margin-top:8px">
+            <label>Выдать монеты</label>
+            <div class="adm-row">
+              <input type="number" id="admCoins" placeholder="100000" min="1">
+              <button class="btn small" id="admGiveCoins" style="width:auto;flex:0 0 auto">Выдать</button>
+            </div>
+          </div>
+          <div class="adm-field">
+            <label>Выдать предмет</label>
+            <div class="adm-row">
+              <select id="admItemSelect" style="flex:1;min-width:0"></select>
+              <button class="btn small" id="admGiveItem" style="width:auto;flex:0 0 auto">Выдать</button>
+            </div>
+          </div>
+          <button class="btn ghost" id="admResetInv" style="margin-top:6px">🗑️ Очистить инвентарь</button>
+        </div>
+
+        <div class="adm-box">
+          <h4>💾 Хранилище</h4>
+          <div class="hint">Если сохранение не работает — браузер блокирует localStorage. Проверь статус и сохрани данные вручную.</div>
+          <div class="adm-row">
+            <button class="btn cyan small" id="admSaveNow">💾 Сохранить сейчас</button>
+            <button class="btn ghost small" id="admExport">📤 Экспорт JSON</button>
+            <button class="btn ghost small" id="admImport">📥 Импорт JSON</button>
+          </div>
+          <div class="hint" id="storageStatus">Статус: проверка...</div>
+        </div>
       </div>
-    </div>
 
-    <div class="adm-box" style="margin-top:16px">
-      <h4>📤 Заявки на вывод</h4>
-      <div class="hint">Заявки, созданные в этом браузере. Для выдачи в игре — используй ник и предметы из заявки.</div>
-      <div class="req-adm-list" id="adminReqList"></div>
-    </div>
+      <div class="adm-box" style="margin-top:16px">
+        <h4>📤 Заявки на вывод</h4>
+        <div class="hint">Заявки, созданные в этом браузере. Для выдачи в игре — используй ник и предметы из заявки.</div>
+        <div class="req-adm-list" id="adminReqList"></div>
+      </div>
 
-    <div class="adm-box" style="margin-top:16px">
-      <h4>📋 Активные промокоды</h4>
-      <div class="promo-code-list" id="adminPromoList"></div>
+      <div class="adm-box" style="margin-top:16px">
+        <h4>📋 Активные промокоды</h4>
+        <div class="promo-code-list" id="adminPromoList"></div>
+      </div>
     </div>
   </section>
 </div>
@@ -980,8 +673,7 @@ input[type=text]::placeholder{color:#5b5478}
 
 <script>
 /* ==================== КОНСТАНТЫ ==================== */
-const ADMIN_IDS = ['BR-GL43DYPP', 'BR-H2WN9GYM'];
-const KEY = 'brainrot_save_v8';
+const KEY = 'brainrot_save_v9';
 
 const RARITY = {
   common:    { name:'Обычный',     color:'#9ca3af' },
@@ -1085,6 +777,8 @@ let state = {
   webhook: '',
   sentDeals: [],
   receivedDeals: [],
+  adminPasswordHash: '',
+  adminAuthed: false,
   stats: { opened:0, upgrades:0, bestDrop:0, bestDropName:'', promosUsed:0 },
   profile: { id:'', nick:'', joined:0, ach:[] }
 };
@@ -1094,6 +788,13 @@ let upgBusy = false;
 let wdSel = new Set();
 let lastReqCode = null;
 let pendingDeal = null;
+
+/* ==================== SHA-256 ==================== */
+async function sha256Hex(str){
+  const buf = new TextEncoder().encode(str);
+  const hashBuf = await crypto.subtle.digest('SHA-256', buf);
+  return Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
 
 /* ==================== УТИЛИТЫ ==================== */
 const fmt = n => Math.round(n).toLocaleString('ru-RU');
@@ -1122,6 +823,8 @@ function load(){
       state.sentDeals = state.sentDeals||[]; state.receivedDeals = state.receivedDeals||[];
       state.stats = Object.assign({ opened:0, upgrades:0, bestDrop:0, bestDropName:'', promosUsed:0 }, state.stats||{});
       state.profile = Object.assign({ id:'', nick:'', joined:0, ach:[] }, state.profile||{});
+      if (typeof state.adminPasswordHash !== 'string') state.adminPasswordHash = '';
+      if (typeof state.adminAuthed !== 'boolean') state.adminAuthed = false;
     }
   }catch(e){}
 }
@@ -1133,13 +836,83 @@ function ensureProfile(){
   if(!state.profile.ach){ state.profile.ach = []; changed = true; }
   if(changed) save();
 }
-function isAdmin(){ return ADMIN_IDS.includes(state.profile.id); }
+function isAdmin(){ return state.adminAuthed === true; }
 function genPromoCode(){ const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let s=''; for(let i=0;i<10;i++) s+=c[Math.floor(Math.random()*c.length)]; return s; }
 
 /* ==================== XP ==================== */
 function xpTotal(){ return state.stats.opened*15 + state.stats.upgrades*40 + state.requests.length*25 + (state.stats.promosUsed||0)*20 + (state.receivedDeals||[]).length*50; }
 function xpNeeded(l){ return 100 + (l-1)*75; }
 function levelInfo(){ let xp=xpTotal(), lvl=1, need=xpNeeded(1); while(xp>=need){ xp-=need; lvl++; need=xpNeeded(lvl); } return { level:lvl, xp, need }; }
+
+/* ==================== АДМИН-АВТОРИЗАЦИЯ ==================== */
+async function adminLogin(){
+  const input = document.getElementById('adminPasswordInput');
+  const pwd = input.value;
+  if(!pwd || pwd.length < 4) return toast('❌ Пароль слишком короткий (мин. 4 символа)');
+
+  const hash = await sha256Hex(pwd);
+
+  if (!state.adminPasswordHash){
+    // Первый вход — настройка пароля
+    if (pwd.length < 6) return toast('❌ Для первого раза нужен пароль от 6 символов');
+    state.adminPasswordHash = hash;
+    state.adminAuthed = true;
+    save();
+    input.value = '';
+    toast('🔐 Пароль установлен! Добро пожаловать.');
+    renderAdmin();
+    renderTop();
+    renderProfile();
+    return;
+  }
+
+  // Обычный вход
+  if (state.adminPasswordHash === hash){
+    state.adminAuthed = true;
+    save();
+    input.value = '';
+    toast('✅ Добро пожаловать в админку!');
+    renderAdmin();
+    renderTop();
+    renderProfile();
+  } else {
+    toast('❌ Неверный пароль');
+    input.value = '';
+    input.focus();
+  }
+}
+
+function adminLogout(){
+  state.adminAuthed = false;
+  save();
+  renderAdmin();
+  renderTop();
+  renderProfile();
+  toast('👋 Вы вышли из админки');
+}
+
+async function adminChangePassword(){
+  if (!state.adminAuthed) return toast('Сначала войдите');
+  const pwd = document.getElementById('admNewPassword').value;
+  if (!pwd || pwd.length < 6) return toast('❌ Пароль от 6 символов');
+  if (!confirm('Сменить пароль админки?')) return;
+  state.adminPasswordHash = await sha256Hex(pwd);
+  save();
+  document.getElementById('admNewPassword').value = '';
+  toast('✅ Пароль изменён!');
+}
+
+function adminResetPassword(){
+  if (!confirm('Забыли пароль? Это сбросит пароль админки.')) return;
+  if (!confirm('Все игровые данные (монеты, инвентарь, промокоды) останутся. Сбросится только пароль. Продолжить?')) return;
+  state.adminPasswordHash = '';
+  state.adminAuthed = false;
+  save();
+  renderAdmin();
+  renderTop();
+  renderProfile();
+  toast('🔐 Пароль сброшен. Введите новый.');
+}
 
 /* ==================== DISCORD ==================== */
 async function sendToDiscord(payload){
@@ -1323,6 +1096,9 @@ function renderTop(){
   const ava = document.getElementById('miniAva');
   ava.textContent = initials(state.profile.nick);
   ava.classList.toggle('admin', isAdmin());
+  // Admin tab styling
+  const tab = document.getElementById('adminTab');
+  if (tab) tab.classList.toggle('unlocked', isAdmin());
 }
 function renderInventory(){
   const g = document.getElementById('invGrid');
@@ -1444,10 +1220,34 @@ function checkAchievements(){
 
 /* ==================== АДМИН ==================== */
 function renderAdmin(){
-  const tab = document.getElementById('adminTab');
-  tab.style.display = isAdmin() ? 'flex' : 'none';
-  if(!isAdmin()) return;
-  document.getElementById('admCurrentId').textContent = state.profile.id;
+  const loginEl = document.getElementById('adminLogin');
+  const contentEl = document.getElementById('adminContent');
+  if(!loginEl || !contentEl) return;
+
+  if(!state.adminAuthed){
+    loginEl.style.display = 'block';
+    contentEl.style.display = 'none';
+    const title = document.getElementById('adminLoginTitle');
+    const sub = document.getElementById('adminLoginSub');
+    const hint = document.getElementById('adminLoginHint');
+    const label = document.getElementById('adminPassLabel');
+    if (!state.adminPasswordHash){
+      title.textContent = '🔐 Первичная настройка';
+      sub.textContent = 'Придумай пароль для админки. Он сохранится в этом браузере.';
+      hint.innerHTML = 'Пароль хранится как <b>SHA-256 хеш</b> — его невозможно прочитать через Ctrl+U или найти в коде сайта.';
+      label.textContent = 'Придумайте пароль';
+    } else {
+      title.textContent = '🔐 Вход в админ-панель';
+      sub.textContent = 'Введи пароль, который ты установил ранее';
+      hint.innerHTML = 'Пароль знаешь только ты. Если забыл — сбрось через кнопку ниже и настрой заново.';
+      label.textContent = 'Пароль';
+    }
+    return;
+  }
+
+  loginEl.style.display = 'none';
+  contentEl.style.display = 'block';
+
   document.getElementById('admWebhook').value = state.webhook || '';
   updateWebhookStatus();
   const sel = document.getElementById('admItemSelect');
@@ -1457,8 +1257,8 @@ function renderAdmin(){
   }
   const st = document.getElementById('storageStatus');
   const mode = SafeStorage.mode;
-  if (mode==='localStorage') st.innerHTML='Статус: <b style="color:#4ade80">✅ localStorage работает</b> — ID сохранится';
-  else if (mode==='sessionStorage') st.innerHTML='Статус: <b style="color:#f59e0b">⚠️ sessionStorage</b> — ID сохранится до закрытия вкладки';
+  if (mode==='localStorage') st.innerHTML='Статус: <b style="color:#4ade80">✅ localStorage работает</b>';
+  else if (mode==='sessionStorage') st.innerHTML='Статус: <b style="color:#f59e0b">⚠️ sessionStorage</b> — данные до закрытия вкладки';
   else if (mode==='cookie') st.innerHTML='Статус: <b style="color:#f59e0b">⚠️ cookie</b> — работает, но лимит ~4КБ';
   else st.innerHTML='Статус: <b style="color:#ef4444">❌ память</b> — сохранение не работает, используй экспорт';
   renderAdminPromos();
@@ -1519,6 +1319,7 @@ function renderAdminPromos(){
     </div>`).join('');
 }
 function adminCreatePromo(){
+  if(!state.adminAuthed) return toast('Сначала войдите');
   const ci = document.getElementById('admPromoCode');
   const code = (ci.value||'').trim().toUpperCase();
   const caseKey = document.getElementById('admPromoCase').value;
@@ -1531,14 +1332,16 @@ function adminCreatePromo(){
   toast(`✅ Промокод «${code}» создан (${CASES[caseKey].name})`);
 }
 function adminDeletePromo(code){
+  if(!state.adminAuthed) return;
   if(!state.promos[code]) return;
   delete state.promos[code];
   save(); renderAdminPromos();
   toast('🗑️ Промокод «'+code+'» удалён');
 }
-function adminSkipTimer(){ state.lastFree = 0; save(); tickFree(); toast('⏩ Таймер бесплатного кейса скипнут'); }
-function adminSkipTimer10(){ state.lastFree = 0; save(); tickFree(); toast('⏩ Кулдаун сброшен — открывай бесплатный кейс'); }
+function adminSkipTimer(){ if(!state.adminAuthed) return; state.lastFree = 0; save(); tickFree(); toast('⏩ Таймер бесплатного кейса скипнут'); }
+function adminSkipTimer10(){ if(!state.adminAuthed) return; state.lastFree = 0; save(); tickFree(); toast('⏩ Кулдаун сброшен — открывай бесплатный кейс'); }
 function adminGiveCoins(){
+  if(!state.adminAuthed) return;
   const i = document.getElementById('admCoins');
   const n = parseInt(i.value);
   if(!n || n<=0) return toast('Введи положительное число');
@@ -1546,6 +1349,7 @@ function adminGiveCoins(){
   toast(`💰 Выдано ${fmt(n)} ₡`);
 }
 function adminGiveItem(){
+  if(!state.adminAuthed) return;
   const id = document.getElementById('admItemSelect').value;
   if(!ITEM_MAP[id]) return;
   state.inv.push({ uid:uid(), itemId:id });
@@ -1555,23 +1359,10 @@ function adminGiveItem(){
   toast(`🎁 Выдан: ${it.emoji} ${it.name}`);
 }
 function adminResetInv(){
+  if(!state.adminAuthed) return;
   if(!confirm('Точно очистить инвентарь? Действие необратимо.')) return;
   state.inv = []; upgBet.clear(); wdSel.clear();
   save(); renderAll(); toast('🗑️ Инвентарь очищен');
-}
-function adminSetId(){
-  const i = document.getElementById('admNewId');
-  const newId = (i.value||'').trim().toUpperCase();
-  if(!newId) return toast('Введи ID');
-  if(!/^BR-[A-Z0-9]{4,12}$/.test(newId)) return toast('Формат: BR-XXXXXXXX (A-Z, 0-9)');
-  state.profile.id = newId; i.value=''; save(); renderAll();
-  if (ADMIN_IDS.includes(newId)) toast('👑 ID закреплён: ты админ!');
-  else toast('✅ ID изменён на ' + newId);
-}
-function adminResetId(){
-  if(!confirm('Сбросить ID? Следующий заход создаст новый.')) return;
-  state.profile.id=''; save(); ensureProfile(); save(); renderAll();
-  toast('🔄 ID сброшен и создан новый: ' + state.profile.id);
 }
 function adminSaveNow(){
   save();
@@ -1618,33 +1409,15 @@ async function adminTestWebhook(){
 }
 
 /* ==================== СДЕЛКИ ==================== */
-function b64enc(s){
-  return btoa(unescape(encodeURIComponent(s)))
-    .replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
-}
-function b64dec(s){
-  try{
-    let b = s.replace(/-/g,'+').replace(/_/g,'/');
-    while(b.length % 4) b += '=';
-    return decodeURIComponent(escape(atob(b)));
-  }catch(e){ return null; }
-}
+function b64enc(s){ return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,''); }
+function b64dec(s){ try{ let b = s.replace(/-/g,'+').replace(/_/g,'/'); while(b.length % 4) b += '='; return decodeURIComponent(escape(atob(b))); }catch(e){ return null; } }
 function encodeDeal(d){ return 'DEAL-' + b64enc(JSON.stringify(d)); }
-function decodeDeal(code){
-  if(!code.startsWith('DEAL-')) return null;
-  const j = b64dec(code.slice(5));
-  if(!j) return null;
-  try{ return JSON.parse(j); }catch(e){ return null; }
-}
+function decodeDeal(code){ if(!code.startsWith('DEAL-')) return null; const j = b64dec(code.slice(5)); if(!j) return null; try{ return JSON.parse(j); }catch(e){ return null; } }
 function encodeConfirm(d){ return 'CONFIRM-' + b64enc(JSON.stringify(d)); }
-function decodeConfirm(code){
-  if(!code.startsWith('CONFIRM-')) return null;
-  const j = b64dec(code.slice(8));
-  if(!j) return null;
-  try{ return JSON.parse(j); }catch(e){ return null; }
-}
+function decodeConfirm(code){ if(!code.startsWith('CONFIRM-')) return null; const j = b64dec(code.slice(8)); if(!j) return null; try{ return JSON.parse(j); }catch(e){ return null; } }
+
 function createDeal(){
-  if(!isAdmin()) return toast('Только админ может создавать сделки');
+  if(!state.adminAuthed) return toast('Сначала войдите в админку');
   const toId = (document.getElementById('dealToId').value||'').trim().toUpperCase();
   const amount = parseInt(document.getElementById('dealAmount').value);
   const want = (document.getElementById('dealWant').value||'').trim();
@@ -1653,17 +1426,11 @@ function createDeal(){
   if(want.length < 2) return toast('Опиши, что хочешь взамен (мин. 2 символа)');
   const deal = { toId, amount, want, fromId: state.profile.id, ts: Date.now() };
   const code = encodeDeal(deal);
-  state.sentDeals.unshift({
-    code, toId, amount, want,
-    createdAt: Date.now(),
-    status: 'Ожидает активации'
-  });
+  state.sentDeals.unshift({ code, toId, amount, want, createdAt: Date.now(), status: 'Ожидает активации' });
   save(); renderAdminDeals(); renderExchange();
   document.getElementById('dealCreatedCode').textContent = code;
   document.getElementById('dealCreatedBox').classList.add('show');
-  document.getElementById('dealCopyCode').onclick = ()=>{
-    fallbackCopy(code); toast('📋 Код сделки скопирован!');
-  };
+  document.getElementById('dealCopyCode').onclick = ()=>{ fallbackCopy(code); toast('📋 Код сделки скопирован!'); };
   document.getElementById('dealToId').value = '';
   document.getElementById('dealAmount').value = '';
   document.getElementById('dealWant').value = '';
@@ -1674,12 +1441,8 @@ function previewDeal(){
   if(!code.startsWith('DEAL-')) return toast('Неверный формат кода (должен начинаться с DEAL-)');
   const deal = decodeDeal(code);
   if(!deal) return toast('❌ Не удалось расшифровать код');
-  if(deal.toId !== state.profile.id){
-    return toast('❌ Эта сделка не для тебя (для ' + deal.toId + ')');
-  }
-  if(state.receivedDeals.some(d => d.code === code)){
-    return toast('⚠️ Ты уже активировал эту сделку');
-  }
+  if(deal.toId !== state.profile.id) return toast('❌ Эта сделка не для тебя (для ' + deal.toId + ')');
+  if(state.receivedDeals.some(d => d.code === code)) return toast('⚠️ Ты уже активировал эту сделку');
   pendingDeal = { code, ...deal };
   const body = document.getElementById('dealPreviewBody');
   body.innerHTML = `
@@ -1696,34 +1459,19 @@ async function acceptDeal(){
   const d = pendingDeal;
   pendingDeal = null;
   state.coins += d.amount;
-  const confirmCode = encodeConfirm({
-    dealCode: d.code,
-    playerId: state.profile.id,
-    amount: d.amount,
-    ts: Date.now()
-  });
-  state.receivedDeals.unshift({
-    code: d.code, amount: d.amount, want: d.want, fromId: d.fromId,
-    acceptedAt: Date.now(), confirmCode, status: 'Ожидает выдачи в игре'
-  });
+  const confirmCode = encodeConfirm({ dealCode: d.code, playerId: state.profile.id, amount: d.amount, ts: Date.now() });
+  state.receivedDeals.unshift({ code: d.code, amount: d.amount, want: d.want, fromId: d.fromId, acceptedAt: Date.now(), confirmCode, status: 'Ожидает выдачи в игре' });
   save(); renderAll(); checkAchievements();
   document.getElementById('dealPreview').classList.remove('show');
   document.getElementById('dealConfirmCode').textContent = confirmCode;
   document.getElementById('dealSuccess').classList.add('show');
-  document.getElementById('dealCopyConfirm').onclick = ()=>{
-    fallbackCopy(confirmCode); toast('📋 Код подтверждения скопирован!');
-  };
+  document.getElementById('dealCopyConfirm').onclick = ()=>{ fallbackCopy(confirmCode); toast('📋 Код подтверждения скопирован!'); };
   document.getElementById('dealCodeInput').value = '';
   toast(`💰 +${fmt(d.amount)} ₡ зачислено! Отдай брейнротов в игре.`);
-  await notifyDealAccepted({
-    playerId: state.profile.id,
-    amount: d.amount,
-    want: d.want,
-    code: d.code
-  });
+  await notifyDealAccepted({ playerId: state.profile.id, amount: d.amount, want: d.want, code: d.code });
 }
 function confirmDealAdmin(){
-  if(!isAdmin()) return toast('Только админ может подтверждать');
+  if(!state.adminAuthed) return toast('Сначала войдите');
   const code = (document.getElementById('dealConfirmInput').value||'').trim();
   if(!code.startsWith('CONFIRM-')) return toast('Неверный формат (должен начинаться с CONFIRM-)');
   const conf = decodeConfirm(code);
@@ -1742,7 +1490,7 @@ function confirmDealAdmin(){
 }
 function renderExchange(){
   const adm = document.getElementById('exchangeAdminBlock');
-  if(adm) adm.style.display = isAdmin() ? 'block' : 'none';
+  if(adm) adm.style.display = state.adminAuthed ? 'block' : 'none';
   const list = document.getElementById('myDealsList');
   if(list){
     if(!state.receivedDeals.length){
@@ -1839,22 +1587,13 @@ async function doWithdraw(){
   const itemsForReq = [];
   wdSel.forEach(u=>{
     const o=m.get(u);
-    if(o){
-      const it = ITEM_MAP[o.itemId];
-      total += it.value;
-      itemsForReq.push({ itemId:o.itemId, name:it.name, emoji:it.emoji, value:it.value });
-    }
+    if(o){ const it = ITEM_MAP[o.itemId]; total += it.value; itemsForReq.push({ itemId:o.itemId, name:it.name, emoji:it.emoji, value:it.value }); }
   });
   if(total<5000) return toast('Минимальная сумма вывода — 5 000 ₡');
   if(wdSel.size===0) return toast('Выбери хотя бы один предмет');
   const count = wdSel.size;
   const code = 'BR-' + Math.random().toString(36).slice(2,8).toUpperCase();
-  const req = {
-    code, nick, value: total, count,
-    playerId: state.profile.id,
-    items: itemsForReq,
-    date: Date.now(), status: 'В обработке'
-  };
+  const req = { code, nick, value: total, count, playerId: state.profile.id, items: itemsForReq, date: Date.now(), status: 'В обработке' };
   state.inv = state.inv.filter(o=>!wdSel.has(o.uid));
   state.requests.unshift(req);
   wdSel.clear();
@@ -1910,14 +1649,13 @@ function cancelRequest(code){
   if(!r) return;
   if(r.status !== 'В обработке') return toast('Эту заявку уже нельзя отменить');
   if(!confirm('Отменить заявку? Предметы вернутся в инвентарь.')) return;
-  if(r.items && r.items.length){
-    r.items.forEach(it=>{ state.inv.push({ uid: uid(), itemId: it.itemId }); });
-  }
+  if(r.items && r.items.length){ r.items.forEach(it=>{ state.inv.push({ uid: uid(), itemId: it.itemId }); }); }
   r.status = 'Отклонено';
   save(); renderAll();
   toast('↩️ Заявка отменена, предметы возвращены');
 }
 function adminMarkDone(code){
+  if(!state.adminAuthed) return;
   const r = state.requests.find(x=>x.code===code);
   if(!r) return;
   r.status = 'Выдано';
@@ -1925,12 +1663,11 @@ function adminMarkDone(code){
   toast('✅ Заявка помечена как выданная');
 }
 function adminReject(code){
+  if(!state.adminAuthed) return;
   const r = state.requests.find(x=>x.code===code);
   if(!r) return;
   if(!confirm('Отклонить заявку? Предметы вернутся в инвентарь игрока.')) return;
-  if(r.items && r.items.length){
-    r.items.forEach(it=>{ state.inv.push({ uid: uid(), itemId: it.itemId }); });
-  }
+  if(r.items && r.items.length){ r.items.forEach(it=>{ state.inv.push({ uid: uid(), itemId: it.itemId }); }); }
   r.status = 'Отклонено';
   save(); renderAll();
   toast('❌ Заявка отклонена, предметы возвращены');
@@ -2001,25 +1738,24 @@ document.getElementById('profId').addEventListener('click', copyId);
 document.getElementById('promoBtn').addEventListener('click', activatePromo);
 document.getElementById('promoInput').addEventListener('keydown', e=>{ if(e.key==='Enter') activatePromo(); });
 
-document.getElementById('wdCopyBtn').addEventListener('click', ()=>{
-  if(lastReqCode) copyRequestText(lastReqCode);
-});
-document.getElementById('wdCloseInfo').addEventListener('click', ()=>{
-  document.getElementById('wdInfo').classList.remove('show');
-});
+document.getElementById('wdCopyBtn').addEventListener('click', ()=>{ if(lastReqCode) copyRequestText(lastReqCode); });
+document.getElementById('wdCloseInfo').addEventListener('click', ()=>{ document.getElementById('wdInfo').classList.remove('show'); });
 
+// Admin login
+document.getElementById('adminLoginBtn').addEventListener('click', adminLogin);
+document.getElementById('adminPasswordInput').addEventListener('keydown', e=>{ if(e.key==='Enter') adminLogin(); });
+document.getElementById('adminResetPasswordBtn').addEventListener('click', adminResetPassword);
+document.getElementById('adminLogoutBtn').addEventListener('click', adminLogout);
+document.getElementById('admChangePasswordBtn').addEventListener('click', adminChangePassword);
+
+// Admin tools
 document.getElementById('admCreatePromo').addEventListener('click', adminCreatePromo);
-document.getElementById('admGenCode').addEventListener('click', ()=>{
-  document.getElementById('admPromoCode').value = genPromoCode();
-});
+document.getElementById('admGenCode').addEventListener('click', ()=>{ document.getElementById('admPromoCode').value = genPromoCode(); });
 document.getElementById('admSkipTimer').addEventListener('click', adminSkipTimer);
 document.getElementById('admSkipTimer10').addEventListener('click', adminSkipTimer10);
 document.getElementById('admGiveCoins').addEventListener('click', adminGiveCoins);
 document.getElementById('admGiveItem').addEventListener('click', adminGiveItem);
 document.getElementById('admResetInv').addEventListener('click', adminResetInv);
-document.getElementById('admSetId').addEventListener('click', adminSetId);
-document.getElementById('admResetId').addEventListener('click', adminResetId);
-document.getElementById('admNewId').addEventListener('keydown', e=>{ if(e.key==='Enter') adminSetId(); });
 document.getElementById('admSaveNow').addEventListener('click', adminSaveNow);
 document.getElementById('admExport').addEventListener('click', adminExport);
 document.getElementById('admImport').addEventListener('click', adminImport);
@@ -2039,6 +1775,7 @@ document.getElementById('admClearWebhook').addEventListener('click', ()=>{
   toast('🗑️ Webhook очищен');
 });
 
+// Deals
 document.getElementById('dealAcceptBtn').addEventListener('click', previewDeal);
 document.getElementById('dealConfirmBtn').addEventListener('click', acceptDeal);
 document.getElementById('dealCancelBtn').addEventListener('click', ()=>{
