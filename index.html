@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>brainrot_casser.ru — Кейсы · Апгрейдер · Обменник</title>
+<meta name="description" content="brainrot_casser.ru — открывай кейсы, апгрейди брейнротов, обменивай на реальные предметы в Steal a Brainrot!">
+<meta name="keywords" content="brainrot, кейсы, steal a brainrot, апгрейдер, брейнроты">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08060f;--panel:#130f22;--panel2:#1a1430;
+  --border:rgba(255,255,255,.08);--text:#eae7f7;--muted:#8b83a8;
+  --accent:#a855f7;--accent2:#22d3ee;
+}
+html,body{height:100%}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',sans-serif;
+  background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(600px 400px at 12% -5%, rgba(168,85,247,.22), transparent 70%),
+    radial-gradient(500px 400px at 88% 8%, rgba(34,211,238,.16), transparent 70%),
+    radial-gradient(700px 500px at 50% 110%, rgba(236,72,153,.12), transparent 70%);
+}
+.wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:0 16px 60px}
+header{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:blur(18px);background:rgba(10,7,20,.72);
+  border-bottom:1px solid var(--border);margin-bottom:24px;
+}
+.head-in{
+  max-width:1240px;margin:0 auto;padding:12px 16px;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.logo{
+  font-weight:900;font-size:20px;letter-spacing:.5px;
+  display:flex;align-items:center;gap:9px;white-space:nowrap;
+}
+.logo span{
+  background:linear-gradient(90deg,#a855f7,#22d3ee,#f0abfc);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.logo .brain{
+  filter:drop-shadow(0 0 10px rgba(168,85,247,.8));
+  animation:bob 3s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-4px) rotate(4deg)}}
+.spacer{flex:1}
+.head-user{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.mini-ava{
+  width:38px;height:38px;border-radius:12px;
+  background:linear-gradient(135deg,#a855f7,#22d3ee);
+  display:grid;place-items:center;font-weight:900;font-size:15px;color:#0b0616;
+  box-shadow:0 0 20px rgba(168,85,247,.4);
+  cursor:pointer;transition:.2s;flex-shrink:0;
+}
+.mini-ava:hover{transform:scale(1.07)}
+.mini-ava.admin{
+  background:linear-gradient(135deg,#f59e0b,#ef4444);
+  box-shadow:0 0 22px rgba(239,68,68,.55);
+}
+.mini-info{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.mini-nick{
+  font-weight:800;font-size:14px;max-width:150px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.mini-id{font-family:monospace;font-size:10.5px;color:var(--muted);letter-spacing:.5px}
+.balance{
+  display:flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,rgba(34,211,238,.14),rgba(168,85,247,.14));
+  border:1px solid rgba(34,211,238,.3);
+  padding:8px 16px;border-radius:12px;font-weight:800;font-size:14px;
+  box-shadow:0 0 22px rgba(34,211,238,.14);white-space:nowrap;
+  max-width:280px;overflow:hidden;text-overflow:ellipsis;
+}
+.balance .coin{
+  width:20px;height:20px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#fde047,#f59e0b);
+  display:grid;place-items:center;font-size:12px;color:#78350f;font-weight:900;
+  box-shadow:0 0 10px rgba(245,158,11,.6);
+}
+.tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.tab{
+  background:var(--panel);border:1px solid var(--border);color:var(--muted);
+  padding:11px 20px;border-radius:12px;cursor:pointer;font-size:14px;font-weight:700;
+  transition:.2s;font-family:inherit;display:flex;align-items:center;gap:8px;
+}
+.tab:hover{color:#fff;border-color:rgba(168,85,247,.5);transform:translateY(-2px)}
+.tab.active{
+  background:linear-gradient(135deg,rgba(168,85,247,.3),rgba(34,211,238,.16));
+  color:#fff;border-color:rgba(168,85,247,.75);
+  box-shadow:0 0 26px rgba(168,85,247,.3);
+}
+.tab.admin-tab{
+  background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(239,68,68,.14));
+  border-color:rgba(245,158,11,.5);color:#fbbf24;
+}
+.tab.admin-tab.active{
+  background:linear-gradient(135deg,rgba(245,158,11,.4),rgba(239,68,68,.25));
+  color:#fff;box-shadow:0 0 26px rgba(239,68,68,.4);border-color:rgba(245,158,11,.8);
+}
+.tab.exchange-tab{
+  background:linear-gradient(135deg,rgba(34,211,238,.2),rgba(74,222,128,.14));
+  border-color:rgba(34,211,238,.5);color:#22d3ee;
+}
+.tab.exchange-tab.active{
+  background:linear-gradient(135deg,rgba(34,211,238,.35),rgba(74,222,128,.2));
+  color:#fff;box-shadow:0 0 26px rgba(34,211,238,.4);border-color:rgba(34,211,238,.8);
+}
+.panel{display:none;animation:fade .35s ease}
+.panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.panel-head{margin-bottom:18px}
+.panel-head h2{font-size:23px;margin-bottom:5px}
+.panel-head p{color:var(--muted);font-size:14px}
+.panel-head b{color:var(--accent2)}
+.case-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.case-card{
+  position:relative;background:linear-gradient(165deg,var(--panel2),#0e0a1c);
+  border:1px solid var(--border);border-radius:20px;padding:24px 18px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;overflow:hidden;
+  transition:.25s;
+}
+.case-card:hover{transform:translateY(-5px);border-color:rgba(168,85,247,.55);box-shadow:0 14px 40px rgba(168,85,247,.22)}
+.case-card.free{
+  border-color:rgba(74,222,128,.45);
+  background:linear-gradient(165deg,rgba(74,222,128,.12),#0e0a1c);
+  box-shadow:0 0 40px rgba(74,222,128,.14);
+}
+.case-card.free::after{
+  content:'';position:absolute;inset:-2px;border-radius:20px;
+  background:conic-gradient(from 0deg,transparent,rgba(74,222,128,.5),transparent 30%);
+  animation:spinGlow 4s linear infinite;z-index:-1;
+}
+@keyframes spinGlow{to{transform:rotate(360deg)}}
+.case-emoji{font-size:52px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.6));animation:float 3.4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.case-name{font-weight:800;font-size:17px;text-align:center}
+.case-price{color:var(--muted);font-size:13px;margin-bottom:6px;text-align:center}
+.case-timer{font-size:12px;color:#4ade80;font-weight:700;letter-spacing:.5px;min-height:16px}
+.promo-block{
+  margin-top:22px;padding:22px;
+  background:linear-gradient(165deg,rgba(240,171,252,.08),#0e0a1c);
+  border:1px solid rgba(240,171,252,.3);border-radius:20px;
+  display:flex;flex-direction:column;gap:14px;
+  box-shadow:0 0 40px rgba(240,171,252,.1);
+}
+.promo-block h3{
+  font-size:16px;display:flex;align-items:center;gap:10px;
+  background:linear-gradient(90deg,#f0abfc,#22d3ee);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.promo-block .sub{font-size:12.5px;color:var(--muted);margin-top:-6px}
+.promo-row{display:flex;gap:10px;flex-wrap:wrap}
+.promo-row input{
+  flex:1;min-width:200px;font-family:inherit;font-size:15px;font-weight:800;
+  letter-spacing:2px;text-transform:uppercase;color:var(--text);
+  background:#0b0816;border:1px solid rgba(240,171,252,.35);border-radius:12px;
+  padding:13px 16px;outline:none;transition:.2s;
+}
+.promo-row input:focus{border-color:rgba(240,171,252,.8);box-shadow:0 0 0 3px rgba(240,171,252,.18)}
+.promo-row input::placeholder{color:#5b5478;letter-spacing:1px;font-weight:600}
+.promo-row .btn{width:auto;padding:13px 26px;flex-shrink:0}
+.btn{
+  font-family:inherit;font-weight:800;font-size:14px;cursor:pointer;
+  border:none;border-radius:12px;padding:11px 22px;transition:.2s;color:#fff;
+  background:linear-gradient(135deg,#a855f7,#7c3aed);
+  box-shadow:0 6px 20px rgba(168,85,247,.35);width:100%;
+}
+.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 28px rgba(168,85,247,.5)}
+.btn:active:not(:disabled){transform:translateY(0)}
+.btn:disabled,.btn.disabled{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none;filter:grayscale(.5)}
+.btn.green{background:linear-gradient(135deg,#22c55e,#15803d);box-shadow:0 6px 20px rgba(34,197,94,.35)}
+.btn.green:hover:not(:disabled){box-shadow:0 10px 28px rgba(34,197,94,.5)}
+.btn.cyan{background:linear-gradient(135deg,#22d3ee,#0891b2);box-shadow:0 6px 20px rgba(34,211,238,.3)}
+.btn.pink{background:linear-gradient(135deg,#f0abfc,#a855f7);box-shadow:0 6px 20px rgba(240,171,252,.35)}
+.btn.orange{background:linear-gradient(135deg,#f59e0b,#dc2626);box-shadow:0 6px 20px rgba(239,68,68,.35)}
+.btn.red{background:linear-gradient(135deg,#ef4444,#b91c1c);box-shadow:0 6px 20px rgba(239,68,68,.35)}
+.btn.ghost{background:transparent;border:1px solid var(--border);box-shadow:none}
+.btn.ghost:hover:not(:disabled){border-color:rgba(168,85,247,.6);background:rgba(168,85,247,.08)}
+.btn.small{padding:8px 14px;font-size:12.5px;width:auto}
+.info-box{
+  margin-top:14px;padding:16px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(34,197,94,.14),rgba(34,211,238,.08));
+  border:1px solid rgba(34,197,94,.45);
+  display:none;flex-direction:column;gap:10px;
+  animation:fade .3s;
+}
+.info-box.show{display:flex}
+.info-box h5{
+  font-size:14px;color:#4ade80;font-weight:800;
+  display:flex;align-items:center;gap:8px;
+}
+.info-box p{font-size:12.5px;color:var(--muted);line-height:1.5}
+.info-box code{
+  font-family:monospace;font-size:12px;font-weight:900;color:#22d3ee;
+  background:#0b0816;border:1px solid rgba(34,211,238,.35);
+  border-radius:8px;padding:10px 12px;display:block;
+  letter-spacing:1px;word-break:break-all;line-height:1.5;max-height:120px;overflow-y:auto;
+}
+.info-box .row{display:flex;gap:8px;flex-wrap:wrap}
+.info-box .row .btn{width:auto;flex:1;font-size:12px;padding:9px 12px}
+.admin-hero{
+  background:linear-gradient(135deg,rgba(245,158,11,.14),rgba(239,68,68,.1));
+  border:1px solid rgba(245,158,11,.4);border-radius:20px;padding:20px 24px;
+  display:flex;align-items:center;gap:16px;margin-bottom:20px;
+  box-shadow:0 0 40px rgba(239,68,68,.14);
+}
+.admin-hero .ico{font-size:38px;filter:drop-shadow(0 0 12px rgba(245,158,11,.7))}
+.admin-hero .txt h3{font-size:18px;margin-bottom:3px;color:#fbbf24}
+.admin-hero .txt p{font-size:12.5px;color:#d4a86a}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:900px){.admin-grid{grid-template-columns:1fr}}
+.adm-box{
+  background:linear-gradient(165deg,var(--panel2),#0d0919);
+  border:1px solid rgba(245,158,11,.25);border-radius:18px;padding:18px;
+  display:flex;flex-direction:column;gap:12px;
+}
+.adm-box h4{
+  font-size:12.5px;text-transform:uppercase;letter-spacing:1.4px;color:#fbbf24;
+  display:flex;align-items:center;gap:8px;margin-bottom:2px;
+}
+.adm-box .hint{font-size:11.5px;color:var(--muted);line-height:1.4}
+.adm-box input[type=text],.adm-box input[type=number],.adm-box input[type=url],.adm-box select,.adm-box textarea{
+  font-family:inherit;font-size:13.5px;font-weight:600;color:var(--text);
+  background:#0b0816;border:1px solid var(--border);border-radius:10px;
+  padding:11px 13px;outline:none;transition:.2s;width:100%;
+}
+.adm-box textarea{resize:vertical;min-height:60px;font-family:monospace;font-size:12px}
+.adm-box input:focus,.adm-box select:focus,.adm-box textarea:focus{
+  border-color:rgba(245,158,11,.6);box-shadow:0 0 0 3px rgba(245,158,11,.14);
+}
+.adm-box input::placeholder,.adm-box textarea::placeholder{color:#5b5478}
+.adm-box label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.adm-field{display:flex;flex-direction:column;gap:5px}
+.adm-row{display:flex;gap:8px;flex-wrap:wrap}
+.adm-row .btn{width:auto;flex:1}
+.adm-id-display{
+  font-family:monospace;font-size:16px;font-weight:900;letter-spacing:2px;
+  color:#22d3ee;background:#0b0816;border:1px dashed rgba(34,211,238,.4);
+  border-radius:10px;padding:12px 14px;text-align:center;
+  overflow:hidden;text-overflow:ellipsis;
+}
+.promo-code-list,.req-adm-list{
+  display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;
+  padding-right:4px;
+}
+.promo-code-list::-webkit-scrollbar,.req-adm-list::-webkit-scrollbar{width:6px}
+.promo-code-list::-webkit-scrollbar-thumb,.req-adm-list::-webkit-scrollbar-thumb{background:rgba(245,158,11,.4);border-radius:6px}
+.pc-item{
+  background:#0b0816;border:1px solid var(--border);border-radius:11px;
+  padding:10px 12px;display:flex;justify-content:space-between;align-items:center;
+  gap:10px;flex-wrap:wrap;
+}
+.pc-item .pc-code{
+  font-family:monospace;font-weight:900;font-size:13px;color:#f0abfc;letter-spacing:1px;
+}
+.pc-item .pc-info{font-size:11px;color:var(--muted);margin-top:2px}
+.pc-item .pc-uses{
+  background:rgba(34,211,238,.14);color:#22d3ee;
+  padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:800;
+}
+.pc-item .pc-del{
+  width:26px;height:26px;border-radius:8px;border:none;cursor:pointer;
+  background:rgba(239,68,68,.16);color:#ef4444;font-weight:900;font-size:13px;
+  display:grid;place-items:center;transition:.15s;font-family:inherit;
+}
+.pc-item .pc-del:hover{background:#ef4444;color:#fff}
+.no-promos{color:#5b5478;font-size:12px;text-align:center;padding:12px}
+.req-adm{
+  background:#0b0816;border:1px solid var(--border);border-radius:12px;
+  padding:12px 14px;display:flex;flex-direction:column;gap:8px;
+}
+.req-adm.pending{border-color:rgba(245,158,11,.45)}
+.req-adm.done{border-color:rgba(34,197,94,.45);opacity:.75}
+.req-adm.cancelled{border-color:rgba(239,68,68,.45);opacity:.6}
+.req-adm .ra-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.req-adm .ra-code{font-family:monospace;font-weight:900;color:#22d3ee;font-size:13px}
+.req-adm .ra-status{
+  padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:800;letter-spacing:.5px;
+}
+.req-adm.pending .ra-status{background:rgba(245,158,11,.16);color:#f59e0b;border:1px solid rgba(245,158,11,.4)}
+.req-adm.done .ra-status{background:rgba(34,197,94,.16);color:#4ade80;border:1px solid rgba(34,197,94,.4)}
+.req-adm.cancelled .ra-status{background:rgba(239,68,68,.16);color:#ef4444;border:1px solid rgba(239,68,68,.4)}
+.req-adm .ra-info{font-size:12px;color:var(--muted);line-height:1.5}
+.req-adm .ra-info b{color:var(--text)}
+.req-adm .ra-actions{display:flex;gap:6px;flex-wrap:wrap}
+.req-adm .ra-actions .btn{width:auto;font-size:11.5px;padding:7px 12px}
+.profile-grid{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
+@media(max-width:900px){.profile-grid{grid-template-columns:1fr}}
+.profile-card{
+  background:linear-gradient(165deg,var(--panel2),#0d0919);
+  border:1px solid var(--border);border-radius:22px;padding:26px 22px;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  position:relative;overflow:hidden;
+}
+.profile-card::before{
+  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle,rgba(168,85,247,.35),transparent 70%);
+  pointer-events:none;
+}
+.big-ava{
+  position:relative;width:104px;height:104px;border-radius:26px;
+  background:linear-gradient(135deg,#a855f7,#22d3ee,#f0abfc);
+  display:grid;place-items:center;font-size:44px;font-weight:900;color:#0b0616;
+  box-shadow:0 0 40px rgba(168,85,247,.5),0 12px 30px rgba(0,0,0,.5);z-index:1;
+}
+.big-ava.admin{
+  background:linear-gradient(135deg,#f59e0b,#ef4444,#f0abfc);
+  box-shadow:0 0 44px rgba(239,68,68,.6),0 12px 30px rgba(0,0,0,.5);
+}
+.big-ava::after{
+  content:'';position:absolute;inset:-4px;border-radius:30px;
+  background:conic-gradient(from 0deg,#a855f7,#22d3ee,#f0abfc,#a855f7);
+  z-index:-1;animation:spinGlow 6s linear infinite;opacity:.8;filter:blur(8px);
+}
+.profile-nick{
+  font-size:22px;font-weight:900;text-align:center;z-index:1;
+  max-width:100%;word-break:break-word;
+}
+.admin-crown{
+  display:none;font-size:11px;font-weight:900;letter-spacing:1.5px;
+  background:linear-gradient(135deg,#f59e0b,#ef4444);color:#1a0d00;
+  padding:4px 12px;border-radius:20px;z-index:1;text-transform:uppercase;
+}
+.admin-crown.show{display:inline-block}
+.profile-id{
+  font-family:monospace;font-size:13px;color:var(--accent2);letter-spacing:1px;
+  background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.3);
+  padding:6px 14px;border-radius:10px;z-index:1;
+  display:flex;align-items:center;gap:8px;cursor:pointer;transition:.2s;
+}
+.profile-id:hover{background:rgba(34,211,238,.2);transform:scale(1.03)}
+.profile-id svg{width:13px;height:13px;opacity:.8}
+.level-badge{
+  display:flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(239,68,68,.14));
+  border:1px solid rgba(245,158,11,.5);
+  padding:6px 16px;border-radius:20px;font-weight:900;font-size:13px;
+  color:#fbbf24;letter-spacing:1px;z-index:1;
+  box-shadow:0 0 20px rgba(245,158,11,.25);
+}
+.xp-wrap{width:100%;z-index:1;margin-top:4px}
+.xp-labels{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-bottom:6px;font-weight:700}
+.xp-bar{height:10px;border-radius:8px;background:#0b0816;border:1px solid var(--border);overflow:hidden}
+.xp-fill{
+  height:100%;border-radius:8px;width:0;
+  background:linear-gradient(90deg,#22d3ee,#a855f7,#f0abfc);
+  box-shadow:0 0 14px rgba(168,85,247,.7);
+  transition:width .6s cubic-bezier(.2,.9,.3,1.1);
+}
+.profile-actions{display:flex;gap:8px;width:100%;z-index:1}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.stat-box{
+  background:linear-gradient(165deg,var(--panel2),#0d0919);
+  border:1px solid var(--border);border-radius:16px;padding:18px;
+  display:flex;flex-direction:column;gap:4px;transition:.2s;
+}
+.stat-box:hover{border-color:rgba(168,85,247,.45);transform:translateY(-3px)}
+.stat-ico{font-size:22px;margin-bottom:4px}
+.stat-val{
+  font-size:26px;font-weight:900;line-height:1;
+  background:linear-gradient(90deg,#22d3ee,#a855f7);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.stat-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+.section-title{
+  font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);
+  font-weight:800;margin:24px 0 12px;
+}
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.ach{
+  background:linear-gradient(165deg,var(--panel2),#0d0919);
+  border:1px solid var(--border);border-radius:14px;padding:14px;
+  display:flex;gap:12px;align-items:center;transition:.2s;
+}
+.ach.locked{opacity:.4;filter:grayscale(.85)}
+.ach.unlocked{border-color:rgba(74,222,128,.5);box-shadow:0 0 22px rgba(74,222,128,.12)}
+.ach-ico{
+  width:40px;height:40px;border-radius:12px;flex-shrink:0;
+  display:grid;place-items:center;font-size:20px;
+  background:linear-gradient(135deg,rgba(168,85,247,.25),rgba(34,211,238,.15));
+}
+.ach-info{display:flex;flex-direction:column;gap:2px;min-width:0}
+.ach-name{font-size:13px;font-weight:800}
+.ach-desc{font-size:11px;color:var(--muted);line-height:1.3}
+.modal{
+  position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;
+  background:rgba(4,2,10,.86);backdrop-filter:blur(10px);padding:16px;
+}
+.modal.show{display:flex;animation:fade .25s}
+.modal-box{
+  width:100%;max-width:760px;background:linear-gradient(165deg,#181130,#0c0819);
+  border:1px solid rgba(168,85,247,.35);border-radius:24px;padding:24px;
+  box-shadow:0 0 70px rgba(168,85,247,.3);
+}
+.modal-title{font-size:19px;font-weight:800;text-align:center;margin-bottom:18px}
+.reel-wrap{
+  position:relative;overflow:hidden;border-radius:16px;height:152px;
+  background:#08050f;border:1px solid var(--border);
+  box-shadow:inset 0 0 50px rgba(0,0,0,.9);
+}
+.reel-wrap::before,.reel-wrap::after{
+  content:'';position:absolute;top:0;bottom:0;width:90px;z-index:6;pointer-events:none;
+}
+.reel-wrap::before{left:0;background:linear-gradient(90deg,#08050f,transparent)}
+.reel-wrap::after{right:0;background:linear-gradient(270deg,#08050f,transparent)}
+.reel{display:flex;flex-wrap:nowrap;gap:10px;padding:16px 0;will-change:transform}
+.reel-item{
+  flex:0 0 120px;width:120px;height:120px;border-radius:14px;border:2px solid;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;padding:6px;text-align:center;
+}
+.reel-item .item-emoji{font-size:34px}
+.reel-item .item-name{font-size:9.5px;font-weight:700;line-height:1.15;opacity:.9}
+.reel-marker{
+  position:absolute;left:50%;top:0;bottom:0;width:3px;transform:translateX(-50%);
+  background:linear-gradient(180deg,#22d3ee,#a855f7);
+  box-shadow:0 0 22px rgba(168,85,247,.9);z-index:7;border-radius:2px;
+}
+.reel-marker::before,.reel-marker::after{
+  content:'';position:absolute;left:50%;transform:translateX(-50%);
+  border-left:7px solid transparent;border-right:7px solid transparent;
+}
+.reel-marker::before{top:-1px;border-top:9px solid #22d3ee}
+.reel-marker::after{bottom:-1px;border-bottom:9px solid #a855f7}
+.modal-result{text-align:center;margin:18px 0 4px;min-height:64px}
+.res-rarity{font-size:12px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.res-name{font-size:20px;font-weight:800}
+.res-value{color:var(--muted);font-size:14px;margin-top:3px}
+.inv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:11px;max-height:none}
+.inv-grid.scroll{max-height:400px;overflow-y:auto;padding-right:6px}
+.inv-grid.scroll::-webkit-scrollbar{width:6px}
+.inv-grid.scroll::-webkit-scrollbar-thumb{background:rgba(168,85,247,.45);border-radius:6px}
+.item-card{
+  position:relative;border-radius:14px;border:2px solid var(--c55);
+  background:linear-gradient(160deg,var(--c20),#0f0b1d);
+  padding:12px 7px 10px;display:flex;flex-direction:column;align-items:center;gap:3px;
+  cursor:pointer;transition:.18s;text-align:center;user-select:none;
+}
+.item-card:hover{transform:translateY(-4px);box-shadow:0 10px 26px var(--c35);border-color:var(--c)}
+.item-card.selected{
+  border-color:var(--c);
+  box-shadow:0 0 0 2px var(--c),0 0 26px var(--c35);
+  background:linear-gradient(160deg,var(--c20),#161029);
+}
+.item-card.secret{animation:secretPulse 2.2s ease-in-out infinite}
+@keyframes secretPulse{
+  0%,100%{box-shadow:0 0 12px rgba(240,171,252,.5)}
+  50%{box-shadow:0 0 30px rgba(34,211,238,.85)}
+}
+.item-emoji{font-size:30px;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,.55))}
+.item-name{font-size:10.5px;font-weight:700;line-height:1.2;min-height:26px;display:flex;align-items:center}
+.item-rarity{font-size:8.5px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--c);opacity:.95}
+.item-value{font-size:11.5px;font-weight:800;color:#4ade80}
+.sell-btn{
+  position:absolute;top:5px;right:5px;width:23px;height:23px;border-radius:8px;border:none;
+  background:rgba(0,0,0,.55);color:#4ade80;font-size:12px;font-weight:900;cursor:pointer;
+  display:grid;place-items:center;transition:.15s;font-family:inherit;
+}
+.sell-btn:hover{background:#22c55e;color:#04240f;transform:scale(1.12)}
+.empty{
+  grid-column:1/-1;text-align:center;padding:44px 16px;color:var(--muted);
+  font-size:14px;border:1px dashed var(--border);border-radius:16px;
+}
+.upg{display:grid;grid-template-columns:1fr 290px 1fr;gap:16px;align-items:start}
+@media(max-width:980px){.upg{grid-template-columns:1fr}}
+.upg-side{
+  background:linear-gradient(165deg,var(--panel2),#0d0919);
+  border:1px solid var(--border);border-radius:18px;padding:16px;
+}
+.upg-side h4{font-size:13px;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);margin-bottom:12px}
+.upg-mid{
+  background:linear-gradient(165deg,var(--panel2),#0d0919);
+  border:1px solid rgba(168,85,247,.35);border-radius:18px;padding:18px;
+  display:flex;flex-direction:column;gap:14px;box-shadow:0 0 36px rgba(168,85,247,.14);
+}
+@media(max-width:980px){.upg-mid{order:-1}}
+.chance-big{text-align:center}
+.chance-big .val{
+  font-size:42px;font-weight:900;line-height:1;
+  background:linear-gradient(90deg,#4ade80,#22d3ee,#a855f7);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.chance-big .lbl{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+.upg-bar{
+  position:relative;height:42px;border-radius:12px;overflow:hidden;
+  background:linear-gradient(90deg,rgba(239,68,68,.4),rgba(239,68,68,.14));
+  border:1px solid var(--border);
+}
+.upg-zone-win{
+  position:absolute;left:0;top:0;bottom:0;width:0;
+  background:linear-gradient(90deg,rgba(74,222,128,.62),rgba(74,222,128,.24));
+  transition:width .3s ease;border-right:1px solid rgba(74,222,128,.8);
+}
+.upg-needle{
+  position:absolute;top:-5px;bottom:-5px;width:4px;left:0;border-radius:3px;
+  background:#fff;box-shadow:0 0 18px #fff,0 0 40px rgba(34,211,238,.8);
+  transform:translateX(-50%);z-index:3;
+}
+.upg-bar-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:-6px}
+.upg-stats{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);gap:8px}
+.upg-stats b{color:var(--text);font-size:14px;display:block;text-align:center}
+.upg-stats>div{flex:1;text-align:center}
+.upg-res{
+  text-align:center;font-weight:900;font-size:15px;letter-spacing:1.5px;
+  min-height:20px;text-transform:uppercase;
+}
+.upg-res.win{color:#4ade80;text-shadow:0 0 18px rgba(74,222,128,.8)}
+.upg-res.lose{color:#ef4444;text-shadow:0 0 18px rgba(239,68,68,.8)}
+.wd-grid{display:grid;grid-template-columns:1fr 340px;gap:16px;align-items:start}
+@media(max-width:900px){.wd-grid{grid-template-columns:1fr}}
+.wd-box{
+  background:linear-gradient(165deg,var(--panel2),#0d0919);
+  border:1px solid var(--border);border-radius:18px;padding:18px;
+  display:flex;flex-direction:column;gap:12px;
+}
+.wd-box h4{font-size:13px;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted)}
+input[type=text]{
+  font-family:inherit;font-size:14px;font-weight:600;color:var(--text);
+  background:#0b0816;border:1px solid var(--border);border-radius:12px;
+  padding:12px 14px;outline:none;transition:.2s;width:100%;
+}
+input[type=text]:focus{border-color:rgba(168,85,247,.7);box-shadow:0 0 0 3px rgba(168,85,247,.16)}
+input[type=text]::placeholder{color:#5b5478}
+.wd-total{
+  display:flex;justify-content:space-between;align-items:center;
+  background:#0b0816;border:1px solid var(--border);border-radius:12px;padding:12px 14px;
+  font-size:13px;color:var(--muted);
+}
+.wd-total b{color:#4ade80;font-size:17px}
+.req-list{display:flex;flex-direction:column;gap:9px;margin-top:6px;max-height:340px;overflow-y:auto}
+.req-list::-webkit-scrollbar{width:6px}
+.req-list::-webkit-scrollbar-thumb{background:rgba(168,85,247,.4);border-radius:6px}
+.req{
+  background:#0b0816;border:1px solid var(--border);border-radius:12px;padding:11px 14px;
+  font-size:12.5px;display:flex;flex-direction:column;gap:7px;
+}
+.req.pending{border-color:rgba(245,158,11,.45)}
+.req.done{border-color:rgba(34,197,94,.45);opacity:.8}
+.req.cancelled{border-color:rgba(239,68,68,.45);opacity:.65}
+.req .req-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.req .code{font-family:monospace;color:var(--accent2);font-weight:800;letter-spacing:.5px}
+.req .status{
+  padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:800;letter-spacing:.5px;
+}
+.req.pending .status{background:rgba(245,158,11,.16);color:#f59e0b;border:1px solid rgba(245,158,11,.4)}
+.req.done .status{background:rgba(34,197,94,.16);color:#4ade80;border:1px solid rgba(34,197,94,.4)}
+.req.cancelled .status{background:rgba(239,68,68,.16);color:#ef4444;border:1px solid rgba(239,68,68,.4)}
+.req .req-body{color:var(--muted);font-size:11.5px;line-height:1.5}
+.req .req-body b{color:var(--text)}
+.req .req-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.req .req-actions .btn{width:auto;font-size:11px;padding:6px 10px}
+.note{
+  margin-top:16px;padding:13px 16px;border-radius:14px;font-size:12.5px;color:var(--muted);
+  background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.2);line-height:1.6;
+}
+.note b{color:var(--accent2)}
+.deal-card{
+  background:#0b0816;border:1px solid var(--border);border-radius:12px;
+  padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:12.5px;
+}
+.deal-card.pending{border-color:rgba(245,158,11,.5)}
+.deal-card.accepted{border-color:rgba(34,197,94,.5)}
+.deal-card.done{border-color:rgba(34,211,238,.5);opacity:.75}
+.deal-card .dc-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.deal-card .dc-amt{font-family:monospace;font-weight:900;color:#4ade80;font-size:14px}
+.deal-card .dc-status{padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:800}
+.deal-card.pending .dc-status{background:rgba(245,158,11,.16);color:#f59e0b;border:1px solid rgba(245,158,11,.4)}
+.deal-card.accepted .dc-status{background:rgba(34,197,94,.16);color:#4ade80;border:1px solid rgba(34,197,94,.4)}
+.deal-card.done .dc-status{background:rgba(34,211,238,.16);color:#22d3ee;border:1px solid rgba(34,211,238,.4)}
+.deal-card .dc-want{color:var(--muted);font-size:11.5px;line-height:1.5}
+.deal-card .dc-want b{color:#f0abfc}
+.deal-preview-row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:12.5px}
+.deal-preview-row:last-child{border-bottom:none}
+.deal-preview-row span{color:var(--muted)}
+.deal-preview-row b{color:#4ade80;font-weight:800;text-align:right}
+#toast{
+  position:fixed;left:50%;bottom:34px;transform:translate(-50%,26px);
+  background:linear-gradient(135deg,#1e1636,#140f27);
+  border:1px solid rgba(168,85,247,.55);color:#fff;font-weight:700;font-size:14px;
+  padding:14px 26px;border-radius:14px;z-index:400;opacity:0;pointer-events:none;
+  transition:.3s cubic-bezier(.2,.9,.3,1.3);box-shadow:0 14px 40px rgba(0,0,0,.7);
+  max-width:90vw;text-align:center;
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-in">
+    <div class="logo"><span class="brain">🧠</span><span>brainrot_casser.ru</span></div>
+    <div class="spacer"></div>
+    <div class="head-user">
+      <div class="mini-ava" id="miniAva" title="Открыть профиль">?</div>
+      <div class="mini-info">
+        <div class="mini-nick" id="miniNick">Гость</div>
+        <div class="mini-id" id="miniId">ID: —</div>
+      </div>
+      <div class="balance" title="Баланс"><div class="coin">₡</div><span id="coins">0</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="tabs">
+    <button class="tab active" data-tab="cases">🎁 Кейсы</button>
+    <button class="tab" data-tab="upgrader">⚡ Апгрейдер</button>
+    <button class="tab" data-tab="inventory">🎒 Инвентарь</button>
+    <button class="tab" data-tab="withdraw">📤 Вывод в игру</button>
+    <button class="tab exchange-tab" data-tab="exchange">💱 Обменник</button>
+    <button class="tab" data-tab="profile">👤 Профиль</button>
+    <button class="tab admin-tab" data-tab="admin" id="adminTab" style="display:none">🛡️ Админ-панель</button>
+  </div>
+
+  <section class="panel active" id="panel-cases">
+    <div class="panel-head">
+      <h2>Кейсы</h2>
+      <p>Бесплатный кейс перезаряжается каждый час. Собирай брейнротов и апгрейди редких!</p>
+    </div>
+    <div class="case-list" id="caseList"></div>
+    <div class="promo-block">
+      <h3>🎟️ У меня есть промокод</h3>
+      <div class="sub">Введи код и получи кейс, на который он активирован — открытие бесплатно и мгновенно.</div>
+      <div class="promo-row">
+        <input type="text" id="promoInput" placeholder="ВВЕДИ ПРОМОКОД" maxlength="32" autocomplete="off">
+        <button class="btn pink" id="promoBtn">АКТИВИРОВАТЬ</button>
+      </div>
+    </div>
+    <div class="note">
+      💡 <b>Как играть:</b> открывай кейсы → получай брейнротов → ненужных продавай за монеты →
+      в <b>Апгрейдере</b> рискни дешёвыми ради дорогого → в <b>Выводе</b> отправь коллекцию в игру.
+    </div>
+  </section>
+
+  <section class="panel" id="panel-upgrader">
+    <div class="panel-head">
+      <h2>Апгрейдер</h2>
+      <p>Выбери предметы и цель. Шанс = стоимость ставки ÷ стоимость цели (макс. 90%)</p>
+    </div>
+    <div class="upg">
+      <div class="upg-side">
+        <h4>Твоя ставка</h4>
+        <div class="inv-grid scroll" id="upgBet"></div>
+      </div>
+      <div class="upg-mid">
+        <div class="chance-big">
+          <div class="val" id="upgChance">0%</div>
+          <div class="lbl">Шанс успеха</div>
+        </div>
+        <div class="upg-bar">
+          <div class="upg-zone-win" id="upgZone"></div>
+          <div class="upg-needle" id="upgNeedle"></div>
+        </div>
+        <div class="upg-bar-labels"><span>0%</span><span>100%</span></div>
+        <div class="upg-stats">
+          <div>Ставка<b id="upgBetVal">0 ₡</b></div>
+          <div>Цель<b id="upgTarVal">—</b></div>
+        </div>
+        <div class="upg-res" id="upgRes"></div>
+        <button class="btn" id="upgBtn" disabled>АПГРЕЙД</button>
+      </div>
+      <div class="upg-side">
+        <h4>Цель апгрейда</h4>
+        <div class="inv-grid scroll" id="upgTarget"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-inventory">
+    <div class="panel-head">
+      <h2>Инвентарь</h2>
+      <p>Предметов: <b id="invCount">0</b> · Общая стоимость: <b id="invValue">0</b> ₡ · Продажа даёт 85% цены</p>
+    </div>
+    <div class="inv-grid" id="invGrid"></div>
+  </section>
+
+  <section class="panel" id="panel-withdraw">
+    <div class="panel-head">
+      <h2>Вывод в игру</h2>
+      <p>Выбери предметы и укажи игровой ник. Минимум: <b>5 000 ₡</b></p>
+    </div>
+    <div class="wd-grid">
+      <div class="inv-grid" id="wdGrid"></div>
+      <div class="wd-box">
+        <h4>Заявка на вывод</h4>
+        <input type="text" id="wdNick" placeholder="Ник в игре" maxlength="24">
+        <div class="wd-total"><span>Сумма вывода</span><b id="wdTotal">0 ₡</b></div>
+        <div class="wd-total"><span>Предметов</span><b id="wdCount" style="color:#22d3ee">0</b></div>
+        <button class="btn cyan" id="wdBtn">Создать заявку</button>
+
+        <div class="info-box" id="wdInfo">
+          <h5>✅ Заявка создана!</h5>
+          <p>Скопируй код и отправь его администратору в Discord. После выдачи предметов в игре (через Trade Machine) заявка будет закрыта.</p>
+          <code id="wdInfoCode">BR-XXXXXX</code>
+          <div class="row">
+            <button class="btn green" id="wdCopyBtn">📋 Скопировать текст заявки</button>
+            <button class="btn ghost" id="wdCloseInfo" style="color:#8b83a8">Закрыть</button>
+          </div>
+        </div>
+
+        <h4 style="margin-top:8px">Мои заявки</h4>
+        <div class="req-list" id="reqList"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-exchange">
+    <div class="panel-head">
+      <h2>💱 Обменник</h2>
+      <p>Обмен сайтовых монет на брейнротов в игре <b>Steal a Brainrot</b> через Trade Machine</p>
+    </div>
+
+    <div class="note" style="margin-bottom:16px">
+      <b>Как это работает:</b><br>
+      1. Админ создаёт сделку: «дам X монет, хочу Y брейнротов в игре»<br>
+      2. Игрок получает код сделки (в Discord / личке)<br>
+      3. Игрок вводит код → получает монеты на сайте<br>
+      4. Игрок отдаёт брейнротов в игре через Trade Machine → отправляет админу код подтверждения
+    </div>
+
+    <div class="wd-grid">
+      <div class="wd-box" style="min-height:340px">
+        <h4>🎫 Активировать код сделки</h4>
+        <p style="color:#8b83a8;font-size:12.5px;line-height:1.5;margin:0">
+          Вставь код, который тебе прислал админ. После активации монеты зачислятся на твой баланс,
+          а ты подтвердишь готовность отдать брейнротов в игре.
+        </p>
+        <input type="text" id="dealCodeInput" placeholder="DEAL-XXXXXX..." maxlength="2000" autocomplete="off">
+        <button class="btn cyan" id="dealAcceptBtn">Проверить и активировать</button>
+
+        <div class="info-box" id="dealPreview">
+          <h5>🎁 Детали сделки</h5>
+          <div id="dealPreviewBody"></div>
+          <div class="row">
+            <button class="btn green" id="dealConfirmBtn">✅ Активировать</button>
+            <button class="btn ghost" id="dealCancelBtn" style="color:#8b83a8">Отмена</button>
+          </div>
+        </div>
+
+        <div class="info-box" id="dealSuccess">
+          <h5>🎉 Сделка активирована!</h5>
+          <p>Монеты зачислены. Теперь отдай брейнротов админу в игре через Trade Machine и отправь ему код подтверждения:</p>
+          <code id="dealConfirmCode">CONFIRM-...</code>
+          <div class="row">
+            <button class="btn green" id="dealCopyConfirm">📋 Скопировать код подтверждения</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="wd-box">
+        <h4>📜 Мои сделки</h4>
+        <div class="req-list" id="myDealsList" style="margin-top:0"></div>
+      </div>
+    </div>
+
+    <div id="exchangeAdminBlock" style="display:none;margin-top:20px">
+      <div class="section-title" style="margin-top:0">🛡️ Панель админа · Создание сделки</div>
+      <div class="admin-grid">
+        <div class="adm-box">
+          <h4>➕ Создать новую сделку</h4>
+          <div class="adm-field">
+            <label>ID игрока (кому даём монеты)</label>
+            <input type="text" id="dealToId" placeholder="BR-XXXXXXXX" maxlength="16" style="text-transform:uppercase">
+          </div>
+          <div class="adm-field">
+            <label>Сколько монет дать</label>
+            <input type="number" id="dealAmount" placeholder="500000" min="1">
+          </div>
+          <div class="adm-field">
+            <label>Что хочешь взамен в игре</label>
+            <input type="text" id="dealWant" placeholder="Strawberry Elephant" maxlength="80">
+          </div>
+          <button class="btn orange" id="dealCreateBtn">🎫 Создать сделку и получить код</button>
+          <div class="info-box" id="dealCreatedBox">
+            <h5>✅ Сделка создана!</h5>
+            <p>Скопируй код и отправь игроку в Discord. После активации он отдаст брейнротов в игре.</p>
+            <code id="dealCreatedCode">DEAL-...</code>
+            <div class="row">
+              <button class="btn green" id="dealCopyCode">📋 Скопировать код сделки</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="adm-box">
+          <h4>🔎 Подтвердить выдачу в игре</h4>
+          <div class="hint">Когда игрок отдал брейнротов в игре — он пришлёт тебе код подтверждения. Вставь его сюда.</div>
+          <div class="adm-field">
+            <label>Код подтверждения</label>
+            <input type="text" id="dealConfirmInput" placeholder="CONFIRM-..." maxlength="2000">
+          </div>
+          <button class="btn green" id="dealConfirmAdminBtn">✅ Подтвердить выдачу</button>
+        </div>
+      </div>
+
+      <div class="adm-box" style="margin-top:16px">
+        <h4>📋 Мои созданные сделки</h4>
+        <div class="req-adm-list" id="adminDealsList"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-profile">
+    <div class="panel-head">
+      <h2>Профиль игрока</h2>
+      <p>Твой уникальный ID, статистика, уровень и достижения</p>
+    </div>
+    <div class="profile-grid">
+      <div class="profile-card">
+        <div class="big-ava" id="bigAva">?</div>
+        <div class="admin-crown" id="adminCrown">👑 ADMINISTRATOR</div>
+        <div class="profile-nick" id="profNick">Гость</div>
+        <div class="profile-id" id="profId" title="Нажми чтобы скопировать">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <span id="profIdText">BR-000000</span>
+        </div>
+        <div class="level-badge">⭐ УРОВЕНЬ <span id="profLevel">1</span></div>
+        <div class="xp-wrap">
+          <div class="xp-labels"><span>Опыт</span><span id="profXpText">0 / 100</span></div>
+          <div class="xp-bar"><div class="xp-fill" id="profXpFill"></div></div>
+        </div>
+        <div class="profile-actions">
+          <button class="btn ghost" id="editNickBtn">✏️ Сменить ник</button>
+          <button class="btn ghost" id="copyIdBtn">📋 ID</button>
+        </div>
+      </div>
+      <div>
+        <div class="section-title">📊 Статистика</div>
+        <div class="stats-grid">
+          <div class="stat-box"><div class="stat-ico">🎁</div><div class="stat-val" id="stOpened">0</div><div class="stat-lbl">Кейсов открыто</div></div>
+          <div class="stat-box"><div class="stat-ico">⚡</div><div class="stat-val" id="stUpgrades">0</div><div class="stat-lbl">Апгрейдов</div></div>
+          <div class="stat-box"><div class="stat-ico">🎒</div><div class="stat-val" id="stItems">0</div><div class="stat-lbl">Предметов сейчас</div></div>
+          <div class="stat-box"><div class="stat-ico">💰</div><div class="stat-val" id="stValue">0</div><div class="stat-lbl">Стоимость инвентаря</div></div>
+          <div class="stat-box"><div class="stat-ico">📤</div><div class="stat-val" id="stWithdraws">0</div><div class="stat-lbl">Выводов сделано</div></div>
+          <div class="stat-box"><div class="stat-ico">🏆</div><div class="stat-val" id="stBest">—</div><div class="stat-lbl">Лучший дроп</div></div>
+        </div>
+        <div class="section-title">🏅 Достижения</div>
+        <div class="ach-grid" id="achGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-admin">
+    <div class="admin-hero">
+      <div class="ico">🛡️</div>
+      <div class="txt">
+        <h3>Админ-панель</h3>
+        <p>Промокоды, выдача ресурсов, скип таймеров, обработка выводов и Discord-уведомления</p>
+      </div>
+    </div>
+
+    <div class="admin-grid">
+      <div class="adm-box">
+        <h4>🆔 Мой ID игрока</h4>
+        <div class="hint">ID сохраняется в браузере. Если теряется — введи один из админских ID и нажми «Закрепить ID».</div>
+        <div class="adm-id-display" id="admCurrentId">BR-000000</div>
+        <div class="adm-field">
+          <label>Установить новый ID</label>
+          <input type="text" id="admNewId" placeholder="BR-GL43DYPP" maxlength="16" style="text-transform:uppercase">
+        </div>
+        <div class="adm-row">
+          <button class="btn orange small" id="admSetId">🔒 Закрепить ID</button>
+          <button class="btn ghost small" id="admResetId" style="color:#ef4444">🗑️ Сбросить ID</button>
+        </div>
+        <div class="hint" style="margin-top:4px">Админские ID: <b style="color:#f0abfc">BR-GL43DYPP</b> · <b style="color:#f0abfc">BR-H2WN9GYM</b></div>
+      </div>
+
+      <div class="adm-box">
+        <h4>🔗 Discord Webhook</h4>
+        <div class="hint">Вставь URL вебхука — каждая заявка на вывод будет автоматически приходить в твой Discord-канал. Создать: <b style="color:#fbbf24">Настройки канала → Интеграции → Вебхуки → Новый вебхук → Копировать URL</b>.</div>
+        <div class="adm-field">
+          <label>Webhook URL</label>
+          <input type="url" id="admWebhook" placeholder="https://discord.com/api/webhooks/...">
+        </div>
+        <div class="adm-row">
+          <button class="btn orange small" id="admSaveWebhook">💾 Сохранить</button>
+          <button class="btn cyan small" id="admTestWebhook">🧪 Тест</button>
+          <button class="btn ghost small" id="admClearWebhook" style="color:#ef4444">🗑️ Очистить</button>
+        </div>
+        <div class="hint" id="webhookStatus">Статус: не настроен</div>
+      </div>
+
+      <div class="adm-box">
+        <h4>🎟️ Создать промокод</h4>
+        <div class="adm-field">
+          <label>Код промокода</label>
+          <div class="adm-row">
+            <input type="text" id="admPromoCode" placeholder="BRAINROT2024" maxlength="24" style="text-transform:uppercase">
+            <button class="btn orange small" id="admGenCode" style="width:auto;flex:0 0 auto" title="Случайный код">🎲</button>
+          </div>
+        </div>
+        <div class="adm-field">
+          <label>Какой кейс открывает промокод</label>
+          <select id="admPromoCase">
+            <option value="free">🎁 Бесплатный кейс</option>
+            <option value="basic">📦 Стандарт</option>
+            <option value="rare" selected>💎 Премиум</option>
+            <option value="myth">👑 Мифический</option>
+          </select>
+        </div>
+        <div class="adm-field">
+          <label>Максимум активаций</label>
+          <input type="number" id="admPromoUses" value="1" min="1" max="9999">
+        </div>
+        <button class="btn orange" id="admCreatePromo">Создать промокод</button>
+      </div>
+
+      <div class="adm-box">
+        <h4>⚙️ Быстрые действия</h4>
+        <button class="btn green" id="admSkipTimer">⏩ Скипнуть таймер бесплатного кейса</button>
+        <button class="btn cyan" id="admSkipTimer10">⏩ Скипнуть сразу 10 кейсов</button>
+
+        <div class="adm-field" style="margin-top:8px">
+          <label>Выдать монеты</label>
+          <div class="adm-row">
+            <input type="number" id="admCoins" placeholder="100000" min="1">
+            <button class="btn small" id="admGiveCoins" style="width:auto;flex:0 0 auto">Выдать</button>
+          </div>
+        </div>
+
+        <div class="adm-field">
+          <label>Выдать предмет</label>
+          <div class="adm-row">
+            <select id="admItemSelect" style="flex:1;min-width:0"></select>
+            <button class="btn small" id="admGiveItem" style="width:auto;flex:0 0 auto">Выдать</button>
+          </div>
+        </div>
+
+        <button class="btn ghost" id="admResetInv" style="margin-top:6px">🗑️ Очистить инвентарь</button>
+      </div>
+
+      <div class="adm-box">
+        <h4>💾 Хранилище</h4>
+        <div class="hint">Если сохранение не работает — браузер блокирует localStorage. Проверь статус и сохрани данные вручную.</div>
+        <div class="adm-row">
+          <button class="btn cyan small" id="admSaveNow">💾 Сохранить сейчас</button>
+          <button class="btn ghost small" id="admExport">📤 Экспорт JSON</button>
+          <button class="btn ghost small" id="admImport">📥 Импорт JSON</button>
+        </div>
+        <div class="hint" id="storageStatus">Статус: проверка...</div>
+      </div>
+    </div>
+
+    <div class="adm-box" style="margin-top:16px">
+      <h4>📤 Заявки на вывод</h4>
+      <div class="hint">Заявки, созданные в этом браузере. Для выдачи в игре — используй ник и предметы из заявки.</div>
+      <div class="req-adm-list" id="adminReqList"></div>
+    </div>
+
+    <div class="adm-box" style="margin-top:16px">
+      <h4>📋 Активные промокоды</h4>
+      <div class="promo-code-list" id="adminPromoList"></div>
+    </div>
+  </section>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-title" id="modalTitle">Открытие кейса</div>
+    <div class="reel-wrap">
+      <div class="reel-marker"></div>
+      <div class="reel" id="reel"></div>
+    </div>
+    <div class="modal-result" id="modalResult"></div>
+    <button class="btn green" id="modalBtn" style="display:none">Забрать</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ==================== КОНСТАНТЫ ==================== */
+const ADMIN_IDS = ['BR-GL43DYPP', 'BR-H2WN9GYM'];
+const KEY = 'brainrot_save_v8';
+
+const RARITY = {
+  common:    { name:'Обычный',     color:'#9ca3af' },
+  uncommon:  { name:'Необычный',   color:'#4ade80' },
+  rare:      { name:'Редкий',      color:'#3b82f6' },
+  epic:      { name:'Эпический',   color:'#a855f7' },
+  legendary: { name:'Легендарный', color:'#f59e0b' },
+  mythic:    { name:'Мифический',  color:'#ef4444' },
+  secret:    { name:'Секретный',   color:'#f0abfc' },
+  og:        { name:'OG',           color:'#ff6b9d' }
+};
+
+const ITEMS = [
+  { id:'tung',   name:'Тунг Тунг Тунг Сахур',    emoji:'🥁', rarity:'common',    value:20 },
+  { id:'brr',    name:'Брр Брр Патапим',         emoji:'🐒', rarity:'common',    value:15 },
+  { id:'tral',   name:'Тралалеро Тралала',       emoji:'🦈', rarity:'common',    value:25 },
+  { id:'liri',   name:'Лирили Ларила',           emoji:'🦎', rarity:'common',    value:12 },
+  { id:'bomb',   name:'Бомбардиро Крокодило',    emoji:'🐊', rarity:'common',    value:22 },
+  { id:'boneca', name:'Бонека Амбалабу',         emoji:'🪵', rarity:'uncommon',  value:55 },
+  { id:'cappu',  name:'Капучино Ассасино',       emoji:'☕', rarity:'uncommon',  value:70 },
+  { id:'frigo',  name:'Фриго Камело',            emoji:'🐫', rarity:'uncommon',  value:60 },
+  { id:'trippi', name:'Триппи Троппи',           emoji:'🐟', rarity:'uncommon',  value:45 },
+  { id:'gusini', name:'Бомбомбини Гусини',       emoji:'🦢', rarity:'uncommon',  value:85 },
+  { id:'chimp',  name:'Чимпанзини Бананини',     emoji:'🍌', rarity:'rare',      value:180 },
+  { id:'bobr',   name:'Бобрито Бандито',         emoji:'🦫', rarity:'rare',      value:220 },
+  { id:'tric',   name:'Трик Трак Барабум',       emoji:'🚂', rarity:'rare',      value:270 },
+  { id:'glorbo', name:'Глорбо Фруттодрилло',     emoji:'🍉', rarity:'rare',      value:320 },
+  { id:'burba',  name:'Бурбалони Лулилоли',      emoji:'🐘', rarity:'epic',      value:700 },
+  { id:'bluber', name:'Блубэррини Октопусини',   emoji:'🐙', rarity:'epic',      value:880 },
+  { id:'coco',   name:'Кокофанто Элефанто',      emoji:'🥥', rarity:'epic',      value:1050 },
+  { id:'vacca',  name:'Ла Вакка Сатурно Сатурнита', emoji:'🐄', rarity:'legendary', value:3000 },
+  { id:'dolfin', name:'Бананита Долфинита',      emoji:'🐬', rarity:'legendary', value:3900 },
+  { id:'saturn', name:'Сатурнита Гаргантюа',     emoji:'🪐', rarity:'mythic',    value:12000 },
+  { id:'garra',  name:'Гаррамарамара',           emoji:'🌊', rarity:'mythic',    value:16000 },
+  { id:'obez',   name:'Обезино Универсино',      emoji:'🧠', rarity:'secret',    value:60000 },
+  { id:'lasto',  name:'Ласточка Мегаласточка',   emoji:'🕊️', rarity:'secret',    value:75000 },
+  { id:'strawberry', name:'Strawberry Elephant', emoji:'🍓', rarity:'og', value:750000000 }
+];
+const ITEM_MAP = Object.fromEntries(ITEMS.map(i => [i.id, i]));
+
+const CASES = {
+  free:  { name:'Бесплатный кейс', price:0,     cooldown:3600000, emoji:'🎁',
+           weights:{ common:62, uncommon:26, rare:9, epic:2.5, legendary:0.5 } },
+  basic: { name:'Стандарт',        price:1000,  cooldown:0, emoji:'📦',
+           weights:{ common:30, uncommon:38, rare:22, epic:8, legendary:1.8, mythic:0.2 } },
+  rare:  { name:'Премиум',         price:8000,  cooldown:0, emoji:'💎',
+           weights:{ uncommon:10, rare:38, epic:38, legendary:11, mythic:2.7, secret:0.3 } },
+  myth:  { name:'Мифический',      price:60000, cooldown:0, emoji:'👑',
+           weights:{ epic:20, legendary:48, mythic:28, secret:3.99, og:0.01 } }
+};
+
+const ACHIEVEMENTS = [
+  { id:'first',   ico:'🎉', name:'Первый шаг',      desc:'Открой первый кейс',        check:s => s.stats.opened >= 1 },
+  { id:'op10',    ico:'📦', name:'Кейс-маньяк',     desc:'Открой 10 кейсов',          check:s => s.stats.opened >= 10 },
+  { id:'op50',    ico:'🔥', name:'Лудоман',         desc:'Открой 50 кейсов',          check:s => s.stats.opened >= 50 },
+  { id:'up1',     ico:'⚡', name:'Апгрейдер',       desc:'Сделай 1 апгрейд',          check:s => s.stats.upgrades >= 1 },
+  { id:'up10',    ico:'🚀', name:'Рисковый',        desc:'Сделай 10 апгрейдов',       check:s => s.stats.upgrades >= 10 },
+  { id:'rich',    ico:'💎', name:'Богач',           desc:'Накопи 50 000 ₡',           check:s => s.coins >= 50000 },
+  { id:'epic',    ico:'🟣', name:'Эпик-дроп',       desc:'Получи эпический предмет',  check:s => s.inv.some(o => ITEM_MAP[o.itemId].rarity === 'epic') },
+  { id:'legend',  ico:'🟠', name:'Легенда',         desc:'Получи легендарный предмет',check:s => s.inv.some(o => ITEM_MAP[o.itemId].rarity === 'legendary') },
+  { id:'myth',    ico:'🔴', name:'Миф',             desc:'Получи мифический предмет', check:s => s.inv.some(o => ITEM_MAP[o.itemId].rarity === 'mythic') },
+  { id:'secret',  ico:'💜', name:'Секрет раскрыт',  desc:'Получи секретный предмет',  check:s => s.inv.some(o => ITEM_MAP[o.itemId].rarity === 'secret') },
+  { id:'straw',   ico:'🍓', name:'Клубничный слон', desc:'Получи Strawberry Elephant',check:s => s.inv.some(o => o.itemId === 'strawberry') },
+  { id:'wd1',     ico:'📤', name:'Вывод',           desc:'Создай заявку на вывод',    check:s => s.requests.length >= 1 },
+  { id:'collect', ico:'🎒', name:'Коллекционер',    desc:'10 предметов одновременно', check:s => s.inv.length >= 10 },
+  { id:'promo',   ico:'🎟️', name:'Промо-хантер',    desc:'Активируй промокод',        check:s => (s.stats.promosUsed || 0) >= 1 },
+  { id:'deal',    ico:'💱', name:'Деловой',         desc:'Активируй сделку в обменнике', check:s => (s.receivedDeals||[]).length >= 1 }
+];
+
+/* ==================== ХРАНИЛИЩЕ ==================== */
+const SafeStorage = (() => {
+  let mode = 'memory', memData = null;
+  function tLS(){ try{ const k='__tls__'; localStorage.setItem(k,'1'); localStorage.removeItem(k); return true; }catch(e){ return false; } }
+  function tSS(){ try{ const k='__tss__'; sessionStorage.setItem(k,'1'); sessionStorage.removeItem(k); return true; }catch(e){ return false; } }
+  function sC(n,v,d){ try{ const dt=new Date(); dt.setTime(dt.getTime()+d*864e5); document.cookie=n+'='+encodeURIComponent(v)+';expires='+dt.toUTCString()+';path=/'; return true; }catch(e){ return false; } }
+  function gC(n){ try{ const m=document.cookie.match(new RegExp('(?:^|; )'+n+'=([^;]*)')); return m?decodeURIComponent(m[1]):null; }catch(e){ return null; } }
+  if (tLS()) mode='localStorage';
+  else if (tSS()) mode='sessionStorage';
+  else if (sC('__t__','1',1)) mode='cookie';
+  else mode='memory';
+  return {
+    get mode(){ return mode; },
+    get(k){ try{
+      if(mode==='localStorage') return localStorage.getItem(k);
+      if(mode==='sessionStorage') return sessionStorage.getItem(k);
+      if(mode==='cookie') return gC(k);
+      return memData;
+    }catch(e){ return null; } },
+    set(k,v){ try{
+      if(mode==='localStorage'){ localStorage.setItem(k,v); return true; }
+      if(mode==='sessionStorage'){ sessionStorage.setItem(k,v); return true; }
+      if(mode==='cookie'){ if(!sC(k,v,365)){ memData=v; mode='memory'; } return true; }
+      memData=v; return true;
+    }catch(e){ memData=v; mode='memory'; return false; } }
+  };
+})();
+
+/* ==================== СОСТОЯНИЕ ==================== */
+let state = {
+  coins: 1500, inv: [], lastFree: 0, requests: [], promos: {},
+  webhook: '',
+  sentDeals: [],
+  receivedDeals: [],
+  stats: { opened:0, upgrades:0, bestDrop:0, bestDropName:'', promosUsed:0 },
+  profile: { id:'', nick:'', joined:0, ach:[] }
+};
+let upgBet = new Set();
+let upgTarget = null;
+let upgBusy = false;
+let wdSel = new Set();
+let lastReqCode = null;
+let pendingDeal = null;
+
+/* ==================== УТИЛИТЫ ==================== */
+const fmt = n => Math.round(n).toLocaleString('ru-RU');
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+function genId(){ const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let s=''; for(let i=0;i<8;i++) s+=c[Math.floor(Math.random()*c.length)]; return 'BR-'+s; }
+function genNick(){
+  const adj=['Тунг','Лари','Бомба','Капучино','Сатурн','Обезино','Триппи','Чимпанзи','Крокодило','Бурбалони'];
+  const noun=['Сахур','Патапим','Ассасино','Гаргантюа','Крокодило','Гусини','Троппи','Бананини','Универсино','Сатурнита'];
+  return adj[Math.floor(Math.random()*adj.length)]+' '+noun[Math.floor(Math.random()*noun.length)];
+}
+function initials(n){ const c=(n||'?').trim().split(/\s+/); return ((c[0]?.[0]||'?')+(c[1]?.[0]||'')).toUpperCase(); }
+function rgba(h,a){ const n=parseInt(h.slice(1),16); return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`; }
+function hms(ms){ const s=Math.max(0,Math.ceil(ms/1000)); return [Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(v=>String(v).padStart(2,'0')).join(':'); }
+function toast(m){
+  const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show');
+  clearTimeout(t._tm); t._tm=setTimeout(()=>t.classList.remove('show'),3000);
+}
+function save(){ try{ SafeStorage.set(KEY,JSON.stringify(state)); }catch(e){} }
+function load(){
+  try{
+    const raw = SafeStorage.get(KEY);
+    if (raw){
+      const d = JSON.parse(raw);
+      state = Object.assign(state, d);
+      state.requests = state.requests||[]; state.inv=state.inv||[]; state.promos=state.promos||{};
+      state.sentDeals = state.sentDeals||[]; state.receivedDeals = state.receivedDeals||[];
+      state.stats = Object.assign({ opened:0, upgrades:0, bestDrop:0, bestDropName:'', promosUsed:0 }, state.stats||{});
+      state.profile = Object.assign({ id:'', nick:'', joined:0, ach:[] }, state.profile||{});
+    }
+  }catch(e){}
+}
+function ensureProfile(){
+  let changed = false;
+  if(!state.profile.id){ state.profile.id = genId(); changed = true; }
+  if(!state.profile.nick){ state.profile.nick = genNick(); changed = true; }
+  if(!state.profile.joined){ state.profile.joined = Date.now(); changed = true; }
+  if(!state.profile.ach){ state.profile.ach = []; changed = true; }
+  if(changed) save();
+}
+function isAdmin(){ return ADMIN_IDS.includes(state.profile.id); }
+function genPromoCode(){ const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let s=''; for(let i=0;i<10;i++) s+=c[Math.floor(Math.random()*c.length)]; return s; }
+
+/* ==================== XP ==================== */
+function xpTotal(){ return state.stats.opened*15 + state.stats.upgrades*40 + state.requests.length*25 + (state.stats.promosUsed||0)*20 + (state.receivedDeals||[]).length*50; }
+function xpNeeded(l){ return 100 + (l-1)*75; }
+function levelInfo(){ let xp=xpTotal(), lvl=1, need=xpNeeded(1); while(xp>=need){ xp-=need; lvl++; need=xpNeeded(lvl); } return { level:lvl, xp, need }; }
+
+/* ==================== DISCORD ==================== */
+async function sendToDiscord(payload){
+  if (!state.webhook) return { ok:false, reason:'no-webhook' };
+  try {
+    const res = await fetch(state.webhook, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok){
+      const txt = await res.text().catch(()=>'');
+      return { ok:false, reason:'http-'+res.status, detail:txt };
+    }
+    return { ok:true };
+  } catch(e){
+    return { ok:false, reason:'network', detail: String(e) };
+  }
+}
+async function notifyWithdrawal(req, items){
+  if (!state.webhook) return;
+  const itemsText = items.map(o => `• ${o.emoji} ${o.name} — ${fmt(o.value)} ₡`).join('\n');
+  const embed = {
+    username: 'brainrot_casser.ru',
+    embeds: [{
+      title: '📤 Новая заявка на вывод',
+      color: 0x22d3ee,
+      fields: [
+        { name: '🎫 Код заявки', value: '`' + req.code + '`', inline: true },
+        { name: '👤 Ник в игре', value: req.nick, inline: true },
+        { name: '🆔 ID игрока', value: '`' + state.profile.id + '`', inline: true },
+        { name: '💰 Сумма', value: fmt(req.value) + ' ₡', inline: true },
+        { name: '📦 Предметов', value: String(req.count), inline: true },
+        { name: '📋 Состав', value: itemsText || '—' }
+      ],
+      footer: { text: 'brainrot_casser.ru · Выдача через Trade Machine' },
+      timestamp: new Date().toISOString()
+    }]
+  };
+  const r = await sendToDiscord(embed);
+  if (r.ok) toast('📨 Уведомление отправлено в Discord');
+  else if (r.reason !== 'no-webhook') toast('⚠️ Discord: ' + r.reason);
+}
+async function notifyDealAccepted(deal){
+  if (!state.webhook) return;
+  const embed = {
+    username: 'brainrot_casser.ru',
+    embeds: [{
+      title: '💱 Сделка активирована игроком!',
+      color: 0x4ade80,
+      fields: [
+        { name: '👤 Игрок', value: deal.playerId, inline: true },
+        { name: '💰 Получил монет', value: fmt(deal.amount) + ' ₡', inline: true },
+        { name: '🎁 Должен отдать в игре', value: deal.want, inline: false }
+      ],
+      footer: { text: 'Не забудь получить брейнротов в игре через Trade Machine!' },
+      timestamp: new Date().toISOString()
+    }]
+  };
+  await sendToDiscord(embed);
+}
+
+/* ==================== КЕЙСЫ ==================== */
+function pickWeighted(w){
+  const e = Object.entries(w).filter(([,v])=>v>0);
+  const t = e.reduce((s,[,v])=>s+v,0);
+  let r = Math.random()*t;
+  for (const [rar,ww] of e){
+    r -= ww;
+    if (r <= 0){
+      const pool = ITEMS.filter(i=>i.rarity===rar);
+      return pool[Math.floor(Math.random()*pool.length)].id;
+    }
+  }
+  return ITEMS[0].id;
+}
+function renderCases(){
+  document.getElementById('caseList').innerHTML = Object.entries(CASES).map(([key,c])=>{
+    const isFree = key==='free';
+    return `
+      <div class="case-card ${isFree?'free':''}">
+        <div class="case-emoji">${c.emoji}</div>
+        <div class="case-name">${c.name}</div>
+        <div class="case-price">${isFree?'Раз в час — бесплатно':fmt(c.price)+' ₡'}</div>
+        <button class="btn ${isFree?'green':''}" data-case="${key}">${isFree?'Открыть бесплатно':'Открыть'}</button>
+        ${isFree?'<div class="case-timer" id="freeTimer"></div>':''}
+      </div>`;
+  }).join('');
+  tickFree();
+}
+function tickFree(){
+  const el = document.getElementById('freeTimer');
+  const btn = document.querySelector('[data-case="free"]');
+  if(!el||!btn) return;
+  const left = CASES.free.cooldown - (Date.now()-state.lastFree);
+  if (left <= 0){ el.textContent='✅ Кейс готов!'; btn.disabled=false; btn.classList.remove('disabled'); }
+  else { el.textContent='⏳ Через '+hms(left); btn.disabled=true; btn.classList.add('disabled'); }
+}
+function openCase(key, free=false, sourceLabel=null){
+  const c = CASES[key];
+  if(!c){ toast('Кейс не найден'); return; }
+  const isFreeCase = key==='free';
+  if (!free){
+    if (isFreeCase && Date.now()-state.lastFree < c.cooldown){ toast('Кейс ещё не перезарядился'); return; }
+    if (!isFreeCase && state.coins < c.price){ toast('Недостаточно монет'); return; }
+    if (isFreeCase) state.lastFree = Date.now(); else state.coins -= c.price;
+    save(); renderTop(); tickFree();
+  }
+  const winId = pickWeighted(c.weights);
+  const N=60, WIN_I=55;
+  const strip = [];
+  for (let i=0;i<N;i++) strip.push(i===WIN_I ? winId : pickWeighted(c.weights));
+  const reel = document.getElementById('reel');
+  reel.style.transition='none'; reel.style.transform='translateX(0)';
+  reel.innerHTML = strip.map(id=>{
+    const it = ITEM_MAP[id], r = RARITY[it.rarity];
+    return `<div class="reel-item" style="border-color:${rgba(r.color,.6)};background:linear-gradient(160deg,${rgba(r.color,.22)},#100c1e)">
+      <div class="item-emoji">${it.emoji}</div><div class="item-name">${it.name}</div></div>`;
+  }).join('');
+  document.getElementById('modalTitle').textContent = (sourceLabel?sourceLabel+' · ':'') + c.emoji + ' ' + c.name;
+  document.getElementById('modalResult').innerHTML='';
+  document.getElementById('modalBtn').style.display='none';
+  document.getElementById('modal').classList.add('show');
+  void reel.offsetWidth;
+  const ITEM_W=130;
+  const wrapW = reel.parentElement.clientWidth;
+  const jitter = (Math.random()*0.7-0.35)*90;
+  const target = WIN_I*ITEM_W + 60 - wrapW/2 + jitter;
+  reel.style.transition='transform 6s cubic-bezier(.12,.85,.15,1)';
+  reel.style.transform = `translateX(${-target}px)`;
+  setTimeout(()=>{
+    const it = ITEM_MAP[winId], r = RARITY[it.rarity];
+    state.inv.push({ uid:uid(), itemId:winId });
+    state.stats.opened++;
+    if (it.value > state.stats.bestDrop){ state.stats.bestDrop = it.value; state.stats.bestDropName = it.name; }
+    save(); renderAll(); checkAchievements();
+    document.getElementById('modalResult').innerHTML = `
+      <div class="res-rarity" style="color:${r.color}">${r.name}</div>
+      <div class="res-name">${it.emoji} ${it.name}</div>
+      <div class="res-value">${fmt(it.value)} ₡</div>`;
+    document.getElementById('modalBtn').style.display='inline-flex';
+  }, 6250);
+}
+
+/* ==================== ПРОМО ==================== */
+function activatePromo(){
+  const input = document.getElementById('promoInput');
+  const code = (input.value||'').trim().toUpperCase();
+  if(!code) return toast('Введи промокод');
+  const promo = state.promos[code];
+  if(!promo) return toast('❌ Промокод не найден');
+  if(promo.uses >= promo.maxUses) return toast('❌ Промокод исчерпан');
+  const caseDef = CASES[promo.caseKey];
+  if(!caseDef) return toast('Кейс промокода не существует');
+  promo.uses++; state.stats.promosUsed = (state.stats.promosUsed||0)+1;
+  input.value=''; save();
+  toast(`🎟️ Промокод «${code}» активирован!`);
+  openCase(promo.caseKey, true, '🎟️ ' + code);
+  renderAdminPromos(); renderAll();
+}
+
+/* ==================== КАРТОЧКА ==================== */
+function cardHTML(item, o={}){
+  const r = RARITY[item.rarity];
+  return `<div class="item-card${o.selected?' selected':''}${item.rarity==='secret'||item.rarity==='og'?' secret':''}"
+    data-uid="${o.uid||''}" data-item="${item.id}"
+    style="--c:${r.color};--c20:${rgba(r.color,.16)};--c55:${rgba(r.color,.55)};--c35:${rgba(r.color,.35)}">
+    <div class="item-emoji">${item.emoji}</div>
+    <div class="item-name">${item.name}</div>
+    <div class="item-rarity">${r.name}</div>
+    <div class="item-value">${fmt(item.value)} ₡</div>
+    ${o.sell?`<button class="sell-btn" data-sell="${o.uid}" title="Продать">₡</button>`:''}
+  </div>`;
+}
+
+/* ==================== РЕНДЕР ==================== */
+function renderTop(){
+  document.getElementById('coins').textContent = fmt(state.coins);
+  document.getElementById('miniNick').textContent = state.profile.nick;
+  document.getElementById('miniId').textContent = 'ID: ' + state.profile.id;
+  const ava = document.getElementById('miniAva');
+  ava.textContent = initials(state.profile.nick);
+  ava.classList.toggle('admin', isAdmin());
+}
+function renderInventory(){
+  const g = document.getElementById('invGrid');
+  if(!state.inv.length){
+    g.innerHTML='<div class="empty">🎒 Инвентарь пуст — открой бесплатный кейс!</div>';
+    document.getElementById('invCount').textContent='0';
+    document.getElementById('invValue').textContent='0';
+    return;
+  }
+  const s = [...state.inv].sort((a,b)=>ITEM_MAP[b.itemId].value - ITEM_MAP[a.itemId].value);
+  g.innerHTML = s.map(o=>cardHTML(ITEM_MAP[o.itemId], { uid:o.uid, sell:true })).join('');
+  document.getElementById('invCount').textContent = state.inv.length;
+  document.getElementById('invValue').textContent = fmt(state.inv.reduce((s,o)=>s+ITEM_MAP[o.itemId].value, 0));
+}
+function renderUpgrader(){
+  upgBet = new Set([...upgBet].filter(u=>state.inv.some(o=>o.uid===u)));
+  const bg = document.getElementById('upgBet');
+  bg.innerHTML = state.inv.length
+    ? [...state.inv].sort((a,b)=>ITEM_MAP[a.itemId].value - ITEM_MAP[b.itemId].value)
+        .map(o=>cardHTML(ITEM_MAP[o.itemId], { uid:o.uid, selected:upgBet.has(o.uid) })).join('')
+    : '<div class="empty">Нет предметов</div>';
+  const tg = document.getElementById('upgTarget');
+  tg.innerHTML = [...ITEMS].sort((a,b)=>a.value - b.value)
+    .map(it=>cardHTML(it, { selected: upgTarget===it.id })).join('');
+  updateUpgStats();
+}
+function betValue(){
+  const m = new Map(state.inv.map(o=>[o.uid,o]));
+  let v = 0;
+  upgBet.forEach(u=>{ const o=m.get(u); if(o) v += ITEM_MAP[o.itemId].value; });
+  return v;
+}
+function updateUpgStats(){
+  const bv = betValue();
+  const tv = upgTarget ? ITEM_MAP[upgTarget].value : 0;
+  const chance = (bv>0 && tv>0) ? Math.min(90, bv/tv*100) : 0;
+  document.getElementById('upgChance').textContent = chance.toFixed(1)+'%';
+  document.getElementById('upgBetVal').textContent = fmt(bv)+' ₡';
+  document.getElementById('upgTarVal').textContent = tv?fmt(tv)+' ₡':'—';
+  document.getElementById('upgZone').style.width = chance+'%';
+  const btn = document.getElementById('upgBtn');
+  btn.disabled = !(chance>0) || upgBusy;
+  btn.classList.toggle('disabled', btn.disabled);
+  btn.textContent = upgBusy ? 'КРУТИМ...' : 'АПГРЕЙД';
+}
+function renderWithdraw(){
+  wdSel = new Set([...wdSel].filter(u=>state.inv.some(o=>o.uid===u)));
+  const g = document.getElementById('wdGrid');
+  if(!state.inv.length) g.innerHTML = '<div class="empty">Нечего выводить — сначала нафарми брейнротов</div>';
+  else g.innerHTML = [...state.inv].sort((a,b)=>ITEM_MAP[b.itemId].value - ITEM_MAP[a.itemId].value)
+    .map(o=>cardHTML(ITEM_MAP[o.itemId], { uid:o.uid, selected:wdSel.has(o.uid) })).join('');
+  const m = new Map(state.inv.map(o=>[o.uid,o]));
+  let total = 0;
+  wdSel.forEach(u=>{ const o=m.get(u); if(o) total += ITEM_MAP[o.itemId].value; });
+  document.getElementById('wdTotal').textContent = fmt(total)+' ₡';
+  document.getElementById('wdCount').textContent = wdSel.size;
+  renderMyRequests();
+}
+function renderMyRequests(){
+  const list = document.getElementById('reqList');
+  list.innerHTML = state.requests.length
+    ? state.requests.slice(0,20).map(r=>{
+      const cls = r.status==='Выдано'?'done':r.status==='Отклонено'?'cancelled':'pending';
+      const actions = r.status==='В обработке'
+        ? `<div class="req-actions">
+             <button class="btn green" data-req-copy="${r.code}">📋 Скопировать</button>
+             <button class="btn ghost" data-req-cancel="${r.code}" style="color:#ef4444">↩️ Отменить</button>
+           </div>`
+        : '';
+      return `<div class="req ${cls}">
+        <div class="req-head">
+          <span class="code">${r.code}</span>
+          <span class="status">${r.status}</span>
+        </div>
+        <div class="req-body">
+          Ник: <b>${r.nick}</b> · Предметов: <b>${r.count}</b> · Сумма: <b>${fmt(r.value)} ₡</b><br>
+          ${r.items ? r.items.map(i=>i.emoji+' '+i.name).join(', ') : ''}
+        </div>
+        ${actions}
+      </div>`;
+    }).join('')
+    : '<div style="color:#5b5478;font-size:12.5px;text-align:center;padding:8px">Заявок пока нет</div>';
+}
+function renderProfile(){
+  const p = state.profile;
+  document.getElementById('bigAva').textContent = initials(p.nick);
+  document.getElementById('bigAva').classList.toggle('admin', isAdmin());
+  document.getElementById('adminCrown').classList.toggle('show', isAdmin());
+  document.getElementById('profNick').textContent = p.nick;
+  document.getElementById('profIdText').textContent = p.id;
+  const { level, xp, need } = levelInfo();
+  document.getElementById('profLevel').textContent = level;
+  document.getElementById('profXpText').textContent = `${fmt(xp)} / ${fmt(need)} XP`;
+  document.getElementById('profXpFill').style.width = Math.min(100, xp/need*100) + '%';
+  document.getElementById('stOpened').textContent = state.stats.opened;
+  document.getElementById('stUpgrades').textContent = state.stats.upgrades;
+  document.getElementById('stItems').textContent = state.inv.length;
+  document.getElementById('stValue').textContent = fmt(state.inv.reduce((s,o)=>s+ITEM_MAP[o.itemId].value, 0));
+  document.getElementById('stWithdraws').textContent = state.requests.length;
+  document.getElementById('stBest').textContent = state.stats.bestDrop ? fmt(state.stats.bestDrop)+' ₡' : '—';
+  document.getElementById('achGrid').innerHTML = ACHIEVEMENTS.map(a=>{
+    const u = p.ach.includes(a.id) || a.check(state);
+    return `<div class="ach ${u?'unlocked':'locked'}">
+      <div class="ach-ico">${a.ico}</div>
+      <div class="ach-info"><div class="ach-name">${a.name}</div>
+      <div class="ach-desc">${a.desc}</div></div></div>`;
+  }).join('');
+}
+function checkAchievements(){
+  let ch = false;
+  ACHIEVEMENTS.forEach(a=>{
+    if(!state.profile.ach.includes(a.id) && a.check(state)){
+      state.profile.ach.push(a.id); ch = true;
+      setTimeout(()=>toast(`🏅 Достижение: ${a.name}`), 400);
+    }
+  });
+  if(ch) save();
+}
+
+/* ==================== АДМИН ==================== */
+function renderAdmin(){
+  const tab = document.getElementById('adminTab');
+  tab.style.display = isAdmin() ? 'flex' : 'none';
+  if(!isAdmin()) return;
+  document.getElementById('admCurrentId').textContent = state.profile.id;
+  document.getElementById('admWebhook').value = state.webhook || '';
+  updateWebhookStatus();
+  const sel = document.getElementById('admItemSelect');
+  if(sel.options.length === 0){
+    sel.innerHTML = [...ITEMS].sort((a,b)=>b.value - a.value)
+      .map(i=>`<option value="${i.id}">${i.emoji} ${i.name} — ${fmt(i.value)} ₡</option>`).join('');
+  }
+  const st = document.getElementById('storageStatus');
+  const mode = SafeStorage.mode;
+  if (mode==='localStorage') st.innerHTML='Статус: <b style="color:#4ade80">✅ localStorage работает</b> — ID сохранится';
+  else if (mode==='sessionStorage') st.innerHTML='Статус: <b style="color:#f59e0b">⚠️ sessionStorage</b> — ID сохранится до закрытия вкладки';
+  else if (mode==='cookie') st.innerHTML='Статус: <b style="color:#f59e0b">⚠️ cookie</b> — работает, но лимит ~4КБ';
+  else st.innerHTML='Статус: <b style="color:#ef4444">❌ память</b> — сохранение не работает, используй экспорт';
+  renderAdminPromos();
+  renderAdminRequests();
+}
+function updateWebhookStatus(){
+  const el = document.getElementById('webhookStatus');
+  if (state.webhook){
+    el.innerHTML = 'Статус: <b style="color:#4ade80">✅ настроен</b> · <span style="font-family:monospace;font-size:10px">' + state.webhook.slice(0,50) + '...</span>';
+  } else {
+    el.innerHTML = 'Статус: <b style="color:#f59e0b">⚠️ не настроен</b>';
+  }
+}
+function renderAdminRequests(){
+  const list = document.getElementById('adminReqList');
+  if(!list) return;
+  if(!state.requests.length){
+    list.innerHTML = '<div class="no-promos">Заявок пока нет</div>';
+    return;
+  }
+  list.innerHTML = state.requests.map(r=>{
+    const cls = r.status==='Выдано'?'done':r.status==='Отклонено'?'cancelled':'pending';
+    const actions = r.status==='В обработке'
+      ? `<div class="ra-actions">
+           <button class="btn green" data-adm-mark="${r.code}">✅ Выдано</button>
+           <button class="btn red" data-adm-reject="${r.code}">❌ Отклонить (вернуть предметы)</button>
+           <button class="btn ghost" data-adm-copy="${r.code}">📋 Скопировать</button>
+         </div>`
+      : `<div class="ra-actions"><button class="btn ghost" data-adm-copy="${r.code}">📋 Скопировать</button></div>`;
+    return `<div class="req-adm ${cls}">
+      <div class="ra-head">
+        <span class="ra-code">${r.code}</span>
+        <span class="ra-status">${r.status}</span>
+      </div>
+      <div class="ra-info">
+        👤 Ник: <b>${r.nick}</b> · 🆔 ID: <b>${r.playerId||'—'}</b><br>
+        💰 Сумма: <b>${fmt(r.value)} ₡</b> · 📦 Предметов: <b>${r.count}</b><br>
+        ${r.items ? '📋 Состав: ' + r.items.map(i=>i.emoji+' '+i.name).join(', ') : ''}
+      </div>
+      ${actions}
+    </div>`;
+  }).join('');
+}
+function renderAdminPromos(){
+  const list = document.getElementById('adminPromoList');
+  if(!list) return;
+  const e = Object.entries(state.promos);
+  if(!e.length){ list.innerHTML='<div class="no-promos">Промокодов пока нет — создай первый слева</div>'; return; }
+  list.innerHTML = e.map(([code,p])=>`
+    <div class="pc-item">
+      <div>
+        <div class="pc-code">${code}</div>
+        <div class="pc-info">Кейс: ${CASES[p.caseKey]?.emoji||'❓'} ${CASES[p.caseKey]?.name||p.caseKey} ·
+          создан ${new Date(p.created).toLocaleDateString('ru-RU')}</div>
+      </div>
+      <span class="pc-uses">${p.uses} / ${p.maxUses}</span>
+      <button class="pc-del" data-del-promo="${code}" title="Удалить">✕</button>
+    </div>`).join('');
+}
+function adminCreatePromo(){
+  const ci = document.getElementById('admPromoCode');
+  const code = (ci.value||'').trim().toUpperCase();
+  const caseKey = document.getElementById('admPromoCase').value;
+  const maxUses = Math.max(1, parseInt(document.getElementById('admPromoUses').value)||1);
+  if (code.length < 3) return toast('Код слишком короткий (мин. 3 символа)');
+  if (!/^[A-Z0-9_-]+$/.test(code)) return toast('Только A-Z, 0-9, _ и -');
+  if (state.promos[code]) return toast('Такой промокод уже существует');
+  state.promos[code] = { caseKey, maxUses, uses:0, created:Date.now() };
+  save(); ci.value=''; renderAdminPromos();
+  toast(`✅ Промокод «${code}» создан (${CASES[caseKey].name})`);
+}
+function adminDeletePromo(code){
+  if(!state.promos[code]) return;
+  delete state.promos[code];
+  save(); renderAdminPromos();
+  toast('🗑️ Промокод «'+code+'» удалён');
+}
+function adminSkipTimer(){ state.lastFree = 0; save(); tickFree(); toast('⏩ Таймер бесплатного кейса скипнут'); }
+function adminSkipTimer10(){ state.lastFree = 0; save(); tickFree(); toast('⏩ Кулдаун сброшен — открывай бесплатный кейс'); }
+function adminGiveCoins(){
+  const i = document.getElementById('admCoins');
+  const n = parseInt(i.value);
+  if(!n || n<=0) return toast('Введи положительное число');
+  state.coins += n; i.value=''; save(); renderAll();
+  toast(`💰 Выдано ${fmt(n)} ₡`);
+}
+function adminGiveItem(){
+  const id = document.getElementById('admItemSelect').value;
+  if(!ITEM_MAP[id]) return;
+  state.inv.push({ uid:uid(), itemId:id });
+  const it = ITEM_MAP[id];
+  if(it.value > state.stats.bestDrop){ state.stats.bestDrop = it.value; state.stats.bestDropName = it.name; }
+  save(); renderAll(); checkAchievements();
+  toast(`🎁 Выдан: ${it.emoji} ${it.name}`);
+}
+function adminResetInv(){
+  if(!confirm('Точно очистить инвентарь? Действие необратимо.')) return;
+  state.inv = []; upgBet.clear(); wdSel.clear();
+  save(); renderAll(); toast('🗑️ Инвентарь очищен');
+}
+function adminSetId(){
+  const i = document.getElementById('admNewId');
+  const newId = (i.value||'').trim().toUpperCase();
+  if(!newId) return toast('Введи ID');
+  if(!/^BR-[A-Z0-9]{4,12}$/.test(newId)) return toast('Формат: BR-XXXXXXXX (A-Z, 0-9)');
+  state.profile.id = newId; i.value=''; save(); renderAll();
+  if (ADMIN_IDS.includes(newId)) toast('👑 ID закреплён: ты админ!');
+  else toast('✅ ID изменён на ' + newId);
+}
+function adminResetId(){
+  if(!confirm('Сбросить ID? Следующий заход создаст новый.')) return;
+  state.profile.id=''; save(); ensureProfile(); save(); renderAll();
+  toast('🔄 ID сброшен и создан новый: ' + state.profile.id);
+}
+function adminSaveNow(){
+  save();
+  const t = SafeStorage.get(KEY);
+  if (t) toast('💾 Сохранено! Размер: ' + Math.round(t.length/1024*10)/10 + ' КБ');
+  else toast('❌ Не удалось сохранить');
+}
+function adminExport(){
+  const data = JSON.stringify(state);
+  const blob = new Blob([data], { type:'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'brainrot-' + state.profile.id + '.json'; a.click();
+  URL.revokeObjectURL(url); toast('📤 Файл сохранён');
+}
+function adminImport(){
+  const inp = document.createElement('input');
+  inp.type='file'; inp.accept='.json,application/json';
+  inp.onchange = e=>{
+    const f = e.target.files[0]; if(!f) return;
+    const r = new FileReader();
+    r.onload = ev=>{
+      try{
+        const d = JSON.parse(ev.target.result);
+        if(!d.profile) throw new Error('no profile');
+        state = Object.assign(state, d);
+        ensureProfile(); save(); renderAll();
+        toast('📥 Данные загружены! ID: ' + state.profile.id);
+      }catch(err){ toast('❌ Ошибка чтения файла'); }
+    };
+    r.readAsText(f);
+  };
+  inp.click();
+}
+async function adminTestWebhook(){
+  if(!state.webhook) return toast('Сначала сохрани URL вебхука');
+  toast('🧪 Отправляем тестовое сообщение...');
+  const r = await sendToDiscord({
+    username: 'brainrot_casser.ru',
+    content: '🧪 **Тест вебхука!** Всё работает — заявки будут приходить сюда.'
+  });
+  if (r.ok) toast('✅ Тест отправлен! Проверь Discord');
+  else toast('❌ Ошибка: ' + r.reason);
+}
+
+/* ==================== СДЕЛКИ ==================== */
+function b64enc(s){
+  return btoa(unescape(encodeURIComponent(s)))
+    .replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+}
+function b64dec(s){
+  try{
+    let b = s.replace(/-/g,'+').replace(/_/g,'/');
+    while(b.length % 4) b += '=';
+    return decodeURIComponent(escape(atob(b)));
+  }catch(e){ return null; }
+}
+function encodeDeal(d){ return 'DEAL-' + b64enc(JSON.stringify(d)); }
+function decodeDeal(code){
+  if(!code.startsWith('DEAL-')) return null;
+  const j = b64dec(code.slice(5));
+  if(!j) return null;
+  try{ return JSON.parse(j); }catch(e){ return null; }
+}
+function encodeConfirm(d){ return 'CONFIRM-' + b64enc(JSON.stringify(d)); }
+function decodeConfirm(code){
+  if(!code.startsWith('CONFIRM-')) return null;
+  const j = b64dec(code.slice(8));
+  if(!j) return null;
+  try{ return JSON.parse(j); }catch(e){ return null; }
+}
+function createDeal(){
+  if(!isAdmin()) return toast('Только админ может создавать сделки');
+  const toId = (document.getElementById('dealToId').value||'').trim().toUpperCase();
+  const amount = parseInt(document.getElementById('dealAmount').value);
+  const want = (document.getElementById('dealWant').value||'').trim();
+  if(!/^BR-[A-Z0-9]{4,12}$/.test(toId)) return toast('Введи корректный ID игрока (BR-XXXXXXXX)');
+  if(!amount || amount <= 0) return toast('Введи сумму монет больше 0');
+  if(want.length < 2) return toast('Опиши, что хочешь взамен (мин. 2 символа)');
+  const deal = { toId, amount, want, fromId: state.profile.id, ts: Date.now() };
+  const code = encodeDeal(deal);
+  state.sentDeals.unshift({
+    code, toId, amount, want,
+    createdAt: Date.now(),
+    status: 'Ожидает активации'
+  });
+  save(); renderAdminDeals(); renderExchange();
+  document.getElementById('dealCreatedCode').textContent = code;
+  document.getElementById('dealCreatedBox').classList.add('show');
+  document.getElementById('dealCopyCode').onclick = ()=>{
+    fallbackCopy(code); toast('📋 Код сделки скопирован!');
+  };
+  document.getElementById('dealToId').value = '';
+  document.getElementById('dealAmount').value = '';
+  document.getElementById('dealWant').value = '';
+  toast('✅ Сделка создана! Отправь код игроку.');
+}
+function previewDeal(){
+  const code = (document.getElementById('dealCodeInput').value||'').trim();
+  if(!code.startsWith('DEAL-')) return toast('Неверный формат кода (должен начинаться с DEAL-)');
+  const deal = decodeDeal(code);
+  if(!deal) return toast('❌ Не удалось расшифровать код');
+  if(deal.toId !== state.profile.id){
+    return toast('❌ Эта сделка не для тебя (для ' + deal.toId + ')');
+  }
+  if(state.receivedDeals.some(d => d.code === code)){
+    return toast('⚠️ Ты уже активировал эту сделку');
+  }
+  pendingDeal = { code, ...deal };
+  const body = document.getElementById('dealPreviewBody');
+  body.innerHTML = `
+    <div class="deal-preview-row"><span>💰 Монет получишь:</span><b>${fmt(deal.amount)} ₡</b></div>
+    <div class="deal-preview-row"><span>🎁 Отдашь в игре:</span><b style="color:#f0abfc">${deal.want}</b></div>
+    <div class="deal-preview-row"><span>👤 От админа:</span><b style="color:#22d3ee">${deal.fromId}</b></div>
+    <div class="deal-preview-row"><span>⏰ Создана:</span><b>${new Date(deal.ts).toLocaleString('ru-RU')}</b></div>
+  `;
+  document.getElementById('dealPreview').classList.add('show');
+  document.getElementById('dealSuccess').classList.remove('show');
+}
+async function acceptDeal(){
+  if(!pendingDeal) return toast('Сначала проверь код');
+  const d = pendingDeal;
+  pendingDeal = null;
+  state.coins += d.amount;
+  const confirmCode = encodeConfirm({
+    dealCode: d.code,
+    playerId: state.profile.id,
+    amount: d.amount,
+    ts: Date.now()
+  });
+  state.receivedDeals.unshift({
+    code: d.code, amount: d.amount, want: d.want, fromId: d.fromId,
+    acceptedAt: Date.now(), confirmCode, status: 'Ожидает выдачи в игре'
+  });
+  save(); renderAll(); checkAchievements();
+  document.getElementById('dealPreview').classList.remove('show');
+  document.getElementById('dealConfirmCode').textContent = confirmCode;
+  document.getElementById('dealSuccess').classList.add('show');
+  document.getElementById('dealCopyConfirm').onclick = ()=>{
+    fallbackCopy(confirmCode); toast('📋 Код подтверждения скопирован!');
+  };
+  document.getElementById('dealCodeInput').value = '';
+  toast(`💰 +${fmt(d.amount)} ₡ зачислено! Отдай брейнротов в игре.`);
+  await notifyDealAccepted({
+    playerId: state.profile.id,
+    amount: d.amount,
+    want: d.want,
+    code: d.code
+  });
+}
+function confirmDealAdmin(){
+  if(!isAdmin()) return toast('Только админ может подтверждать');
+  const code = (document.getElementById('dealConfirmInput').value||'').trim();
+  if(!code.startsWith('CONFIRM-')) return toast('Неверный формат (должен начинаться с CONFIRM-)');
+  const conf = decodeConfirm(code);
+  if(!conf) return toast('❌ Не удалось расшифровать код');
+  const idx = state.sentDeals.findIndex(d => d.code === conf.dealCode);
+  if(idx < 0) return toast('❌ Эта сделка не найдена в твоём списке');
+  const d = state.sentDeals[idx];
+  if(d.status === 'Выполнено') return toast('⚠️ Сделка уже отмечена как выполненная');
+  if(d.toId !== conf.playerId) return toast('❌ ID игрока в подтверждении не совпадает');
+  d.status = 'Выполнено';
+  d.completedAt = Date.now();
+  d.confirmedBy = conf.playerId;
+  save(); renderAdminDeals(); renderExchange();
+  document.getElementById('dealConfirmInput').value = '';
+  toast('✅ Сделка подтверждена! Брейнрот получен.');
+}
+function renderExchange(){
+  const adm = document.getElementById('exchangeAdminBlock');
+  if(adm) adm.style.display = isAdmin() ? 'block' : 'none';
+  const list = document.getElementById('myDealsList');
+  if(list){
+    if(!state.receivedDeals.length){
+      list.innerHTML = '<div style="color:#5b5478;font-size:12.5px;text-align:center;padding:12px">Пока нет активированных сделок</div>';
+    } else {
+      list.innerHTML = state.receivedDeals.slice(0, 15).map(d => {
+        const cls = d.status === 'Выполнено' ? 'done' : 'accepted';
+        return `<div class="deal-card ${cls}">
+          <div class="dc-head">
+            <span class="dc-amt">+${fmt(d.amount)} ₡</span>
+            <span class="dc-status">${d.status}</span>
+          </div>
+          <div class="dc-want">Отдать: <b>${d.want}</b></div>
+          <div class="dc-want" style="font-size:10.5px">от ${d.fromId} · ${new Date(d.acceptedAt).toLocaleDateString('ru-RU')}</div>
+        </div>`;
+      }).join('');
+    }
+  }
+  renderAdminDeals();
+}
+function renderAdminDeals(){
+  const list = document.getElementById('adminDealsList');
+  if(!list) return;
+  if(!state.sentDeals.length){
+    list.innerHTML = '<div class="no-promos">Сделок пока нет — создай первую слева</div>';
+    return;
+  }
+  list.innerHTML = state.sentDeals.slice(0, 30).map(d => {
+    const cls = d.status === 'Выполнено' ? 'done' : 'pending';
+    return `<div class="deal-card ${cls}">
+      <div class="dc-head">
+        <span class="dc-amt">${fmt(d.amount)} ₡</span>
+        <span class="dc-status">${d.status}</span>
+      </div>
+      <div class="dc-want">→ <b>${d.toId}</b> · хочешь: <b>${d.want}</b></div>
+      <div class="dc-want" style="font-size:10.5px">${new Date(d.createdAt).toLocaleString('ru-RU')}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ==================== ДЕЙСТВИЯ ==================== */
+function renderAll(){
+  renderTop(); renderCases(); renderInventory(); renderUpgrader();
+  renderWithdraw(); renderProfile(); renderAdmin(); renderExchange();
+}
+function sellItem(u){
+  const i = state.inv.findIndex(o=>o.uid===u); if(i<0) return;
+  const it = ITEM_MAP[state.inv[i].itemId];
+  const price = Math.floor(it.value*0.85);
+  state.coins += price; state.inv.splice(i,1);
+  upgBet.delete(u); wdSel.delete(u);
+  save(); renderAll(); checkAchievements();
+  toast(`Продано: ${it.emoji} ${it.name} → +${fmt(price)} ₡`);
+}
+function doUpgrade(){
+  if(upgBusy) return;
+  const bv = betValue();
+  const tv = upgTarget ? ITEM_MAP[upgTarget].value : 0;
+  if(bv<=0 || tv<=0) return;
+  const chance = Math.min(90, bv/tv*100);
+  const targetId = upgTarget;
+  const uids = [...upgBet];
+  upgBusy = true; updateUpgStats();
+  document.getElementById('upgRes').textContent='';
+  document.getElementById('upgRes').className='upg-res';
+  const roll = Math.random()*100;
+  const win = roll < chance;
+  const needle = document.getElementById('upgNeedle');
+  needle.style.transition='none'; needle.style.left='0%';
+  void needle.offsetWidth;
+  needle.style.transition='left 3.2s cubic-bezier(.15,.85,.2,1)';
+  needle.style.left = Math.min(roll, 99.4)+'%';
+  setTimeout(()=>{
+    state.inv = state.inv.filter(o=>!uids.includes(o.uid));
+    if(win){
+      state.inv.push({ uid:uid(), itemId:targetId });
+      const it = ITEM_MAP[targetId];
+      if(it.value > state.stats.bestDrop){ state.stats.bestDrop = it.value; state.stats.bestDropName = it.name; }
+    }
+    state.stats.upgrades++;
+    upgBet.clear(); upgBusy = false;
+    save(); renderAll(); checkAchievements();
+    const res = document.getElementById('upgRes');
+    res.textContent = win ? '🎉 УСПЕХ' : '💀 ПРОВАЛ';
+    res.className = 'upg-res ' + (win?'win':'lose');
+    toast(win ? `Апгрейд удался! Получен ${ITEM_MAP[targetId].emoji} ${ITEM_MAP[targetId].name}` : 'Апгрейд провален — предметы потеряны');
+  }, 3350);
+}
+async function doWithdraw(){
+  const nick = document.getElementById('wdNick').value.trim() || state.profile.nick;
+  if(nick.length<3) return toast('Введи ник в игре (мин. 3 символа)');
+  const m = new Map(state.inv.map(o=>[o.uid,o]));
+  let total = 0;
+  const itemsForReq = [];
+  wdSel.forEach(u=>{
+    const o=m.get(u);
+    if(o){
+      const it = ITEM_MAP[o.itemId];
+      total += it.value;
+      itemsForReq.push({ itemId:o.itemId, name:it.name, emoji:it.emoji, value:it.value });
+    }
+  });
+  if(total<5000) return toast('Минимальная сумма вывода — 5 000 ₡');
+  if(wdSel.size===0) return toast('Выбери хотя бы один предмет');
+  const count = wdSel.size;
+  const code = 'BR-' + Math.random().toString(36).slice(2,8).toUpperCase();
+  const req = {
+    code, nick, value: total, count,
+    playerId: state.profile.id,
+    items: itemsForReq,
+    date: Date.now(), status: 'В обработке'
+  };
+  state.inv = state.inv.filter(o=>!wdSel.has(o.uid));
+  state.requests.unshift(req);
+  wdSel.clear();
+  lastReqCode = code;
+  save(); renderAll(); checkAchievements();
+  document.getElementById('wdInfoCode').textContent = code;
+  document.getElementById('wdInfo').classList.add('show');
+  toast('✅ Заявка создана!');
+  await notifyWithdrawal(req, itemsForReq);
+}
+function changeNick(){
+  const n = prompt('Введите новый ник (3–24 символа):', state.profile.nick);
+  if(n===null) return;
+  const t = n.trim();
+  if(t.length<3 || t.length>24) return toast('Ник должен быть от 3 до 24 символов');
+  state.profile.nick = t; save(); renderAll();
+  toast('Ник изменён на «'+t+'»');
+}
+function copyId(){
+  const id = state.profile.id;
+  const done = ()=>toast('📋 ID скопирован: '+id);
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(id).then(done).catch(()=>{ fallbackCopy(id); done(); });
+  } else { fallbackCopy(id); done(); }
+}
+function fallbackCopy(txt){
+  const ta = document.createElement('textarea');
+  ta.value = txt; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+}
+function copyRequestText(code){
+  const r = state.requests.find(x=>x.code===code);
+  if(!r) return toast('Заявка не найдена');
+  const text =
+`🎁 Заявка на вывод brainrot_casser.ru
+🎫 Код: ${r.code}
+👤 Ник в игре: ${r.nick}
+🆔 ID: ${r.playerId || '—'}
+💰 Сумма: ${fmt(r.value)} ₡
+📦 Предметов: ${r.count}
+📋 Состав:
+${r.items ? r.items.map(i=>'  • ' + i.emoji + ' ' + i.name + ' — ' + fmt(i.value) + ' ₡').join('\n') : '—'}
+━━━━━━━━━━━━━━━
+Отправь код админу, чтобы получить предметы через Trade Machine.`;
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>toast('📋 Текст заявки скопирован!')).catch(()=>{ fallbackCopy(text); toast('📋 Текст заявки скопирован!'); });
+  } else { fallbackCopy(text); toast('📋 Текст заявки скопирован!'); }
+}
+function cancelRequest(code){
+  const r = state.requests.find(x=>x.code===code);
+  if(!r) return;
+  if(r.status !== 'В обработке') return toast('Эту заявку уже нельзя отменить');
+  if(!confirm('Отменить заявку? Предметы вернутся в инвентарь.')) return;
+  if(r.items && r.items.length){
+    r.items.forEach(it=>{ state.inv.push({ uid: uid(), itemId: it.itemId }); });
+  }
+  r.status = 'Отклонено';
+  save(); renderAll();
+  toast('↩️ Заявка отменена, предметы возвращены');
+}
+function adminMarkDone(code){
+  const r = state.requests.find(x=>x.code===code);
+  if(!r) return;
+  r.status = 'Выдано';
+  save(); renderAll();
+  toast('✅ Заявка помечена как выданная');
+}
+function adminReject(code){
+  const r = state.requests.find(x=>x.code===code);
+  if(!r) return;
+  if(!confirm('Отклонить заявку? Предметы вернутся в инвентарь игрока.')) return;
+  if(r.items && r.items.length){
+    r.items.forEach(it=>{ state.inv.push({ uid: uid(), itemId: it.itemId }); });
+  }
+  r.status = 'Отклонено';
+  save(); renderAll();
+  toast('❌ Заявка отклонена, предметы возвращены');
+}
+
+/* ==================== СОБЫТИЯ ==================== */
+document.addEventListener('click', e=>{
+  const sell = e.target.closest('[data-sell]');
+  if(sell){ e.stopPropagation(); sellItem(sell.dataset.sell); return; }
+  const dp = e.target.closest('[data-del-promo]');
+  if(dp){ adminDeletePromo(dp.dataset.delPromo); return; }
+  const cb = e.target.closest('[data-case]');
+  if(cb && !cb.disabled){ openCase(cb.dataset.case); return; }
+  const bc = e.target.closest('#upgBet .item-card');
+  if(bc && !upgBusy){
+    const u = bc.dataset.uid;
+    upgBet.has(u) ? upgBet.delete(u) : upgBet.add(u);
+    renderUpgrader(); return;
+  }
+  const tc = e.target.closest('#upgTarget .item-card');
+  if(tc && !upgBusy){
+    upgTarget = (upgTarget === tc.dataset.item) ? null : tc.dataset.item;
+    renderUpgrader(); return;
+  }
+  const wc = e.target.closest('#wdGrid .item-card');
+  if(wc){
+    const u = wc.dataset.uid;
+    wdSel.has(u) ? wdSel.delete(u) : wdSel.add(u);
+    renderWithdraw(); return;
+  }
+  const rcopy = e.target.closest('[data-req-copy]');
+  if(rcopy){ copyRequestText(rcopy.dataset.reqCopy); return; }
+  const rcancel = e.target.closest('[data-req-cancel]');
+  if(rcancel){ cancelRequest(rcancel.dataset.reqCancel); return; }
+  const acopy = e.target.closest('[data-adm-copy]');
+  if(acopy){ copyRequestText(acopy.dataset.admCopy); return; }
+  const amark = e.target.closest('[data-adm-mark]');
+  if(amark){ adminMarkDone(amark.dataset.admMark); return; }
+  const areject = e.target.closest('[data-adm-reject]');
+  if(areject){ adminReject(areject.dataset.admReject); return; }
+});
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('panel-'+t.dataset.tab).classList.add('active');
+    if(t.dataset.tab==='upgrader') renderUpgrader();
+    if(t.dataset.tab==='withdraw') renderWithdraw();
+    if(t.dataset.tab==='inventory') renderInventory();
+    if(t.dataset.tab==='profile') renderProfile();
+    if(t.dataset.tab==='admin') renderAdmin();
+    if(t.dataset.tab==='exchange') renderExchange();
+  });
+});
+document.getElementById('miniAva').addEventListener('click', ()=>{
+  document.querySelector('.tab[data-tab="profile"]').click();
+  window.scrollTo({ top:0, behavior:'smooth' });
+});
+document.getElementById('modalBtn').addEventListener('click', ()=>{
+  document.getElementById('modal').classList.remove('show');
+});
+document.getElementById('upgBtn').addEventListener('click', doUpgrade);
+document.getElementById('wdBtn').addEventListener('click', doWithdraw);
+document.getElementById('editNickBtn').addEventListener('click', changeNick);
+document.getElementById('copyIdBtn').addEventListener('click', copyId);
+document.getElementById('profId').addEventListener('click', copyId);
+document.getElementById('promoBtn').addEventListener('click', activatePromo);
+document.getElementById('promoInput').addEventListener('keydown', e=>{ if(e.key==='Enter') activatePromo(); });
+
+document.getElementById('wdCopyBtn').addEventListener('click', ()=>{
+  if(lastReqCode) copyRequestText(lastReqCode);
+});
+document.getElementById('wdCloseInfo').addEventListener('click', ()=>{
+  document.getElementById('wdInfo').classList.remove('show');
+});
+
+document.getElementById('admCreatePromo').addEventListener('click', adminCreatePromo);
+document.getElementById('admGenCode').addEventListener('click', ()=>{
+  document.getElementById('admPromoCode').value = genPromoCode();
+});
+document.getElementById('admSkipTimer').addEventListener('click', adminSkipTimer);
+document.getElementById('admSkipTimer10').addEventListener('click', adminSkipTimer10);
+document.getElementById('admGiveCoins').addEventListener('click', adminGiveCoins);
+document.getElementById('admGiveItem').addEventListener('click', adminGiveItem);
+document.getElementById('admResetInv').addEventListener('click', adminResetInv);
+document.getElementById('admSetId').addEventListener('click', adminSetId);
+document.getElementById('admResetId').addEventListener('click', adminResetId);
+document.getElementById('admNewId').addEventListener('keydown', e=>{ if(e.key==='Enter') adminSetId(); });
+document.getElementById('admSaveNow').addEventListener('click', adminSaveNow);
+document.getElementById('admExport').addEventListener('click', adminExport);
+document.getElementById('admImport').addEventListener('click', adminImport);
+document.getElementById('admSaveWebhook').addEventListener('click', ()=>{
+  const url = document.getElementById('admWebhook').value.trim();
+  if (!url) return toast('Введи URL вебхука');
+  if (!/^https:\/\/discord\.com\/api\/webhooks\//.test(url)) return toast('Это не похоже на Discord webhook URL');
+  state.webhook = url; save(); updateWebhookStatus();
+  toast('💾 Webhook сохранён');
+});
+document.getElementById('admTestWebhook').addEventListener('click', adminTestWebhook);
+document.getElementById('admClearWebhook').addEventListener('click', ()=>{
+  if(!confirm('Очистить URL вебхука?')) return;
+  state.webhook = ''; save();
+  document.getElementById('admWebhook').value = '';
+  updateWebhookStatus();
+  toast('🗑️ Webhook очищен');
+});
+
+document.getElementById('dealAcceptBtn').addEventListener('click', previewDeal);
+document.getElementById('dealConfirmBtn').addEventListener('click', acceptDeal);
+document.getElementById('dealCancelBtn').addEventListener('click', ()=>{
+  document.getElementById('dealPreview').classList.remove('show');
+  pendingDeal = null;
+});
+document.getElementById('dealCreateBtn').addEventListener('click', createDeal);
+document.getElementById('dealConfirmAdminBtn').addEventListener('click', confirmDealAdmin);
+
+/* ==================== СТАРТ ==================== */
+load();
+ensureProfile();
+save();
+renderAll();
+checkAchievements();
+setInterval(tickFree, 1000);
+window.addEventListener('beforeunload', save);
+document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='hidden') save(); });
+</script>
+</body>
+</html>
